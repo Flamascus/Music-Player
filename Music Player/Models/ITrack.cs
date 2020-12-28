@@ -1,0 +1,18 @@
+﻿using System;
+using Java.IO;
+using Xamarin.Forms;
+
+namespace Music_Player.Interfaces {
+  public interface ITrack {
+    string Title { get; }
+    string Producer { get; }
+    ImageSource CoverSource { get; }
+    string Path { get; }
+    string[] GenreNames { get; }
+    string CombinedGenreName { get; }
+
+    ITrack Create(File file);
+    ITrack Create(string path, string title, string producer, string[] genres);
+    Color GetImageColor();
+  }
+}

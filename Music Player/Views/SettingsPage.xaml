@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Music_Player.Views.SettingsPage"
+             BackgroundColor="{StaticResource Back}"           
+             Title="Settings">
+    <ContentPage.Content>
+        <TableView>
+            <TableRoot>
+                <TableSection Title="Settings" TextColor="{StaticResource Accent}">
+                    <EntryCell Label="Music Directory:" Placeholder="DirectoryPath" Text="{Binding MusicDirectory}"/>
+                    <!--<SwitchCell Text="Test Settings" On="true" OnColor="{StaticResource Accent}"/>
+                    <SwitchCell Text="Another Test Setting" OnColor="{StaticResource Accent}"/>-->
+                </TableSection>
+            </TableRoot>
+        </TableView>
+    </ContentPage.Content>
+</ContentPage>

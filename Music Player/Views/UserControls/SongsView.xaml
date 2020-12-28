@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Music_Player.Views.UserControls.SongsView">
+    <ContentView.Content>
+        <ListView x:Name="lvTracks" ItemsSource="{Binding Tracks}" RowHeight="65" ItemTapped="lvItemTapped">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid Margin="10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="auto" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Image Source="{Binding CoverSource}" Aspect="AspectFill" BackgroundColor="Gray" HorizontalOptions="Start"
+                                   WidthRequest ="45" HeightRequest="45" Grid.Column="0" Grid.RowSpan="2"/>
+                            <Label Text="{Binding Title}" Grid.Column="1" Grid.Row="0"/>
+                            <Label Text="{Binding Producer}" TextColor="{StaticResource Front}" Grid.Column="1" Grid.Row="1"/>
+                            <Image Source="options.png" WidthRequest ="20" Grid.Column="2" Grid.RowSpan="2"/>
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </ContentView.Content>
+</ContentView>

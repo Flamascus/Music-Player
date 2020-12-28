@@ -1,0 +1,102 @@
+﻿using Android;
+using Android.Content.PM;
+using Android.OS;
+using Android.Support.V4.App;
+using Android.Support.V4.Content;
+using Android.Views;
+using Music_Player.Droid.Classes;
+using Music_Player.Interfaces;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
+using Xamarin.Forms;
+
+[assembly: Dependency(typeof(NativeFeatures))]
+namespace Music_Player.Droid.Classes {
+  public class NativeFeatures : INativeFeatures {
+
+    private static readonly string _LOCAL_PATH = System.Environment.GetFolderPath(System.Environment.SpecialFolder.ApplicationData);
+
+    public static MainActivity MainActivity { get; set; }
+
+    public void RequestPerimissions() {
+      if (Build.VERSION.SdkInt >= BuildVersionCodes.M) {
+        if (!(_CheckPermissionGranted(Manifest.Permission.ReadExternalStorage)
+          && !_CheckPermissionGranted(Manifest.Permission.WriteExternalStorage)))
+          _RequestPermission();
+      }
+
+      while (!_CheckPermissionGranted(Manifest.Permission.WriteExternalStorage))
+        Task.Delay(50);
+    }
+
+    private void _RequestPermission() {
+      ActivityCompat.RequestPermissions(MainActivity, new string[] { Manifest.Permission.ReadExternalStorage, Manifest.Permission.WriteExternalStorage }, 0);
+    }
+
+    // Check if the permission is already available.
+    private bool _CheckPermissionGranted(string Permissions)
+      => ContextCompat.CheckSelfPermission(MainActivity, Permissions) != Permission.Granted ? false : true;
+
+
+    public string[] ReadAllLines(string path) => File.ReadAllLines(path); 
+
+    public string MusicLibaryPath
+      => Android.OS.Environment.GetExternalStoragePublicDirectory(Android.OS.Environment.DirectoryMusic).ToString();
+
+
+    public IEnumerable<string> EnumerateFiles(string path, string searchPattern, SearchOption searchOption)
+      => Directory.EnumerateFiles(path, searchPattern, searchOption);
+
+    public IEnumerable<FileInfo> EnumerateFiles2(string path) {
+      var directory = new DirectoryInfo(path);
+      return directory.EnumerateFiles();
+    }
+
+    public IEnumerable<Java.IO.File> EnumerateFiles3(string path) {
+      var filePaths = Directory.EnumerateFiles(path, "*", SearchOption.AllDirectories);
+      return filePaths.Select(f => new Java.IO.File(f));
+    }
+
+    public void WriteAppFile(string fileName, string content) {
+      var path = Path.Combine(_LOCAL_PATH, fileName);
+
+      using (var stream = File.Create(path))
+      using (var writer = new StreamWriter(stream))
+        writer.Write(content);
+    }
+
+    //todo: can probably put this in mainlogic
+    public string[] ReadAllLinesAppFile(string fileName) {
+      var path = Path.Combine(_LOCAL_PATH, fileName);
+      return File.Exists(path) ? File.ReadAllLines(path) : new string[0];
+    }
+
+    public string ReadAppFile(string fileName) {
+      var path = Path.Combine(_LOCAL_PATH, fileName);
+
+      using (var stream = File.Create(path))
+      using (var reader = new StreamReader(stream))
+        return reader.ReadToEnd();
+    }
+
+    public void SetStatusBarColor(Color color) {
+      MainActivity.Window.SetStatusBarColor(ToAndroidColor(color));
+    }
+
+    public void SetNavigationBarColor(Color color) {
+      MainActivity.Window.SetNavigationBarColor(ToAndroidColor(color));
+    }
+
+    private static Android.Graphics.Color ToAndroidColor(Color color) {
+      return Android.Graphics.Color.Argb(
+        (int)(255 * color.A),
+        (int)(255 * color.R),
+        (int)(255 * color.G),
+        (int)(255 * color.B)
+        );
+    }
+
+  }
+}

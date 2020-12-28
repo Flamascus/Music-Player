@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Music_Player.Views.SearchPage"
+             BackgroundColor="{StaticResource Back}"
+             Title="Search">
+    <ContentPage.Content>
+        <StackLayout>
+            <SearchBar Placeholder="Search for Tracks, Artists, etc.." TextChanged="SearchBar_TextChanged"/>
+            <ListView x:Name="lvGenres" ItemsSource="{Binding Tracks}" RowHeight="60">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <TextCell Text="{Binding Title}" TextColor="{StaticResource Text}"
+                              Detail="{Binding Producer}" DetailColor="{StaticResource Front}"/>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
