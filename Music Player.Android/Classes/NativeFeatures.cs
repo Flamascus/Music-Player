@@ -27,12 +27,14 @@ namespace Music_Player.Droid.Classes {
           _RequestPermission();
       }
 
-      while (!_CheckPermissionGranted(Manifest.Permission.WriteExternalStorage))
+      while (!_CheckPermissionGranted(Manifest.Permission.WriteExternalStorage)
+        || !_CheckPermissionGranted(Manifest.Permission.ReadExternalStorage))
         Task.Delay(50);
     }
 
     private void _RequestPermission() {
-      ActivityCompat.RequestPermissions(MainActivity, new string[] { Manifest.Permission.ReadExternalStorage, Manifest.Permission.WriteExternalStorage }, 0);
+      ActivityCompat.RequestPermissions(MainActivity, new string[] {
+        Manifest.Permission.ReadExternalStorage, Manifest.Permission.WriteExternalStorage }, 0);
     }
 
     // Check if the permission is already available.

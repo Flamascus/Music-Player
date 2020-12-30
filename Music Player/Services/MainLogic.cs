@@ -1,6 +1,7 @@
 ﻿using MediaManager;
 using Music_Player.Interfaces;
 using Music_Player.Models;
+using Music_Player.ViewModels;
 using Music_Player.Views;
 using System;
 using System.Collections.Generic;
@@ -26,86 +27,40 @@ namespace Music_Player.Services {
 
     public List<ITrack> AllTracks { get; private set; }
     public IList<Genre> AllGenres { get; private set; }
-
-    public ITrack CurrentTrack {
-      get => this._curentTrack;
-      private set {
-        this._curentTrack = value;
-        this.NewSongSelected?.Invoke(this, new TrackEventArgs(value));
-        _wasPaused = false;
-      }
-    }
-
-    public Queue<ITrack> TrackQueue {
-      get => _trackQueue;
-      set {
-        _trackQueue = value;
-        this.CurrentTrack = value.Dequeue();
-        this._EnqueueTrackAsync();
-      }
-    }
-
-
+    public TrackQueue TrackQueue { get; private set; }
 
     public float Progress { get; private set; }
-    public event EventHandler<TrackEventArgs> NewSongSelected;
 
     public Settings Settings { get; } = new Settings();
+    public TrackViewModel TrackViewModel {
+      get {
+        if (_trackViewModel == null)
+          _trackViewModel = new TrackViewModel();
 
-    private IMediaManager _mediaManager;
+        return _trackViewModel;
+      }
+    }
+    private TrackViewModel _trackViewModel;
+
     private static readonly INativeFeatures _nativeFeatures = DependencyService.Get<INativeFeatures>();
     public INavigation Navigation { get; set; }
-
-    //indicates if the track was already paused or if its the first play
-    private bool _wasPaused;
-    private ITrack _curentTrack;
-    private Queue<ITrack> _trackQueue;
-    private static readonly string[] _supportedFormats = new string[] { ".mp3", ".aac", ".ogg", ".wma", ".alac", ".pcm", ".flac", ".wav" };
+    
+    private static readonly string[] _supportedFormats = new string[] { ".mp3", ".aac", ".ogg", ".wma", ".alac", ".pcm", ".flac", ".wav" };   
 
     public MainLogic() {
-
+      _nativeFeatures.RequestPerimissions();
     }
 
     public async void InitAsync() {
-      CrossMediaManager.Current.Init();
-      var manager = CrossMediaManager.Current;
-      this._mediaManager = manager;
-      manager.MediaItemFinished += _MediaItemFinished;
-      manager.MediaItemChanged += _MediaItemFinished;
-      manager.MediaItemChanged += _MediaItemChanged;
-
       await Task.Run(() => {
-
-        _nativeFeatures.RequestPerimissions();
         var tracks = _CreateTrackList();
 
-
-
         this.AllTracks = tracks;
-        this.TrackQueue = new Queue<ITrack>(tracks);
+        this.TrackQueue = new TrackQueue(tracks);
         this.AllGenres = _CreateGenreList();
         //this.AllGenres = tracks.GroupBy(t => t.GenreNames[0])
         //  .Select(group => new Genre(group.Key, group.ToList())).OrderBy(g => g.GenreName).ToList();    
       });
-    }
-
-    private void _MediaItemChanged(object sender, MediaManager.Media.MediaItemEventArgs e) {
-      this.NewSongSelected?.Invoke(this, new TrackEventArgs(this.CurrentTrack));
-    }
-
-    private async void _EnqueueTrackAsync( ) {
-      if (this.TrackQueue.Count == 0)
-        return;
-
-      var track = this.TrackQueue.Dequeue();
-      var manager = this._mediaManager;
-      var item = await manager.Extractor.CreateMediaItem(track.Path);
-      await Task.Delay(50); //todo: is workaround, fix!
-      manager.Queue.Add(item);
-    }
-
-    private void _MediaItemFinished(object sender, MediaManager.Media.MediaItemEventArgs e) {
-      this._EnqueueTrackAsync();
     }
 
     private List<Genre> _CreateGenreList() {
@@ -211,22 +166,6 @@ namespace Music_Player.Services {
       }
 
       return tracks;
-    }
-
-
-    public void Play() {
-      if (!_wasPaused) {
-        this._mediaManager.Play(this.CurrentTrack.Path);
-        //var next = this._mediaManager.Extractor.CreateMediaItem(this.AllTracks.Last().Path);
-        //next.Wait();
-        //this._mediaManager.Queue.Add(next.Result);
-      } else
-        this._mediaManager.Play();
-    }
-
-    public void Pause() {
-      this._mediaManager.Pause();
-      this._wasPaused = true;
     }
 
   }

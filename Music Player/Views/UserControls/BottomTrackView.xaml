@@ -25,7 +25,7 @@
                     <Label Text="{Binding Title}"/>
                     <Label Text="{Binding Producer}"/>
                 </StackLayout>
-                <Image Source="{Binding PlayPauseImageSource}" WidthRequest ="30" Margin="10" Grid.Column="2">
+                <Image Source="{Binding PlayPauseImageSource}" WidthRequest ="20" Margin="10" Grid.Column="2">
                     <Image.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding PlayTapCommand}" />
                     </Image.GestureRecognizers>

@@ -28,7 +28,7 @@ namespace Music_Player.ViewModels {
 
     public void OnTrackTapped(ITrack track) {
       //MainLogic.Instance.CurrentTrack = track;
-      var logic = MainLogic.Instance;
+      var trackQueue = MainLogic.Instance.TrackQueue;
       var queue = new Queue<ITrack>();
       var tracks = this.Tracks;
       var index = tracks.IndexOf(track);
@@ -36,8 +36,8 @@ namespace Music_Player.ViewModels {
       for (var i = index; i < tracks.Count; ++i)
         queue.Enqueue(tracks[i]);
 
-      logic.TrackQueue = queue;
-      logic.Play();
+      trackQueue.Tracks = queue;
+      trackQueue.Play();
     }
 
     protected void OnPropertyChanged([CallerMemberName] string propertyName = "")

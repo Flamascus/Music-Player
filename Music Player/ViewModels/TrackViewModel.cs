@@ -1,5 +1,6 @@
 ﻿using MediaManager;
 using Music_Player.Interfaces;
+using Music_Player.Models;
 using Music_Player.Services;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
@@ -32,14 +33,21 @@ namespace Music_Player.ViewModels {
 
     private bool _isPlaying;
 
-    private MainLogic _logic;
+    private readonly TrackQueue _queue; 
     private ITrack _track;
 
     public TrackViewModel() {
       var logic = MainLogic.Instance;
-      this._logic = logic;
-      this._track = logic.CurrentTrack; //todo: shouldnt access backing property
-      this.PlayTapCommand = new Command(OnPlayTapped);
+      var queue = logic.TrackQueue;
+
+      this._queue = queue;
+      this._track = queue.CurrentTrack; //todo: shouldnt access backing property
+      
+      this.PlayTapCommand = new Command(PlayTapped);
+      this.NextTapCommand = new Command(NextTapped);
+      this.PreviousTapCommand = new Command(PreviousTapped);
+      this.ShuffleTapCommand = new Command(ShuffleTapped);
+      logic.TrackQueue.NewSongSelected += _OnNewSongSelected;
 
       var color =  this._track.GetImageColor();
 
@@ -53,21 +61,31 @@ namespace Music_Player.ViewModels {
     }
 
     public ICommand PlayTapCommand { get; }
+    public ICommand NextTapCommand { get; }
+    public ICommand PreviousTapCommand { get; }
+    public ICommand ShuffleTapCommand { get; }
 
-    public void OnPlayTapped() {
+    public void PlayTapped() {
       this._isPlaying = !this._isPlaying;
       this.OnPropertyChanged(nameof(PlayPauseImageSource));
 
       if (this._isPlaying)
-        this._logic.Play();
+        this._queue.Play();
       else
-        this._logic.Pause();
+        this._queue.Pause();
     }
+
+    public void NextTapped() => this._queue.Next();
+    public void PreviousTapped() => this._queue.Previous();
+    public void ShuffleTapped() => this._queue.Shuffle();
 
     public event PropertyChangedEventHandler PropertyChanged;
 
     protected void OnPropertyChanged([CallerMemberName] string propertyName = "")
       => this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 
+    private void _OnNewSongSelected(object sender, TrackEventArgs args) {
+      this.Track = args.Track;
+    }
   }
 }

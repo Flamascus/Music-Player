@@ -1,4 +1,5 @@
 ﻿using Music_Player.Interfaces;
+using Music_Player.Services;
 using Music_Player.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -11,10 +12,11 @@ namespace Music_Player.Views {
 
     public TrackPage() {
       this.InitializeComponent();
-      var model = new TrackViewModel();
+      var model = MainLogic.Instance.TrackViewModel;
       this.BindingContext = model;
       this.Gradient.StartColor = model.Color;
       this.Gradient.EndColor = model.ColorDark;
+      this.Cover.MinimumHeightRequest = this.Cover.Width;
     }
 
     protected override void OnAppearing() {
@@ -26,6 +28,13 @@ namespace Music_Player.Views {
       _nativeFeatures.SetStatusBarColor(Color.FromRgb(0, 79, 163));
       _nativeFeatures.SetNavigationBarColor(Color.Black);
     }
- 
+
+    private void _PlaylistTapped(object sender, System.EventArgs e) {
+      this.Navigation.PushModalAsync(new PlaylistPage());
+    }
+
+    private void _CloseTapped(object sender, System.EventArgs e) {
+      this.Navigation.PopModalAsync();
+    }
   }
 }

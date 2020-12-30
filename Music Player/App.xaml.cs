@@ -1,5 +1,4 @@
-﻿using Music_Player.Services;
-using Music_Player.Views;
+﻿using MediaManager;
 using System;
 using Xamarin.Forms;
 
@@ -9,8 +8,9 @@ namespace Music_Player {
     public App() {
       try {
         this.InitializeComponent();
+        CrossMediaManager.Current.Init();
         //this.MainPage = new LoadingPage(this);
-       this.MainPage = new AppShell();
+        this.MainPage = new AppShell();
       } catch (Exception e) {
 
       }

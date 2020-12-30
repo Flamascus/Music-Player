@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -10,5 +11,7 @@ namespace Music_Player.Views {
       Thread.Sleep(200); //todo: dunno why this is needed
       this.InitializeComponent();
     }
+
+    private void _SearchClicked(object _, EventArgs __) => this.Navigation.PushAsync(new SearchPage());
   }
 }

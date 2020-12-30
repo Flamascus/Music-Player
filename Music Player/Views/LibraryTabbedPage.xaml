@@ -6,7 +6,11 @@
              x:Class="Music_Player.Views.LibraryTabbedPage"
              BackgroundColor="{StaticResource Back}"
              Title="Library">
-    
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Order="Primary" Icon="search_small.png" Priority="0" Clicked="_SearchClicked"/>
+    </ContentPage.ToolbarItems>
+
     <ContentPage.Content>
         <StackLayout>
             <tabview:TabViewControl
