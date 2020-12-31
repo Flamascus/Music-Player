@@ -30,3 +30,4 @@
 + app doesnt load genres on first start
 + fix queue shuffle
 + queue doesnt display next track
++ Crashes if no music on phone
