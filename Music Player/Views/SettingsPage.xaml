@@ -8,6 +8,7 @@
         <TableView>
             <TableRoot>
                 <TableSection Title="Settings" TextColor="{StaticResource Accent}">
+                    <TextCell Text="Info: Applying settings needs app restart atm"/>
                     <EntryCell Label="Music Directory:" Placeholder="DirectoryPath" Text="{Binding MusicDirectory}"/>
                     <!--<SwitchCell Text="Test Settings" On="true" OnColor="{StaticResource Accent}"/>
                     <SwitchCell Text="Another Test Setting" OnColor="{StaticResource Accent}"/>-->

@@ -12,7 +12,7 @@ namespace Music_Player.ViewModels {
     public float Progress {
       get { 
         var progress = this._logic.Progress;
-        if (progress == 1) {
+        if (progress == 1 && !this._finished) {
           this._finished = true;
           ProgressFinished?.Invoke(null, null);
         }

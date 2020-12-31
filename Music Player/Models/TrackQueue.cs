@@ -15,7 +15,10 @@ namespace Music_Player.Models {
       get => _tracks;
       set {
         _tracks = value;
-        this.CurrentTrack = value.Dequeue();
+
+        if (value.Count > 1)
+          this.CurrentTrack = value.Dequeue();
+
         this._EnqueueTrack();
       }
     }

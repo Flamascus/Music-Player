@@ -12,7 +12,7 @@
     </ContentPage.ToolbarItems>
 
     <ContentPage.Content>
-        <StackLayout>
+        <StackLayout x:Name="stackLayout">
             <tabview:TabViewControl
                 HeaderBackgroundColor="{StaticResource Primary}"
                 HeaderSelectionUnderlineColor="{StaticResource Accent}"
@@ -27,11 +27,11 @@
                     <tabview:TabItem HeaderText="Songs">
                         <usercontrols:SongsView x:Name="Test"/>
                     </tabview:TabItem>
-                    
+
                     <tabview:TabItem HeaderText="Genres">
                         <usercontrols:GenresView/>
                     </tabview:TabItem>
-                    
+
                     <tabview:TabItem HeaderText="Artists">
                         <Label Text="to be implemented.."></Label>
                     </tabview:TabItem>
@@ -45,7 +45,6 @@
                     </tabview:TabItem>
                 </tabview:TabViewControl.ItemSource>
             </tabview:TabViewControl>
-            <usercontrols:BottomTrackView x:Name="bottomTrackView"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

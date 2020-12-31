@@ -54,10 +54,10 @@ namespace Music_Player.Services {
     public async void InitAsync() {
       await Task.Run(() => {
         var tracks = _CreateTrackList();
-
         this.AllTracks = tracks;
         this.TrackQueue = new TrackQueue(tracks);
         this.AllGenres = _CreateGenreList();
+        this.Progress = 1;
         //this.AllGenres = tracks.GroupBy(t => t.GenreNames[0])
         //  .Select(group => new Genre(group.Key, group.ToList())).OrderBy(g => g.GenreName).ToList();    
       });
@@ -84,10 +84,8 @@ namespace Music_Player.Services {
       Task.Delay(200); //todo: dunno why this is needed
       var lines = _nativeFeatures.ReadAllLinesAppFile("trackCache.txt");
 
-      if (lines.Length > 1 && this.Settings.ReadFromCache) {
-        this.Progress = 1;
+      if (lines.Length > 1 && this.Settings.ReadFromCache)
         return _ReadTrackCache(lines);
-      }
 
       this.Navigation.PushAsync(new LoadingPage());
 
@@ -95,6 +93,11 @@ namespace Music_Player.Services {
       //var path = nativeFeatures.MusicLibaryPath + "/music4phone" + "/folder 28";
       var path = this.Settings.MusicDirectory;
       var files = nativeFeatures.EnumerateFiles3(path).Where(file => _supportedFormats.Any(format => file.Name.EndsWith(format))).ToList();
+      
+      if (files.Count == 0) { //todo: check maybe not needed   
+        return new List<ITrack>();
+      }
+
       var trackBuilder = DependencyService.Get<ITrack>();
       var tracks = new List<ITrack>();
       var count = files.Count;
@@ -103,7 +106,6 @@ namespace Music_Player.Services {
         this.Progress = (float)i / count;
         tracks.Add(trackBuilder.Create(files[i]));
       }
-      this.Progress = 1;
 
       tracks = tracks.OrderBy(t => t.Title).ToList();
       _CacheTracks(tracks);

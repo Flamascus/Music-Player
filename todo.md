@@ -21,7 +21,7 @@
 + instantly apply setting changes
 + more beautiful caching page
 ---
-+ add support for lower android versions
++ display message if no songs found
 
 # Bugs
 
