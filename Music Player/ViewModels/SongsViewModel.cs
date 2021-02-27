@@ -1,11 +1,9 @@
 ﻿using Music_Player.Interfaces;
 using Music_Player.Services;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
 
 namespace Music_Player.ViewModels {
-  class SongsViewModel : INotifyPropertyChanged {
+  class SongsViewModel : ANotifyPropertyChanged {
     private List<ITrack> _tracks;
 
     public List<ITrack> Tracks {
@@ -24,8 +22,6 @@ namespace Music_Player.ViewModels {
       this.Tracks = tracks;
     }
 
-    public event PropertyChangedEventHandler PropertyChanged;
-
     public void OnTrackTapped(ITrack track) {
       //MainLogic.Instance.CurrentTrack = track;
       var trackQueue = MainLogic.Instance.TrackQueue;
@@ -39,8 +35,5 @@ namespace Music_Player.ViewModels {
       trackQueue.ChangeQueue(queue);
       trackQueue.Play();
     }
-
-    protected void OnPropertyChanged([CallerMemberName] string propertyName = "")
-      => this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
   }
 }

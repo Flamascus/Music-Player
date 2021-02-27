@@ -16,10 +16,10 @@ namespace Music_Player.ViewModels {
         return;
       }
 
-      var genres = logic.AllGenres.Where(g => g.GenreName.Contains(text)).ToList();
+      var genres = logic.AllGenres.Where(g => g.Name.Contains(text)).ToList();
       var songs = logic.AllTracks.Where(t =>
       t.Title.ToLower().Contains(text)
-      || t.Producer.ToLower().Contains(text)
+      || t.CombinedArtistNames.ToLower().Contains(text)
       || t.CombinedGenreName.ToLower().Contains(text)
       ).ToList();
 

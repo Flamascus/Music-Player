@@ -1,12 +1,12 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Music_Player.Views.UserControls.GenresView">
+             x:Class="Music_Player.Views.UserControls.GroupsView">
   <ContentView.Content>
-        <ListView x:Name="lvGenres" ItemsSource="{Binding Genres}" RowHeight="60" ItemTapped="lvItemTapped">
+        <ListView x:Name="lvGenres" ItemsSource="{Binding Groups}" RowHeight="60" ItemTapped="lvItemTapped">
             <ListView.ItemTemplate>
             <DataTemplate>
-                    <TextCell Text="{Binding GenreName}" TextColor="{StaticResource Text}"
+                    <TextCell Text="{Binding Name}" TextColor="{StaticResource Text}"
                               Detail="{Binding TrackAmountUi}" DetailColor="{StaticResource Front}"/>
                 </DataTemplate>
         </ListView.ItemTemplate>

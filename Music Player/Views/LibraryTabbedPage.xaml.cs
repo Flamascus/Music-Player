@@ -9,21 +9,18 @@ namespace Music_Player.Views {
   [XamlCompilation(XamlCompilationOptions.Compile)]
   public partial class LibraryTabbedPage : ContentPage {
 
-    private bool _firstSongPlayed = false;
     private readonly MainLogic _logic = MainLogic.Instance;
 
     public LibraryTabbedPage() {
       Thread.Sleep(200); //todo: dunno why this is needed
       this.InitializeComponent();
-      this._logic.TrackQueue.NewSongSelected += (args, sender) => ShowPlayer();
+
+      this._logic.TrackQueue.NewSongSelected += ShowPlayer;
     }
 
-    public void ShowPlayer() {
-      if (this._firstSongPlayed)
-        return;
-
+    public void ShowPlayer(object _, TrackEventArgs __) {
       this.stackLayout.Children.Add(new BottomTrackView());
-      this._firstSongPlayed = true;
+      this._logic.TrackQueue.NewSongSelected -= ShowPlayer;
     }
 
     private void _SearchClicked(object _, EventArgs __) => this.Navigation.PushAsync(new SearchPage());

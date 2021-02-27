@@ -5,6 +5,7 @@ using Music_Player.Interfaces;
 using Music_Player.Models;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using Xamarin.Forms;
@@ -17,7 +18,9 @@ namespace Music_Player.Droid.Classes {
 
     public const char _GENRE_SEPERATOR = '/';
     public string Title { get; private set; }
-    public string Producer { get; private set; }
+    public string CombinedArtistNames { get; private set; }
+    public string[] ArtistNames { get; private set; }
+
     public ImageSource CoverSource {
       get {
 
@@ -39,7 +42,7 @@ namespace Music_Player.Droid.Classes {
 
     public string Path => this._file.Path;
 
-    public string[] GenreNames { get; }
+    public string[] GenreNames { get; } //todo: use genre class instead
     public string CombinedGenreName { get; }
 
 
@@ -49,14 +52,17 @@ namespace Music_Player.Droid.Classes {
     public Track() { }
 
     public ITrack Create(File file) => new Track(file);
-    public ITrack Create(string path, string title, string producer, string[] genres) => new Track(path, title, producer, genres);
+    public ITrack Create(string path, string title, string combinedArtistNames, string combinedGenreNames)
+      => new Track(path, title, combinedArtistNames, combinedGenreNames);
 
-    public Track(string path, string title, string producer, string[] genres) {
+    public Track(string path, string title, string combinedArtistNames, string combinedgenreNames) {
       this._file = new File(path);
       this.Title = title;
-      this.Producer = producer;
-      this.GenreNames = genres;
-      this.CombinedGenreName = this._CreateCombinedGenreName(genres);
+      this.CombinedArtistNames = combinedArtistNames;
+      this.ArtistNames = combinedArtistNames.Split('&').Select(a => a.Trim()).ToArray();   
+
+      this.CombinedGenreName = combinedgenreNames;
+      this.GenreNames = combinedgenreNames.Split('/');     
     }
 
     //todo: clean up
@@ -64,13 +70,16 @@ namespace Music_Player.Droid.Classes {
       this._file = file;
 
       var title = string.Empty;
-      var producer = string.Empty;
+      var combinedArtists = string.Empty;
 
       try {
         //try with taglib
         var fileTags = TagLib.File.Create(file.Path).Tag;
         var tGenres = fileTags.Genres;
         tGenres = tGenres.Length > 0 ? tGenres : new[] { string.Empty };
+        var tArtists = fileTags.AlbumArtists;
+        tArtists = tArtists.Length > 0 ? tGenres : new[] { string.Empty }; 
+
         var genreList = new List<string>();
 
         foreach(var g in tGenres) {
@@ -80,8 +89,9 @@ namespace Music_Player.Droid.Classes {
         }
 
         title = fileTags.Title;
-        producer = fileTags.JoinedPerformers;        
+        combinedArtists = fileTags.JoinedPerformers;        
         this.GenreNames = genreList.ToArray();
+        this.ArtistNames = tArtists ?? new[] { string.Empty };
 
       } catch (Exception) {
         //try with medidataretriever
@@ -90,7 +100,7 @@ namespace Music_Player.Droid.Classes {
           reader.SetDataSource(file.Path);
 
           title = reader.ExtractMetadata(MetadataKey.Title);
-          producer = reader.ExtractMetadata(MetadataKey.Artist);
+          combinedArtists = reader.ExtractMetadata(MetadataKey.Artist);
 
           var genre = reader.ExtractMetadata(MetadataKey.Genre); //todo: let no splitting still be an option
           if (genre == null)
@@ -101,14 +111,17 @@ namespace Music_Player.Droid.Classes {
             genres[i] = Genre.TranslateId3Genre(genres[i].Trim());
           this.GenreNames = genres;
 
+          this.ArtistNames = new[] { combinedArtists };
+
         } catch(Exception) {
           //set default values
           this.GenreNames = new[] { string.Empty }; //todo: check if null array also works;
+          this.ArtistNames = new[] { string.Empty };
         }
       }
 
       this.Title = (title == null || title == string.Empty) ? file.Name : title.Trim();
-      this.Producer = producer == null ? string.Empty : producer.Trim();
+      this.CombinedArtistNames = combinedArtists == null ? string.Empty : combinedArtists.Trim();
       this.CombinedGenreName = this._CreateCombinedGenreName(this.GenreNames);
     }
 

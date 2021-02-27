@@ -20,11 +20,11 @@
         </xct:TabViewItem>
 
         <xct:TabViewItem Text="Genres" TextColor="{StaticResource Text}" TextColorSelected="{StaticResource Accent}">
-          <usercontrols:GenresView/>
+          <usercontrols:GroupsView TestType="Genres"/>
         </xct:TabViewItem>
 
         <xct:TabViewItem Text="Artists" TextColor="{StaticResource Text}" TextColorSelected="{StaticResource Accent}">
-          <Label Text="to be implemented.."></Label>
+          <usercontrols:GroupsView TestType="Artists"/>
         </xct:TabViewItem>
 
         <xct:TabViewItem Text="Albums" TextColor="{StaticResource Text}" TextColorSelected="{StaticResource Accent}">

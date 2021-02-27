@@ -1,14 +1,9 @@
 ﻿using Music_Player.Interfaces;
 using Music_Player.Services;
 using System.Collections.Generic;
-using System.Reflection;
 
 namespace Music_Player.Models {
-  public class Genre {
-    public string GenreName { get; }
-    public int TrackAmount => this.Tracks.Count;
-    public string TrackAmountUi => this.TrackAmount + " Songs";
-    public List<ITrack> Tracks { get; }
+  public class Genre : ADisplayGroup {
 
     private static string[] _id3Genres {
       get {
@@ -20,14 +15,11 @@ namespace Music_Player.Models {
       set => __id3Genres = value;
     }
 
-    public static object DependencServices { get; private set; }
+    public static object DependencServices { get; private set; } //todo: check if this can be removed
 
     private static string[] __id3Genres;
 
-    public Genre(string name, List<ITrack> tracks) {
-      this.GenreName = name;
-      this.Tracks = tracks;
-    }
+    public Genre(string name, List<ITrack> tracks) : base(name, tracks) { }
 
     public static string TranslateId3Genre(string name) {
       if (name.StartsWith("(") && name.EndsWith(")")) {

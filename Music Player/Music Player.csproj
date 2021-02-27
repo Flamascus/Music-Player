@@ -32,7 +32,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="Views\GenrePage.xaml">
+    <EmbeddedResource Update="Views\GroupPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\LoadingPage.xaml">
@@ -50,7 +50,7 @@
     <EmbeddedResource Update="Views\SettingsPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\UserControls\GenresView.xaml">
+    <EmbeddedResource Update="Views\UserControls\GroupsView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\TrackPage.xaml">
@@ -81,14 +81,17 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Views\GenrePage.xaml.cs">
-      <DependentUpon>GenrePage.xaml</DependentUpon>
+    <Compile Update="Views\GroupPage.xaml.cs">
+      <DependentUpon>GroupPage.xaml</DependentUpon>
     </Compile>
     <Compile Update="Views\SettingsPage.xaml.cs">
       <DependentUpon>SettingsPage.xaml</DependentUpon>
     </Compile>
     <Compile Update="Views\TrackPage.xaml.cs">
       <DependentUpon>TrackPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\UserControls\GroupsView.xaml.cs">
+      <DependentUpon>GroupsView.xaml</DependentUpon>
     </Compile>
     <Compile Update="Views\UserControls\SongsView.xaml.cs">
       <DependentUpon>SongsView.xaml</DependentUpon>

@@ -5,7 +5,7 @@ using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
 namespace Music_Player.ViewModels {
-  class LoadingViewModel : INotifyPropertyChanged {
+  class LoadingViewModel : ANotifyPropertyChanged {
     private MainLogic _logic = MainLogic.Instance;
 
     private bool _finished;
@@ -34,10 +34,5 @@ namespace Music_Player.ViewModels {
     }
 
     public event EventHandler ProgressFinished;
-
-    public event PropertyChangedEventHandler PropertyChanged;
-
-    protected void OnPropertyChanged([CallerMemberName] string propertyName = "")
-      => this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
   }
 }

@@ -1,14 +1,11 @@
-﻿using MediaManager;
-using Music_Player.Interfaces;
+﻿using Music_Player.Interfaces;
 using Music_Player.Models;
 using Music_Player.Services;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using Xamarin.Forms;
 
 namespace Music_Player.ViewModels {
-  public class TrackViewModel : INotifyPropertyChanged {
+  public class TrackViewModel : ANotifyPropertyChanged {
 
     public ITrack Track {
       get => this._track;
@@ -23,7 +20,7 @@ namespace Music_Player.ViewModels {
     }
 
     public string Title => this.Track.Title;
-    public string Producer => this.Track.Producer;
+    public string Producer => this.Track.CombinedArtistNames;
     public ImageSource CoverSource => this.Track.CoverSource;
     public string PlayPauseImageSource => this._isPlaying ? "pause.png" : "play.png";
     public string ShuffleImageSource => this._queue.IsShuffle ? "shuffle_selected.png" : "shuffle.png";
@@ -82,11 +79,6 @@ namespace Music_Player.ViewModels {
       this._queue.Shuffle();
       this.OnPropertyChanged(nameof(ShuffleImageSource));
     }
-
-    public event PropertyChangedEventHandler PropertyChanged;
-
-    protected void OnPropertyChanged([CallerMemberName] string propertyName = "")
-      => this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 
     private void _OnNewSongSelected(object sender, TrackEventArgs args) {
       this.Track = args.Track;
