@@ -1,5 +1,4 @@
-﻿using MediaManager;
-using Music_Player.Interfaces;
+﻿using Music_Player.Interfaces;
 using Music_Player.Models;
 using Music_Player.ViewModels;
 using Music_Player.Views;

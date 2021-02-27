@@ -29,14 +29,14 @@ namespace Music_Player.ViewModels {
     public void OnTrackTapped(ITrack track) {
       //MainLogic.Instance.CurrentTrack = track;
       var trackQueue = MainLogic.Instance.TrackQueue;
-      var queue = new Queue<ITrack>();
+      var queue = new List<ITrack>();
       var tracks = this.Tracks;
       var index = tracks.IndexOf(track);
 
       for (var i = index; i < tracks.Count; ++i)
-        queue.Enqueue(tracks[i]);
+        queue.Add(tracks[i]);
 
-      trackQueue.Tracks = queue;
+      trackQueue.ChangeQueue(queue, 0);
       trackQueue.Play();
     }
 
