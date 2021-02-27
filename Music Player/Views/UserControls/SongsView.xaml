@@ -2,34 +2,34 @@
 <ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Music_Player.Views.UserControls.SongsView">
-    <ContentView.Content>
-        <ListView x:Name="lvTracks" ItemsSource="{Binding Tracks}" RowHeight="65" ItemTapped="_LvItemTapped">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <ViewCell>
-                        <Grid Margin="10">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="auto" />
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="auto" />
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="*"/>
-                                <RowDefinition Height="*"/>
-                            </Grid.RowDefinitions>
-                            <Image Source="{Binding CoverSource}" Aspect="AspectFill" BackgroundColor="Gray" HorizontalOptions="Start"
+  <ContentView.Content>
+    <ListView x:Name="lvTracks" ItemsSource="{Binding Tracks}" RowHeight="65" ItemTapped="_LvItemTapped">
+      <ListView.ItemTemplate>
+        <DataTemplate>
+          <ViewCell>
+            <Grid Margin="10">
+              <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="auto" />
+              </Grid.ColumnDefinitions>
+              <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+              </Grid.RowDefinitions>
+              <Image Source="{Binding CoverSource}" Aspect="AspectFill" BackgroundColor="Gray" HorizontalOptions="Start"
                                    WidthRequest ="45" HeightRequest="45" Grid.Column="0" Grid.RowSpan="2"/>
-                            <Label x:Name="lblTitle" Text="{Binding Title}" Grid.Column="1" Grid.Row="0"/>
-                            <Label Text="{Binding Producer}" TextColor="{StaticResource Front}" Grid.Column="1" Grid.Row="1"/>
-                            <Image x:Name="OptionsImage" Source="options.png" WidthRequest ="20" Grid.Column="2" Grid.RowSpan="2">
-                                <Image.GestureRecognizers>
-                                    <TapGestureRecognizer Tapped="_OptionsTapped"/>
-                                </Image.GestureRecognizers>
-                            </Image>
-                        </Grid>
-                    </ViewCell>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
-    </ContentView.Content>
+              <Label x:Name="lblTitle" Text="{Binding Title}" Grid.Column="1" Grid.Row="0"/>
+              <Label Text="{Binding Producer}" TextColor="{StaticResource Front}" Grid.Column="1" Grid.Row="1"/>
+              <Image x:Name="OptionsImage" Source="options.png" WidthRequest ="20" Grid.Column="2" Grid.RowSpan="2">
+                <Image.GestureRecognizers>
+                  <TapGestureRecognizer Tapped="_OptionsTapped"/>
+                </Image.GestureRecognizers>
+              </Image>
+            </Grid>
+          </ViewCell>
+        </DataTemplate>
+      </ListView.ItemTemplate>
+    </ListView>
+  </ContentView.Content>
 </ContentView>

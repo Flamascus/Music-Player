@@ -1,9 +1,8 @@
 ﻿using Android;
 using Android.Content.PM;
 using Android.OS;
-using Android.Support.V4.App;
-using Android.Support.V4.Content;
-using Android.Views;
+using AndroidX.Core.App;
+using AndroidX.Core.Content;
 using Music_Player.Droid.Classes;
 using Music_Player.Interfaces;
 using System.Collections.Generic;

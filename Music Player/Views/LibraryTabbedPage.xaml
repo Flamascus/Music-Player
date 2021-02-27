@@ -1,50 +1,40 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:tabview="clr-namespace:Xam.Plugin.TabView;assembly=Xam.Plugin.TabView"
-             xmlns:usercontrols="clr-namespace:Music_Player.Views.UserControls"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit" xmlns:usercontrols="clr-namespace:Music_Player.Views.UserControls"
              x:Class="Music_Player.Views.LibraryTabbedPage"
              BackgroundColor="{StaticResource Back}"
              Title="Library">
 
-    <ContentPage.ToolbarItems>
-        <ToolbarItem Order="Primary" Icon="search_small.png" Priority="0" Clicked="_SearchClicked"/>
-    </ContentPage.ToolbarItems>
+  <ContentPage.ToolbarItems>
+    <ToolbarItem Order="Primary" Icon="shuffle.png" Priority="0" Clicked="_ShuffleClicked"/>
+    <ToolbarItem Order="Primary" Icon="search_small.png" Priority="1" Clicked="_SearchClicked"/>
+  </ContentPage.ToolbarItems>
 
-    <ContentPage.Content>
-        <StackLayout x:Name="stackLayout">
-            <tabview:TabViewControl
-                HeaderBackgroundColor="{StaticResource Primary}"
-                HeaderSelectionUnderlineColor="{StaticResource Accent}"
-                HeaderSelectionUnderlineThickness="3"
-                HeaderTabTextColor="{StaticResource Text}"
-                HeaderTabTextFontSize="Subtitle"
-                HorizontalOptions="FillAndExpand"
-                IsSwipeEnabled="True"
-                TabHeaderSpacing="100"
-                VerticalOptions="FillAndExpand">
-                <tabview:TabViewControl.ItemSource>
-                    <tabview:TabItem HeaderText="Songs">
-                        <usercontrols:SongsView x:Name="Test"/>
-                    </tabview:TabItem>
+  <ContentPage.Content>
+    <StackLayout x:Name="stackLayout">
+      <xct:TabView TabStripBackgroundColor="{StaticResource Primary}" TabIndicatorColor="{StaticResource Accent}">
 
-                    <tabview:TabItem HeaderText="Genres">
-                        <usercontrols:GenresView/>
-                    </tabview:TabItem>
+        <xct:TabViewItem Text="Songs" TextColor="{StaticResource Text}" TextColorSelected="{StaticResource Accent}">
+          <usercontrols:SongsView x:Name="Test"/>
+        </xct:TabViewItem>
 
-                    <tabview:TabItem HeaderText="Artists">
-                        <Label Text="to be implemented.."></Label>
-                    </tabview:TabItem>
+        <xct:TabViewItem Text="Genres" TextColor="{StaticResource Text}" TextColorSelected="{StaticResource Accent}">
+          <usercontrols:GenresView/>
+        </xct:TabViewItem>
 
-                    <tabview:TabItem HeaderText="Albums">
-                        <Label Text="to be implemented.."></Label>
-                    </tabview:TabItem>
+        <xct:TabViewItem Text="Artists" TextColor="{StaticResource Text}" TextColorSelected="{StaticResource Accent}">
+          <Label Text="to be implemented.."></Label>
+        </xct:TabViewItem>
 
-                    <tabview:TabItem HeaderText="Playlists">
-                        <Label Text="to be implemented.."></Label>
-                    </tabview:TabItem>
-                </tabview:TabViewControl.ItemSource>
-            </tabview:TabViewControl>
-        </StackLayout>
-    </ContentPage.Content>
+        <xct:TabViewItem Text="Albums" TextColor="{StaticResource Text}" TextColorSelected="{StaticResource Accent}">
+          <Label Text="to be implemented.."></Label>
+        </xct:TabViewItem>
+
+        <xct:TabViewItem Text="Playlists" TextColor="{StaticResource Text}" TextColorSelected="{StaticResource Accent}">
+          <Label Text="to be implemented.."></Label>
+        </xct:TabViewItem>
+      </xct:TabView>
+    </StackLayout>
+  </ContentPage.Content>
 </ContentPage>

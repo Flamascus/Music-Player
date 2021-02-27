@@ -15,7 +15,7 @@ namespace Music_Player.Views.UserControls {
     public void lvItemTapped(object sender, ItemTappedEventArgs e) {
       var lv = (ListView)sender;
       var genre = (Genre)lv.SelectedItem;
-      this.Navigation.PushAsync(new EmptyPage(new SongsView(genre.Tracks), genre.GenreName));
+      this.Navigation.PushAsync(new GenrePage(genre));
     }
   }
 }

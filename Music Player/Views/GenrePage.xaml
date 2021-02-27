@@ -1,8 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:usercontrols="clr-namespace:Music_Player.Views.UserControls"
-             x:Class="Music_Player.Views.EmptyPage"
+             x:Class="Music_Player.Views.GenrePage"
              BackgroundColor="{StaticResource Back}">
+
+  <ContentPage.ToolbarItems>
+    <ToolbarItem Order="Primary" Icon="shuffle.png" Priority="0" Clicked="_ShuffleClicked"/>
+   </ContentPage.ToolbarItems>
+
     <ContentPage.Content>
         <Grid x:Name="Grid">
             <Grid.RowDefinitions>

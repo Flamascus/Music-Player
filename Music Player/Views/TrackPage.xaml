@@ -4,75 +4,75 @@
              x:Class="Music_Player.Views.TrackPage"
              BackgroundColor="{StaticResource Back}"
              Title="Library">
-    <ContentPage.Content>
-        <local:GradientColorStack x:Name="Gradient">
-            <StackLayout VerticalOptions="CenterAndExpand" Margin="20, 10, 20, 0" Spacing="20">
+  <ContentPage.Content>
+    <local:GradientColorStack x:Name="Gradient">
+      <StackLayout VerticalOptions="CenterAndExpand" Margin="20, 10, 20, 0" Spacing="20">
 
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <Image Source="down.png" HorizontalOptions="Start" WidthRequest="20" Grid.Column="0">
-                        <Image.GestureRecognizers>
-                            <TapGestureRecognizer Tapped="_CloseTapped"/>
-                        </Image.GestureRecognizers>
-                    </Image>
-                    <Image Source="options.png" HorizontalOptions="End" WidthRequest="20" Grid.Column="1"/>
-                </Grid>
+        <Grid>
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+          </Grid.ColumnDefinitions>
+          <Image Source="down.png" HorizontalOptions="Start" WidthRequest="20" Grid.Column="0">
+            <Image.GestureRecognizers>
+              <TapGestureRecognizer Tapped="_CloseTapped"/>
+            </Image.GestureRecognizers>
+          </Image>
+          <Image Source="options.png" HorizontalOptions="End" WidthRequest="20" Grid.Column="1"/>
+        </Grid>
 
-                <Image x:Name="Cover" Source="{Binding CoverSource}" BackgroundColor="{StaticResource Front}" Aspect="AspectFill"/>
+        <Image x:Name="Cover" Source="{Binding CoverSource}" BackgroundColor="{StaticResource Front}" Aspect="AspectFill"/>
 
-                <Label Text="{Binding Title}" FontSize="Large"  HorizontalOptions="Center"/>
-                <Label Text="{Binding Producer}" FontSize="Medium" HorizontalOptions="Center"/>
-                <Slider/>
+        <Label Text="{Binding Title}" FontSize="Large"  HorizontalOptions="Center"/>
+        <Label Text="{Binding Producer}" FontSize="Medium" HorizontalOptions="Center"/>
+        <Slider/>
 
-                <Grid HeightRequest="75">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
+        <Grid HeightRequest="75">
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+          </Grid.ColumnDefinitions>
+          <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+          </Grid.RowDefinitions>
 
-                    <Image Source="shuffle.png" HorizontalOptions="Center" WidthRequest="30" Grid.Column="0">
-                        <Image.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding ShuffleTapCommand}" />
-                        </Image.GestureRecognizers>
-                    </Image>
+          <Image Source="{Binding ShuffleImageSource}" HorizontalOptions="Center" WidthRequest="30" Grid.Column="0">
+            <Image.GestureRecognizers>
+              <TapGestureRecognizer Command="{Binding ShuffleTapCommand}" />
+            </Image.GestureRecognizers>
+          </Image>
 
-                    <Image Source="previous.png" HorizontalOptions="Center" WidthRequest="20" Grid.Column="1">
-                        <Image.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding PreviousTapCommand}" />
-                        </Image.GestureRecognizers>
-                    </Image>
+          <Image Source="previous.png" HorizontalOptions="Center" WidthRequest="20" Grid.Column="1">
+            <Image.GestureRecognizers>
+              <TapGestureRecognizer Command="{Binding PreviousTapCommand}" />
+            </Image.GestureRecognizers>
+          </Image>
 
-                    <Image Source="{Binding PlayPauseImageSource}" WidthRequest="20" HorizontalOptions="Center" Grid.Column="2">
-                        <Image.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding PlayTapCommand}" />
-                        </Image.GestureRecognizers>
-                    </Image>
+          <Image Source="{Binding PlayPauseImageSource}" WidthRequest="20" HorizontalOptions="Center" Grid.Column="2">
+            <Image.GestureRecognizers>
+              <TapGestureRecognizer Command="{Binding PlayTapCommand}" />
+            </Image.GestureRecognizers>
+          </Image>
 
-                    <Image Source="next.png" HorizontalOptions="Center" WidthRequest="20" Grid.Column="3">
-                        <Image.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding NextTapCommand}" />
-                        </Image.GestureRecognizers>
-                    </Image>
+          <Image Source="next.png" HorizontalOptions="Center" WidthRequest="20" Grid.Column="3">
+            <Image.GestureRecognizers>
+              <TapGestureRecognizer Command="{Binding NextTapCommand}" />
+            </Image.GestureRecognizers>
+          </Image>
 
-                    <Image Source="again.png" HorizontalOptions="Center" WidthRequest="25" Grid.Column="4"/>
-                    
-                    <Image Source="playlist.png" VerticalOptions="End" HorizontalOptions="Center" WidthRequest="25" Grid.Column="4" Grid.Row="1">
-                        <Image.GestureRecognizers>
-                            <TapGestureRecognizer Tapped="_PlaylistTapped"/>
-                        </Image.GestureRecognizers>
-                    </Image>
-                </Grid>
-            </StackLayout>
-        </local:GradientColorStack>
-    </ContentPage.Content>
+          <Image Source="again.png" HorizontalOptions="Center" WidthRequest="25" Grid.Column="4"/>
+
+          <Image Source="playlist.png" VerticalOptions="End" HorizontalOptions="Center" WidthRequest="25" Grid.Column="4" Grid.Row="1">
+            <Image.GestureRecognizers>
+              <TapGestureRecognizer Tapped="_PlaylistTapped"/>
+            </Image.GestureRecognizers>
+          </Image>
+        </Grid>
+      </StackLayout>
+    </local:GradientColorStack>
+  </ContentPage.Content>
 </ContentPage>

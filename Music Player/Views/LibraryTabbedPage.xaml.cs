@@ -10,11 +10,12 @@ namespace Music_Player.Views {
   public partial class LibraryTabbedPage : ContentPage {
 
     private bool _firstSongPlayed = false;
+    private readonly MainLogic _logic = MainLogic.Instance;
 
     public LibraryTabbedPage() {
       Thread.Sleep(200); //todo: dunno why this is needed
       this.InitializeComponent();
-      MainLogic.Instance.TrackQueue.NewSongSelected += (args, sender) => ShowPlayer();
+      this._logic.TrackQueue.NewSongSelected += (args, sender) => ShowPlayer();
     }
 
     public void ShowPlayer() {
@@ -26,5 +27,11 @@ namespace Music_Player.Views {
     }
 
     private void _SearchClicked(object _, EventArgs __) => this.Navigation.PushAsync(new SearchPage());
+
+    private void _ShuffleClicked(object sender, EventArgs e) {
+      var queue = this._logic.TrackQueue;
+      queue.ChangeQueue(this._logic.AllTracks);
+      queue.Shuffle();
+    }
   }
 }

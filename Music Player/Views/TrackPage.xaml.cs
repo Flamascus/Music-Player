@@ -9,10 +9,12 @@ namespace Music_Player.Views {
   public partial class TrackPage : ContentPage {
 
     private static INativeFeatures _nativeFeatures = DependencyService.Get<INativeFeatures>();
+    private readonly TrackViewModel _model;
 
     public TrackPage() {
       this.InitializeComponent();
       var model = MainLogic.Instance.TrackViewModel;
+      this._model = model;
       this.BindingContext = model;
       this.Gradient.StartColor = model.Color;
       this.Gradient.EndColor = model.ColorDark;

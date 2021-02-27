@@ -26,6 +26,7 @@ namespace Music_Player.ViewModels {
     public string Producer => this.Track.Producer;
     public ImageSource CoverSource => this.Track.CoverSource;
     public string PlayPauseImageSource => this._isPlaying ? "pause.png" : "play.png";
+    public string ShuffleImageSource => this._queue.IsShuffle ? "shuffle_selected.png" : "shuffle.png";
 
     //colors used for gradient of trackview
     public Color Color { get; }
@@ -77,7 +78,10 @@ namespace Music_Player.ViewModels {
 
     public void NextTapped() => this._queue.Next();
     public void PreviousTapped() => this._queue.Previous();
-    public void ShuffleTapped() => this._queue.Shuffle();
+    public void ShuffleTapped() {
+      this._queue.Shuffle();
+      this.OnPropertyChanged(nameof(ShuffleImageSource));
+    }
 
     public event PropertyChangedEventHandler PropertyChanged;
 

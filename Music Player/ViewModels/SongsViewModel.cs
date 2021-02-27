@@ -36,7 +36,7 @@ namespace Music_Player.ViewModels {
       for (var i = index; i < tracks.Count; ++i)
         queue.Add(tracks[i]);
 
-      trackQueue.ChangeQueue(queue, 0);
+      trackQueue.ChangeQueue(queue);
       trackQueue.Play();
     }
 

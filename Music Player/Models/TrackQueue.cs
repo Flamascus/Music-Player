@@ -3,7 +3,6 @@ using Music_Player.Interfaces;
 using Music_Player.Services;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Music_Player.Models {
@@ -38,7 +37,7 @@ namespace Music_Player.Models {
     private bool _wasPaused; //indicates if the track was already paused or if its the first play   
     private IMediaManager _mediaManager;
     private static Random _rnd = new Random();
-    private MainLogic _logic = MainLogic.Instance;
+    public bool IsShuffle { get; private set; }
 
     public TrackQueue(List<ITrack> tracks) {
       var manager = CrossMediaManager.Current;
@@ -115,6 +114,7 @@ namespace Music_Player.Models {
       _ShuffleList(this.Tracks);
       this.Index = 0;
       this._PlayTrackAsync();
+      this.IsShuffle = true;
     }
 
     private static void _ShuffleList<T>(List<T> list) {
