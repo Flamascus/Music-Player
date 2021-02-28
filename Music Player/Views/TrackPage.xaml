@@ -21,11 +21,11 @@
           <Image Source="options.png" HorizontalOptions="End" WidthRequest="20" Grid.Column="1"/>
         </Grid>
 
-        <Image x:Name="Cover" Source="{Binding CoverSource}" BackgroundColor="{StaticResource Front}" Aspect="AspectFill"/>
+        <Image x:Name="Cover" Source="{Binding CoverSource}" BackgroundColor="{StaticResource Front}" WidthRequest="300" HeightRequest="300" Aspect="AspectFill"/>
 
         <Label Text="{Binding Title}" FontSize="Large"  HorizontalOptions="Center"/>
         <Label Text="{Binding Producer}" FontSize="Medium" HorizontalOptions="Center"/>
-        <Slider/>
+        <Slider x:Name="Slider" DragCompleted="Slider_DragCompleted"/>
 
         <Grid HeightRequest="75">
           <Grid.ColumnDefinitions>

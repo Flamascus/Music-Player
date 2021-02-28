@@ -100,10 +100,11 @@ namespace Music_Player.Services {
 
     private List<ITrack> _CreateTrackList() {
       Task.Delay(200); //todo: dunno why this is needed
+
       var lines = _nativeFeatures.ReadAllLinesAppFile("trackCache.txt");
 
-      if (lines.Length > 1 && this.Settings.ReadFromCache)
-        return _ReadTrackCache(lines);
+      //if (lines.Length > 1 && this.Settings.ReadFromCache)
+      //  return _ReadTrackCache(lines);
 
       this.Navigation.PushAsync(new LoadingPage());
 
@@ -162,10 +163,12 @@ namespace Music_Player.Services {
         sb.AppendLine(track.Title);
         sb.AppendLine(track.CombinedArtistNames);
         sb.AppendLine(genreString);
+        sb.AppendLine(track.Duration.ToString());
       }
 
       this.Settings.ReadFromCache = true;
       _nativeFeatures.WriteAppFile("trackCache.txt", sb.ToString());
+      var lines = _nativeFeatures.ReadAllLinesAppFile("trackCache.txt");
     }
 
     private void _ReadGenreCache() {
@@ -176,12 +179,13 @@ namespace Music_Player.Services {
       var tracks = new List<ITrack>();
       var builder = DependencyService.Get<ITrack>();
 
-      for (var i = 0; i < lines.Count(); i += 4) { //todo: should be handled with serialization
+      for (var i = 0; i < lines.Count(); i += 5) { //todo: should be handled with serialization
         tracks.Add(builder.Create(
           lines[i],
           lines[i + 1],
           lines[i + 2],
-          lines[i + 3]
+          lines[i + 3],
+          TimeSpan.Parse(lines[i + 4])
           ));
       }
 

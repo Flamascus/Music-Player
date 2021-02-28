@@ -5,7 +5,7 @@ using System.Windows.Input;
 using Xamarin.Forms;
 
 namespace Music_Player.ViewModels {
-  public class TrackViewModel : ANotifyPropertyChanged {
+  public class TrackViewModel : ANotifyPropertyChanged {   
 
     public ITrack Track {
       get => this._track;
@@ -39,7 +39,7 @@ namespace Music_Player.ViewModels {
       var queue = logic.TrackQueue;
 
       this._queue = queue;
-      this._track = queue.CurrentTrack; //todo: shouldnt access backing property
+      this.Track = queue.CurrentTrack; //todo: shouldnt access backing property
       
       this.PlayTapCommand = new Command(PlayTapped);
       this.NextTapCommand = new Command(NextTapped);
@@ -83,5 +83,9 @@ namespace Music_Player.ViewModels {
     private void _OnNewSongSelected(object sender, TrackEventArgs args) {
       this.Track = args.Track;
     }
+    
+    public void TrackPositionChanged(double value) => this._queue.JumpToPercent(value);
+
+    public double Progress => this._queue.GetProgress();
   }
 }

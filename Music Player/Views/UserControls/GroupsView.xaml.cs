@@ -20,11 +20,14 @@ namespace Music_Player.Views.UserControls {
 
         var logic = MainLogic.Instance;
 
-        switch (value) {
-          case GroupType.Artists:
-            while (logic.AllArtists == null)
-              Task.Delay(50);
+        if (logic.AllArtists == null || logic.AllGenres == null)
+          Task.Delay(50);
 
+        if (logic.AllArtists == null || logic.AllGenres == null)
+          return;
+
+          switch (value) {
+          case GroupType.Artists:         
             this._model.Groups = logic.AllArtists.ConvertAll(g => (IDisplayGroup)g);
             break;
           case GroupType.Genres:

@@ -21,6 +21,10 @@ namespace Music_Player.Droid.Classes {
     public string CombinedArtistNames { get; private set; }
     public string[] ArtistNames { get; private set; }
 
+    public ITrack This => this; //todo: only temporary solution, remove later
+
+    public TimeSpan Duration { get; }
+
     public ImageSource CoverSource {
       get {
 
@@ -52,10 +56,10 @@ namespace Music_Player.Droid.Classes {
     public Track() { }
 
     public ITrack Create(File file) => new Track(file);
-    public ITrack Create(string path, string title, string combinedArtistNames, string combinedGenreNames)
-      => new Track(path, title, combinedArtistNames, combinedGenreNames);
+    public ITrack Create(string path, string title, string combinedArtistNames, string combinedGenreNames, TimeSpan duration)
+      => new Track(path, title, combinedArtistNames, combinedGenreNames, duration);
 
-    public Track(string path, string title, string combinedArtistNames, string combinedgenreNames) {
+    public Track(string path, string title, string combinedArtistNames, string combinedgenreNames, TimeSpan duration) {
       this._file = new File(path);
       this.Title = title;
       this.CombinedArtistNames = combinedArtistNames;
@@ -74,11 +78,14 @@ namespace Music_Player.Droid.Classes {
 
       try {
         //try with taglib
-        var fileTags = TagLib.File.Create(file.Path).Tag;
+        var tFile = TagLib.File.Create(file.Path);
+        var fileTags = tFile.Tag;
         var tGenres = fileTags.Genres;
         tGenres = tGenres.Length > 0 ? tGenres : new[] { string.Empty };
         var tArtists = fileTags.AlbumArtists;
-        tArtists = tArtists.Length > 0 ? tGenres : new[] { string.Empty }; 
+        tArtists = tArtists.Length > 0 ? tGenres : new[] { string.Empty };
+
+        this.Duration = tFile.Properties.Duration;
 
         var genreList = new List<string>();
 
@@ -89,11 +96,11 @@ namespace Music_Player.Droid.Classes {
         }
 
         title = fileTags.Title;
-        combinedArtists = fileTags.JoinedPerformers;        
+        combinedArtists = fileTags.JoinedPerformers;
         this.GenreNames = genreList.ToArray();
         this.ArtistNames = tArtists ?? new[] { string.Empty };
 
-      } catch (Exception) {
+      } catch (Exception) { //todo: check if this is even needed
         //try with medidataretriever
         try {
           var reader = new MediaMetadataRetriever();
@@ -112,11 +119,13 @@ namespace Music_Player.Droid.Classes {
           this.GenreNames = genres;
 
           this.ArtistNames = new[] { combinedArtists };
+          this.Duration = TimeSpan.Parse(reader.ExtractMetadata(MetadataKey.Duration));
 
         } catch(Exception) {
           //set default values
           this.GenreNames = new[] { string.Empty }; //todo: check if null array also works;
           this.ArtistNames = new[] { string.Empty };
+          this.Duration = TimeSpan.Zero;
         }
       }
 

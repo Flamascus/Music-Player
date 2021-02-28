@@ -13,10 +13,10 @@ namespace Music_Player.ViewModels {
 
     public void AddNext() {
       var queue = this._logic.TrackQueue;
-      queue.Tracks.Insert(queue.Index + 1, this._track);
+      queue.NextUpTracks.Insert(0, this._track);
     }
 
-    public void AddToQueue() => this._logic.TrackQueue.Tracks.Add(this._track);
+    public void AddToQueue() => this._logic.TrackQueue.NextUpTracks.Add(this._track);
 
   }
 }

@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:usercontrols="clr-namespace:Music_Player.Views.UserControls"
+             x:Class="Music_Player.Views.QueuePage"
+             BackgroundColor="{StaticResource Back}">
+  <ContentPage.Content>
+    <ScrollView>
+      <StackLayout x:Name="stackLayout">
+
+        <BoxView BackgroundColor="{StaticResource Back2}" HeightRequest="2"/>
+        <Label Text="Currently Playing:" FontAttributes="Bold"/>
+        <usercontrols:SmallTrackView Track="{Binding CurrentTrack}"/>
+
+        <BoxView BackgroundColor="{StaticResource Back2}" HeightRequest="2"/>
+        <Label Text="Next Up:"/>
+        <StackLayout BindableLayout.ItemsSource="{Binding NextUpTracks}">
+          <BindableLayout.ItemTemplate>
+            <DataTemplate>
+              <usercontrols:SmallTrackView Track="{Binding This}"/>
+            </DataTemplate>
+          </BindableLayout.ItemTemplate>
+        </StackLayout>
+        
+        <BoxView BackgroundColor="{StaticResource Back2}" HeightRequest="2"/>
+        <Label Text="Next In Queue:"/>
+        <StackLayout BindableLayout.ItemsSource="{Binding QueuedTracks}">
+          <BindableLayout.ItemTemplate>
+            <DataTemplate>
+              <usercontrols:SmallTrackView Track="{Binding This}"/>
+            </DataTemplate>
+          </BindableLayout.ItemTemplate>
+        </StackLayout>
+        <BoxView BackgroundColor="{StaticResource Back2}" HeightRequest="2"/>
+
+      </StackLayout>
+    </ScrollView>
+  </ContentPage.Content>
+</ContentPage>

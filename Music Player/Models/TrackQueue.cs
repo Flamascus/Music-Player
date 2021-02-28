@@ -3,14 +3,14 @@ using Music_Player.Interfaces;
 using Music_Player.Services;
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
-
 namespace Music_Player.Models {
   public class TrackQueue { //todo: inherit from ienumerable
 
     public event EventHandler<TrackEventArgs> NewSongSelected;
 
-    public List<ITrack> Tracks { get; private set; }
+    public List<ITrack> NextUpTracks { get; private set; }
+    public List<ITrack> QueuedTracks { get; private set; }
+    public List<ITrack> LastTracks { get; private set; }
 
     //todo: make method instead of property
     public ITrack CurrentTrack {
@@ -22,16 +22,7 @@ namespace Music_Player.Models {
       }
     }
 
-    public int Index {
-      get => this._index;
-      set {
-        this._index = value;       
-        this.CurrentTrack = this.Tracks.Count > value ? this.Tracks[value] : null;
-      }
-    }
-
-    //private Queue<ITrack> _tracks;
-    private int _index;
+    //private int _index;
     private ITrack _currentTrack;
 
     private bool _wasPaused; //indicates if the track was already paused or if its the first play   
@@ -42,15 +33,15 @@ namespace Music_Player.Models {
     public TrackQueue(List<ITrack> tracks) {
       var manager = CrossMediaManager.Current;
       this._mediaManager = manager;
-      this.Tracks = tracks;
-
+      this.QueuedTracks = tracks;
+      this.NextUpTracks = new List<ITrack>();
       manager.MediaItemFinished += _MediaItemFinished;
     }
 
-
-    public void ChangeQueue(List<ITrack> tracks, int index = 0) {
-      this.Tracks = tracks;
-      this.Index = index;
+    public void ChangeQueue(List<ITrack> tracks) {
+      this.QueuedTracks = tracks;
+      this.CurrentTrack = tracks[0];
+      tracks.RemoveAt(0);
     }
 
     private void _MediaItemFinished(object sender, MediaManager.Media.MediaItemEventArgs e) {
@@ -58,40 +49,13 @@ namespace Music_Player.Models {
     }
 
 
-    private async void _PlayTrackAsync() {
-      var manager = this._mediaManager;
-      var track = this._currentTrack;
-      var item = await manager.Extractor.CreateMediaItem(track.Path);
-      await Task.Delay(50); //todo: is workaround, fix!
-
-      await manager.Play(item);
-    }
-
-
-    //returns the enqueued track or null if none available
-    //private ITrack _EnqueueNextTrack() {
-    //  var nextIndex = this.Index + 1;
-    //  if (this.Tracks.Count < nextIndex)
-    //    return null;
-
-    //  var track = this.Tracks[nextIndex];
-    //  this._EnqueueTrackAsync(track);
-    //  return track;
-    //}
-
-
-    //private async void _EnqueueTrackAsync(ITrack track) {
-    //  var manager = this._mediaManager;
-    //  var item = await manager.Extractor.CreateMediaItem(track.Path);
-    //  await Task.Delay(50); //todo: is workaround, fix!
-    //  manager.Queue.Add(item);
-    //}
-
     public void Play() {
       if (!_wasPaused) {
         this._mediaManager.Play(this.CurrentTrack.Path);
       } else
         this._mediaManager.Play();
+
+
     }
 
     public void Pause() {
@@ -100,21 +64,42 @@ namespace Music_Player.Models {
     }
 
     public void Next() {
-      ++this.Index;
-      this._PlayTrackAsync();
+      if (this.NextUpTracks.Count > 0) {
+        this.CurrentTrack = this.NextUpTracks[0];
+        this.NextUpTracks.RemoveAt(0);
+      } else {
+        this.CurrentTrack = this.QueuedTracks[0];
+        this.QueuedTracks.RemoveAt(0);
+      }
+
+      this.Play();
     }
 
     //todo: implement again
     public void Previous() {
-      --this.Index;
-      this._PlayTrackAsync();
+      //--this.Index;
+      //this._PlayTrackAsync();
     }
 
     public void Shuffle() {
-      _ShuffleList(this.Tracks);
-      this.Index = 0;
-      this._PlayTrackAsync();
+      _ShuffleList(this.QueuedTracks);
+
       this.IsShuffle = true;
+      this.Play();
+    }
+
+    //todo: put into track and not queue!
+    public void JumpToPercent(double value) {
+      var duration = this._currentTrack.Duration;
+      var position = TimeSpan.FromTicks((long)(duration.Ticks * value));
+      this._mediaManager.SeekTo(position);
+    }
+
+    //todo: put into track and not queue!
+    public double GetProgress() {
+      var duration = this._currentTrack.Duration;
+      var position = this._mediaManager.Position;
+      return ((double)position.Ticks / duration.Ticks);
     }
 
     private static void _ShuffleList<T>(List<T> list) {

@@ -11,9 +11,11 @@ namespace Music_Player.Interfaces {
     string Path { get; }
     string[] GenreNames { get; }
     string CombinedGenreName { get; }
+    ITrack This { get; }
+    TimeSpan Duration { get; }
 
     ITrack Create(File file);
-    ITrack Create(string path, string title, string combinedArtistNames, string combinedGenreNames);
+    ITrack Create(string path, string title, string combinedArtistNames, string combinedGenreNames, TimeSpan duration);
     Color GetImageColor();
   }
 }
