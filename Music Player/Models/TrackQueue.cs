@@ -15,7 +15,7 @@ namespace Music_Player.Models {
     //todo: make method instead of property
     public ITrack CurrentTrack {
       get => this._currentTrack;
-      private set {
+      set {
         this._currentTrack = value;
         this.NewSongSelected?.Invoke(this, new TrackEventArgs(value));
         _wasPaused = false;
@@ -68,6 +68,9 @@ namespace Music_Player.Models {
         this.CurrentTrack = this.NextUpTracks[0];
         this.NextUpTracks.RemoveAt(0);
       } else {
+        if (this.QueuedTracks.Count == 0)
+          return;
+
         this.CurrentTrack = this.QueuedTracks[0];
         this.QueuedTracks.RemoveAt(0);
       }

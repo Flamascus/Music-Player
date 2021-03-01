@@ -3,11 +3,11 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:usercontrols="clr-namespace:Music_Player.Views.UserControls"
              x:Class="Music_Player.Views.UserControls.SongsView">
   <ContentView.Content>
-    <ListView x:Name="lvTracks" ItemsSource="{Binding Tracks}" RowHeight="65" ItemTapped="_LvItemTapped">
+    <ListView x:Name="lvTracks" ItemsSource="{Binding Tracks}" RowHeight="65">
       <ListView.ItemTemplate>
         <DataTemplate>
           <ViewCell>
-            <usercontrols:SmallTrackView Track="{Binding This}" OptionsTapped="_OptionsTapped"/>
+            <usercontrols:SmallTrackView Track="{Binding This}" Tapped="TrackView_Tapped" OptionsTapped="_OptionsTapped"/>
           </ViewCell>
         </DataTemplate>
       </ListView.ItemTemplate>

@@ -1,4 +1,5 @@
-﻿using Music_Player.Interfaces;
+﻿using System;
+using Music_Player.Interfaces;
 using Music_Player.ViewModels;
 using System.Collections.Generic;
 using Xamarin.Forms;
@@ -14,7 +15,7 @@ namespace Music_Player.Views.UserControls {
     public SongsView() {
       var model = new SongsViewModel();
       this._model = model;
-      this.BindingContext = model;      
+      this.BindingContext = model;
       this.InitializeComponent();
     }
 
@@ -27,9 +28,9 @@ namespace Music_Player.Views.UserControls {
 
     public List<ITrack> Tracks { get; }
 
-    public void _LvItemTapped(object sender, ItemTappedEventArgs e) {
-      var lv = (ListView)sender;
-      this._model.OnTrackTapped((ITrack)lv.SelectedItem);
+    private void TrackView_Tapped(object sender, EventArgs e) {
+      var trackView = (SmallTrackView)sender;
+      this._model.OnTrackTapped(trackView.Track);
     }
 
     private void _OptionsTapped(object sender, OptionsEventArgs e) => this.Navigation.PushAsync(new OptionsPage(e.Track));

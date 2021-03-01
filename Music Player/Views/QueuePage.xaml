@@ -16,7 +16,7 @@
         <StackLayout BindableLayout.ItemsSource="{Binding NextUpTracks}">
           <BindableLayout.ItemTemplate>
             <DataTemplate>
-              <usercontrols:SmallTrackView Track="{Binding This}"/>
+              <usercontrols:SmallTrackView Track="{Binding This}" Tapped="NextUpTrackView_Tapped"/>
             </DataTemplate>
           </BindableLayout.ItemTemplate>
         </StackLayout>
@@ -26,7 +26,7 @@
         <StackLayout BindableLayout.ItemsSource="{Binding QueuedTracks}">
           <BindableLayout.ItemTemplate>
             <DataTemplate>
-              <usercontrols:SmallTrackView Track="{Binding This}"/>
+              <usercontrols:SmallTrackView Track="{Binding This}" Tapped="QueuedTrackView_Tapped"/>
             </DataTemplate>
           </BindableLayout.ItemTemplate>
         </StackLayout>

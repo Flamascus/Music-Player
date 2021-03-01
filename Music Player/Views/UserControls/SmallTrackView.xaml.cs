@@ -18,14 +18,15 @@ namespace Music_Player.Views.UserControls {
     public static readonly BindableProperty TrackProperty
       = BindableProperty.Create(nameof(ImageSource), typeof(ITrack), typeof(SmallTrackView), null, propertyChanged: _OnTrackChanged);
 
-    public event EventHandler<EventArgs> OptionsTapped; 
+    public event EventHandler<EventArgs> Tapped;
+    public event EventHandler<EventArgs> OptionsTapped;  
 
     public ITrack Track {
       get => (ITrack)GetValue(TrackProperty);
       set => SetValue(TrackProperty, value);
     }
 
-    private ITrack _track;
+    private ITrack _track; //todo: can be deleted probably
 
     private static void _OnTrackChanged(BindableObject bindable, object oldValue, object newValue) {
       var control = (SmallTrackView)bindable;
@@ -41,6 +42,9 @@ namespace Music_Player.Views.UserControls {
       this.InitializeComponent();
     }
 
-    private void _OptionsTapped(object sender, EventArgs e) => this.OptionsTapped?.Invoke(sender, new OptionsEventArgs(this._track));
+    private void _ControlTapped(object _, EventArgs e) => this.Tapped?.Invoke(this, e);
+    private void _OptionsTapped(object _, EventArgs e) => this.OptionsTapped?.Invoke(this, new OptionsEventArgs(this._track));
+
+    
   }
 }

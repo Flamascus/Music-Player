@@ -10,22 +10,38 @@ namespace Music_Player.ViewModels {
 
     private readonly TrackQueue _queue;
 
-    public List<ITrack> NextUpTracks => _queue.NextUpTracks;
+    //todo: need to find better way than just copying the lists
+    public List<ITrack> NextUpTracks => new List<ITrack>(_queue.NextUpTracks);
     public List<ITrack> QueuedTracks {
       get {
         if (_queue.QueuedTracks.Count <= 20)
-          return _queue.QueuedTracks;
+          return new List<ITrack>(_queue.QueuedTracks);
         else
           return _queue.QueuedTracks.GetRange(0, 20);
       }
     }
-
 
     public QueueViewModel() {
       var queue = MainLogic.Instance.TrackQueue;
       this._queue = queue;
 
       queue.NewSongSelected += (sender, args) => this.OnPropertyChanged(nameof(CurrentTrack));
+    }
+
+    public void JumpToClickedTrack(ITrack track, List<ITrack> tracks) {
+      var queue = MainLogic.Instance.TrackQueue;
+
+      for (var i = 0; i < tracks.Count; ++i) {
+        if (tracks[i] == track) {
+          queue.CurrentTrack = track;
+          queue.Play();
+          tracks.RemoveRange(0, i + 1);
+          break;
+        }
+      }
+
+      this.OnPropertyChanged(nameof(NextUpTracks));
+      this.OnPropertyChanged(nameof(QueuedTracks));
     }
 
   }
