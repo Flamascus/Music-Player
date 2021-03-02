@@ -25,7 +25,11 @@ namespace Music_Player.ViewModels {
       var queue = MainLogic.Instance.TrackQueue;
       this._queue = queue;
 
-      queue.NewSongSelected += (sender, args) => this.OnPropertyChanged(nameof(CurrentTrack));
+      queue.NewSongSelected += (sender, args) => {
+        this.OnPropertyChanged(nameof(CurrentTrack));
+        this.OnPropertyChanged(nameof(NextUpTracks));
+        this.OnPropertyChanged(nameof(QueuedTracks));    
+      };
     }
 
     public void JumpToClickedTrack(ITrack track, List<ITrack> tracks) {
@@ -33,15 +37,11 @@ namespace Music_Player.ViewModels {
 
       for (var i = 0; i < tracks.Count; ++i) {
         if (tracks[i] == track) {
-          queue.CurrentTrack = track;
-          queue.Play();
           tracks.RemoveRange(0, i + 1);
+          queue.Play(track);       
           break;
         }
       }
-
-      this.OnPropertyChanged(nameof(NextUpTracks));
-      this.OnPropertyChanged(nameof(QueuedTracks));
     }
 
   }

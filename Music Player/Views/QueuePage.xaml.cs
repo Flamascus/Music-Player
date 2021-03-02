@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using Music_Player.Interfaces;
 using Music_Player.Services;
 using Music_Player.ViewModels;
 using Music_Player.Views.UserControls;

@@ -172,5 +172,7 @@ namespace Music_Player.Droid.Classes {
         pixel.Alpha()
         );
     }
+
+    public override string ToString() => $"{this.CombinedArtistNames} - {this.Title}";
   }
 }
