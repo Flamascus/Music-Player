@@ -11,7 +11,6 @@ namespace Music_Player.Models {
     public string CombinedGenreNames { get; }
     public TimeSpan Duration { get; }
 
-    //todo: implement this with json.net
     public SerializableTrack(string path, string title, string combinedArtistNames, string combinedGenreNames, TimeSpan duration) {
       this.Path = path;
       this.Title = title;

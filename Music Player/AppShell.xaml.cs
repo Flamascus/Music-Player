@@ -1,5 +1,4 @@
 ﻿using Music_Player.Services;
-using Music_Player.Views;
 using System;
 using Xamarin.Forms;
 

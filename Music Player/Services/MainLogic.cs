@@ -5,7 +5,6 @@ using Music_Player.Views;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
@@ -101,18 +100,22 @@ namespace Music_Player.Services {
     private List<ITrack> _CreateTrackList() {
       Task.Delay(200); //todo: dunno why this is needed
 
-      var lines = _nativeFeatures.ReadAllLinesAppFile("trackCache.txt");
+      //var lines = _nativeFeatures.ReadAllLinesAppFile("trackCache.txt");
 
-      //if (lines.Length > 1 && this.Settings.ReadFromCache)
-      //  return _ReadTrackCache(lines);
+      if (this.Settings.ReadFromCache && CacheManager.TryReadCache(out var tracks))    
+        return tracks;
 
       this.Navigation.PushAsync(new LoadingPage());
 
+      return _CreateTrackListFromFiles();
+    }
+
+    private List<ITrack> _CreateTrackListFromFiles() {
       var nativeFeatures = _nativeFeatures;
       //var path = nativeFeatures.MusicLibaryPath + "/music4phone" + "/folder 28";
       var path = this.Settings.MusicDirectory;
       var files = nativeFeatures.EnumerateFiles3(path).Where(file => _supportedFormats.Any(format => file.Name.EndsWith(format))).ToList();
-      
+
       if (files.Count == 0) { //todo: check maybe not needed   
         return new List<ITrack>();
       }
@@ -127,68 +130,9 @@ namespace Music_Player.Services {
       }
 
       tracks = tracks.OrderBy(t => t.Title).ToList();
-      _CacheTracks(tracks);
-
-      return tracks;
-    }
-
-    private void _CacheGenres() {
-      var sb = new StringBuilder();
-
-      foreach (var genre in this.AllGenres) {
-        sb.AppendLine("*" + genre.Name);
-        genre.Tracks.ForEach(t => sb.AppendLine(t.Path));
-      }
-
-      _nativeFeatures.WriteAppFile("genreCache.txt", sb.ToString()); //todo: make string to constant 
-    }
-
-    //todo: use json and serializable track instead
-    private void _CacheTracks(IList<ITrack> tracks) {
-      var sb = new StringBuilder();
-
-      foreach (var track in tracks) {
-        var genres = track.GenreNames;
-        var last = genres[genres.Length - 1];
-        var genreString = string.Empty;
-
-        //create genre string
-        foreach (var genre in track.GenreNames) {
-          genreString += genre;
-          if (genre != last)
-            genreString += "/";
-        }
-
-        sb.AppendLine(track.Path);
-        sb.AppendLine(track.Title);
-        sb.AppendLine(track.CombinedArtistNames);
-        sb.AppendLine(genreString);
-        sb.AppendLine(track.Duration.ToString());
-      }
+      CacheManager.CacheTracks(tracks);
 
       this.Settings.ReadFromCache = true;
-      _nativeFeatures.WriteAppFile("trackCache.txt", sb.ToString());
-      var lines = _nativeFeatures.ReadAllLinesAppFile("trackCache.txt");
-    }
-
-    private void _ReadGenreCache() {
-
-    }
-
-    private static List<ITrack> _ReadTrackCache(string[] lines) {
-      var tracks = new List<ITrack>();
-      var builder = DependencyService.Get<ITrack>();
-
-      for (var i = 0; i < lines.Count(); i += 5) { //todo: should be handled with serialization
-        tracks.Add(builder.Create(
-          lines[i],
-          lines[i + 1],
-          lines[i + 2],
-          lines[i + 3],
-          TimeSpan.Parse(lines[i + 4])
-          ));
-      }
-
       return tracks;
     }
 

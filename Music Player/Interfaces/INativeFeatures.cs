@@ -11,11 +11,11 @@ namespace Music_Player.Interfaces {
     IEnumerable<FileInfo> EnumerateFiles2(string path);
     IEnumerable<Java.IO.File> EnumerateFiles3(string path);
     string[] ReadAllLines(string path);
-    string[] ReadAllLinesAppFile(string fileName);
-    string ReadAppFile(string fileName);
     void RequestPerimissions();
-    void WriteAppFile(string fileName, string content);
     void SetStatusBarColor(Color color);
     void SetNavigationBarColor(Color color);
+    string[] ReadAllLinesAppFile(string fileName, bool useInternalPath = true);
+    string ReadAppFile(string fileName, bool useInternalPath = true);
+    void WriteAppFile(string fileName, string content, bool useInternalPath = true);
   }
 }

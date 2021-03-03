@@ -15,7 +15,14 @@ using Xamarin.Forms;
 namespace Music_Player.Droid.Classes {
   public class NativeFeatures : INativeFeatures {
 
-    private static readonly string _LOCAL_PATH = System.Environment.GetFolderPath(System.Environment.SpecialFolder.ApplicationData);
+    //private static string LocalPath => 
+
+
+    private static string _externalPath => Environment.GetExternalStoragePublicDirectory(Environment.DirectoryDocuments).AbsolutePath;
+    private static string _appPath => MainActivity.ApplicationContext.GetExternalFilesDir(null).AbsolutePath;
+
+    private static string _GetDirectoryString(bool useInternalPath) => useInternalPath ? _appPath : _externalPath;
+
 
     public static MainActivity MainActivity { get; set; }
 
@@ -60,8 +67,9 @@ namespace Music_Player.Droid.Classes {
       return filePaths.Select(f => new Java.IO.File(f));
     }
 
-    public void WriteAppFile(string fileName, string content) {
-      var path = Path.Combine(_LOCAL_PATH, fileName);
+    public void WriteAppFile(string fileName, string content, bool useInternalPath = true) {
+
+      var path = Path.Combine(_GetDirectoryString(useInternalPath), fileName);
 
       using (var stream = File.Create(path))
       using (var writer = new StreamWriter(stream))
@@ -69,13 +77,15 @@ namespace Music_Player.Droid.Classes {
     }
 
     //todo: can probably put this in mainlogic
-    public string[] ReadAllLinesAppFile(string fileName) {
-      var path = Path.Combine(_LOCAL_PATH, fileName);
+    public string[] ReadAllLinesAppFile(string fileName, bool useInternalPath = true) {
+      var path = Path.Combine(_GetDirectoryString(useInternalPath), fileName);
       return File.Exists(path) ? File.ReadAllLines(path) : new string[0];
     }
 
-    public string ReadAppFile(string fileName) {
-      var path = Path.Combine(_LOCAL_PATH, fileName);
+    public string ReadAppFile(string fileName, bool useInternalPath = true) {
+      var path = Path.Combine(_GetDirectoryString(useInternalPath), fileName);
+
+      return File.ReadAllText(path);
 
       using (var stream = File.Create(path))
       using (var reader = new StreamReader(stream))

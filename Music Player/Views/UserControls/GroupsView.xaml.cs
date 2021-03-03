@@ -20,11 +20,8 @@ namespace Music_Player.Views.UserControls {
 
         var logic = MainLogic.Instance;
 
-        if (logic.AllArtists == null || logic.AllGenres == null)
+        while (logic.AllArtists == null || logic.AllGenres == null)
           Task.Delay(50);
-
-        if (logic.AllArtists == null || logic.AllGenres == null)
-          return;
 
           switch (value) {
           case GroupType.Artists:         
