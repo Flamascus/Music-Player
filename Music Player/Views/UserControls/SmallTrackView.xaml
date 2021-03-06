@@ -1,12 +1,16 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Music_Player.Views.UserControls.SmallTrackView">
+             x:Class="Music_Player.Views.UserControls.SmallTrackView"
+             HeightRequest="69">
+  
   <ContentView.GestureRecognizers>
     <TapGestureRecognizer Tapped="_ControlTapped"/>
   </ContentView.GestureRecognizers>
   <ContentView.Content>
-    <Grid Margin="10">
+
+    <Frame Padding="0" Margin="7" CornerRadius="7" BackgroundColor="Transparent">
+    <Grid BackgroundColor="{StaticResource Back2}">
       <Grid.ColumnDefinitions>
         <ColumnDefinition Width="auto"/>
         <ColumnDefinition Width="*"/>
@@ -16,24 +20,33 @@
         <RowDefinition Height="*"/>
         <RowDefinition Height="*"/>
       </Grid.RowDefinitions>
-      
-      <Image x:Name="imgCover" Source="{Binding ImageSource}"
-             Aspect="AspectFill"
-             BackgroundColor="Gray"
+
+      <Frame CornerRadius="7" 
+             Padding="0"
              HorizontalOptions="Start"
-             WidthRequest ="45"
-             HeightRequest="45"
+             WidthRequest ="55"
+             HeightRequest="55"
+             IsClippedToBounds="True"
              Grid.Column="0"
-             Grid.RowSpan="2"/>
-      
+             Grid.RowSpan="2">
+        <Image x:Name="imgCover" Source="{Binding ImageSource}"
+               Aspect="AspectFill"/>
+      </Frame>
+
       <Label x:Name="lblTitle" Text="{Binding Title}" LineBreakMode="TailTruncation" Grid.Column="1" Grid.Row="0"/>
       <Label x:Name="lblArtists" Text="{Binding Artists}" LineBreakMode="TailTruncation" TextColor="{StaticResource Front}" Grid.Column="1" Grid.Row="1"/>
-      <Image x:Name="OptionsImage" Source="options.png" WidthRequest ="20" Grid.Column="2" Grid.RowSpan="2">
-        <Image.GestureRecognizers>
-          <TapGestureRecognizer Tapped="_OptionsTapped"/>
-        </Image.GestureRecognizers>
-      </Image>
+
+      <ImageButton x:Name="OptionsImage"
+                   Source="options.png"
+                   WidthRequest="48"
+                   BackgroundColor="Transparent"
+                   Padding="26, 0, 8, 0"
+                   Grid.Column="2"
+                   Grid.RowSpan="2"
+                   Clicked="_OptionsTapped">
+      </ImageButton>
     </Grid>
-    
+    </Frame>
+
   </ContentView.Content>
 </ContentView>

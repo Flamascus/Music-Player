@@ -5,7 +5,6 @@ using Music_Player.Interfaces;
 using Music_Player.Models;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using Xamarin.Forms;
@@ -25,6 +24,8 @@ namespace Music_Player.Droid.Classes {
 
     public TimeSpan Duration { get; }
 
+    private const string _DEFAULT_PIC_PATH = "record_new.png";
+
     public ImageSource CoverSource {
       get {
 
@@ -33,14 +34,14 @@ namespace Music_Player.Droid.Classes {
           var source = _GetImageSource();
           if (source == null) {
             this.hasPicture = false;
-            return ImageSource.FromFile("record.png");
+            return ImageSource.FromFile(_DEFAULT_PIC_PATH);
           } else {
             this.hasPicture = true;
             return source;
           }
         }
 
-        return this.hasPicture.Value ? _GetImageSource() : ImageSource.FromFile("record.png");
+        return this.hasPicture.Value ? _GetImageSource() : ImageSource.FromFile(_DEFAULT_PIC_PATH);
       }
     }
 
@@ -63,8 +64,8 @@ namespace Music_Player.Droid.Classes {
       this._file = new File(path);
       this.Title = title;
       this.CombinedArtistNames = combinedArtistNames;
-      this.ArtistNames = combinedArtistNames.Split('&').Select(a => a.Trim()).ToArray();   
-
+      this.ArtistNames = combinedArtistNames.Split('&').Select(a => a.Trim()).ToArray();
+      this.Duration = duration;
       this.CombinedGenreName = combinedgenreNames;
       this.GenreNames = combinedgenreNames.Split('/');     
     }

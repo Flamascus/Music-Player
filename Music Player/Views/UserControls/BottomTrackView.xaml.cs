@@ -1,5 +1,4 @@
-﻿using Music_Player.Services;
-using Music_Player.ViewModels;
+﻿using Music_Player.ViewModels;
 using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -12,7 +11,7 @@ namespace Music_Player.Views.UserControls {
 
     public BottomTrackView() {
       this.InitializeComponent();
-      this._model = MainLogic.Instance.TrackViewModel;
+      this._model = TrackViewModel.Instance;
       this.BindingContext = this._model;
       var timer = new System.Threading.Timer(this._UpdateSlider, null, 0, 500);
     }

@@ -32,6 +32,9 @@ namespace Music_Player.Views.UserControls {
       var control = (SmallTrackView)bindable;
       var track = (ITrack)newValue;
 
+      if (track == null)
+        return;
+
       control._track = track;
       control.lblTitle.Text = track.Title;
       control.lblArtists.Text = track.CombinedArtistNames;

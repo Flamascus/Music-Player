@@ -13,6 +13,7 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
           </Grid.ColumnDefinitions>
+          
           <Image Source="down.png" HorizontalOptions="Start" WidthRequest="20" Grid.Column="0">
             <Image.GestureRecognizers>
               <TapGestureRecognizer Tapped="_CloseTapped"/>
@@ -21,7 +22,19 @@
           <Image Source="options.png" HorizontalOptions="End" WidthRequest="20" Grid.Column="1"/>
         </Grid>
 
-        <Image x:Name="Cover" Source="{Binding CoverSource}" BackgroundColor="{StaticResource Front}" WidthRequest="300" HeightRequest="300" Aspect="AspectFill"/>
+        <Frame CornerRadius="30" 
+               Padding="0"
+               HorizontalOptions="Start"
+               WidthRequest="300"
+               HeightRequest="300"
+               IsClippedToBounds="True"             
+               BackgroundColor="Transparent"
+               Grid.Column="0"
+               Grid.RowSpan="2">
+          <Image x:Name="Cover"
+                 Source="{Binding CoverSource}"
+                 Aspect="AspectFill"/>
+        </Frame>
 
         <Label Text="{Binding Title}" FontSize="Large"  HorizontalOptions="Center"/>
         <Label Text="{Binding Producer}" FontSize="Medium" HorizontalOptions="Center"/>
@@ -66,7 +79,11 @@
 
           <Image Source="again.png" HorizontalOptions="Center" WidthRequest="25" Grid.Column="4"/>
 
-          <Image Source="playlist.png" VerticalOptions="End" HorizontalOptions="Center" WidthRequest="25" Grid.Column="4" Grid.Row="1">
+          <Image Source="playlist.png"
+                 VerticalOptions="End"
+                 HorizontalOptions="Center"
+                 WidthRequest="25" Grid.Column="4"
+                 Grid.Row="1">
             <Image.GestureRecognizers>
               <TapGestureRecognizer Tapped="_PlaylistTapped"/>
             </Image.GestureRecognizers>

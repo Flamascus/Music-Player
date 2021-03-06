@@ -13,7 +13,7 @@
 
         <BoxView BackgroundColor="{StaticResource Back2}" HeightRequest="2"/>
         <Label Text="Next Up:"/>
-        <StackLayout BindableLayout.ItemsSource="{Binding NextUpTracks}">
+        <StackLayout BindableLayout.ItemsSource="{Binding NextUpTracks}" Spacing="0">
           <BindableLayout.ItemTemplate>
             <DataTemplate>
               <usercontrols:SmallTrackView Track="{Binding This}" Tapped="NextUpTrackView_Tapped"/>
@@ -23,7 +23,7 @@
         
         <BoxView BackgroundColor="{StaticResource Back2}" HeightRequest="2"/>
         <Label Text="Next In Queue:"/>
-        <StackLayout BindableLayout.ItemsSource="{Binding QueuedTracks}">
+        <StackLayout BindableLayout.ItemsSource="{Binding QueuedTracks}" Spacing="0">
           <BindableLayout.ItemTemplate>
             <DataTemplate>
               <usercontrols:SmallTrackView Track="{Binding This}" Tapped="QueuedTrackView_Tapped"/>

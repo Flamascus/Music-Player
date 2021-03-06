@@ -34,9 +34,11 @@ namespace Music_Player.ViewModels {
     private readonly TrackQueue _queue; 
     private ITrack _track;
 
-    public TrackViewModel() {
-      var logic = MainLogic.Instance;
-      var queue = logic.TrackQueue;
+    public static TrackViewModel Instance = _instance == null ? _instance = new TrackViewModel() : _instance;
+    private static TrackViewModel _instance;
+
+    private TrackViewModel() {
+      var queue = TrackQueue.Instance;
 
       this._queue = queue;
       this.Track = queue.CurrentTrack; //todo: shouldnt access backing property
@@ -45,7 +47,7 @@ namespace Music_Player.ViewModels {
       this.NextTapCommand = new Command(NextTapped);
       this.PreviousTapCommand = new Command(PreviousTapped);
       this.ShuffleTapCommand = new Command(ShuffleTapped);
-      logic.TrackQueue.NewSongSelected += _OnNewSongSelected;
+      queue.NewSongSelected += _OnNewSongSelected;
 
       var color =  this._track.GetImageColor();
 

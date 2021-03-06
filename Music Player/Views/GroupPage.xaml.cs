@@ -1,4 +1,5 @@
 ﻿using Music_Player.Interfaces;
+using Music_Player.Models;
 using Music_Player.Services;
 using Music_Player.Views.UserControls;
 using System;
@@ -11,7 +12,6 @@ namespace Music_Player.Views {
   public partial class GroupPage : ContentPage {
 
     private readonly List<ITrack> _tracks;
-    private readonly MainLogic _logic = MainLogic.Instance;
 
     //todo: dont give contentview, just give tracklist lol
     public GroupPage(List<ITrack> tracks, string title) {
@@ -21,7 +21,7 @@ namespace Music_Player.Views {
       //NavigationPage.SetTitleView(this, new BottomTrackView());
       this.Grid.Children.Add(new SongsView(tracks), 0, 0);
 
-      var queue = this._logic.TrackQueue;
+      var queue = TrackQueue.Instance;
 
       if (queue.CurrentTrack != null)
         this.ShowPlayer(null, null);
@@ -31,11 +31,11 @@ namespace Music_Player.Views {
 
     public void ShowPlayer(object _, TrackEventArgs __) {
       this.Grid.Children.Add(new BottomTrackView(), 0, 1);
-      this._logic.TrackQueue.NewSongSelected -= ShowPlayer;
+      TrackQueue.Instance.NewSongSelected -= ShowPlayer;
     }
 
     private void _ShuffleClicked(object _, EventArgs __) {
-      var queue = MainLogic.Instance.TrackQueue;
+      var queue = TrackQueue.Instance;
       queue.ChangeQueue(this._tracks);
       queue.Shuffle();
     }

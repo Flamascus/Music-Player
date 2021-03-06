@@ -22,7 +22,7 @@ namespace Music_Player.ViewModels {
     }
 
     public QueueViewModel() {
-      var queue = MainLogic.Instance.TrackQueue;
+      var queue = TrackQueue.Instance;
       this._queue = queue;
 
       queue.NewSongSelected += (sender, args) => {
@@ -33,7 +33,7 @@ namespace Music_Player.ViewModels {
     }
 
     public void JumpToClickedTrack(ITrack track, List<ITrack> tracks) {
-      var queue = MainLogic.Instance.TrackQueue;
+      var queue = TrackQueue.Instance;
 
       for (var i = 0; i < tracks.Count; ++i) {
         if (tracks[i] == track) {

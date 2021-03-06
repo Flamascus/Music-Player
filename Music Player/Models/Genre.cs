@@ -1,6 +1,6 @@
 ﻿using Music_Player.Interfaces;
-using Music_Player.Services;
 using System.Collections.Generic;
+using static Music_Player.Helpers.Helpers;
 
 namespace Music_Player.Models {
   public class Genre : ADisplayGroup {
@@ -8,7 +8,7 @@ namespace Music_Player.Models {
     private static string[] _id3Genres {
       get {
         if (__id3Genres == null)
-          __id3Genres = Helpers.ReadAllLines("Settings.genres.txt");
+          __id3Genres = ReadAllLines("Settings.genres.txt");
 
         return __id3Genres;
        }

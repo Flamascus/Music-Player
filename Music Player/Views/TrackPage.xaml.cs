@@ -14,7 +14,7 @@ namespace Music_Player.Views {
 
     public TrackPage() {
       this.InitializeComponent();
-      var model = MainLogic.Instance.TrackViewModel;
+      var model = TrackViewModel.Instance;
       this._model = model;
       this.BindingContext = model;
       this.Gradient.StartColor = model.Color;

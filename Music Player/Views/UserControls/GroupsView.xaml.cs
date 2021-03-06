@@ -8,6 +8,7 @@ using Xamarin.Forms;
 using System;
 using Xamarin.Forms.Xaml;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace Music_Player.Views.UserControls {
   [XamlCompilation(XamlCompilationOptions.Compile)]
@@ -18,17 +19,18 @@ namespace Music_Player.Views.UserControls {
       set {
         this._testType = value;
 
-        var logic = MainLogic.Instance;
+        var artists = ArtistList.Instance;
+        var genres = GenreList.Instance;
 
-        while (logic.AllArtists == null || logic.AllGenres == null)
+        while (!artists.IsInitialized || genres == null)
           Task.Delay(50);
 
           switch (value) {
           case GroupType.Artists:         
-            this._model.Groups = logic.AllArtists.ConvertAll(g => (IDisplayGroup)g);
+            this._model.Groups = artists.Select(g => (IDisplayGroup)g).ToList();
             break;
           case GroupType.Genres:
-            this._model.Groups = logic.AllGenres.ConvertAll(g => (IDisplayGroup)g);
+            this._model.Groups = genres.Select(g => (IDisplayGroup)g).ToList();
             break;
           default:
             throw new ArgumentOutOfRangeException();

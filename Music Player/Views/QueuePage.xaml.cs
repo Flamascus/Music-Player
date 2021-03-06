@@ -1,4 +1,5 @@
 ﻿using System;
+using Music_Player.Models;
 using Music_Player.Services;
 using Music_Player.ViewModels;
 using Music_Player.Views.UserControls;
@@ -18,9 +19,9 @@ namespace Music_Player.Views {
     }
 
     private void NextUpTrackView_Tapped(object sender, EventArgs _)
-      => this._model.JumpToClickedTrack(((SmallTrackView)sender).Track, MainLogic.Instance.TrackQueue.NextUpTracks);
+      => this._model.JumpToClickedTrack(((SmallTrackView)sender).Track, TrackQueue.Instance.NextUpTracks);
 
     private void QueuedTrackView_Tapped(object sender, EventArgs _)
-      => this._model.JumpToClickedTrack(((SmallTrackView)sender).Track, MainLogic.Instance.TrackQueue.QueuedTracks);
+      => this._model.JumpToClickedTrack(((SmallTrackView)sender).Track, TrackQueue.Instance.QueuedTracks);
   }
 }

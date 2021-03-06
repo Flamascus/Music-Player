@@ -1,6 +1,8 @@
 ﻿using Music_Player.Interfaces;
+using Music_Player.Models;
 using Music_Player.Services;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Music_Player.ViewModels {
   class SongsViewModel : ANotifyPropertyChanged {
@@ -15,7 +17,7 @@ namespace Music_Player.ViewModels {
     }
 
     public SongsViewModel() {
-      this.Tracks = MainLogic.Instance.AllTracks;
+      this.Tracks = TrackList.Instance.ToList();
     }
 
     public SongsViewModel(List<ITrack> tracks) {
@@ -24,7 +26,7 @@ namespace Music_Player.ViewModels {
 
     public void OnTrackTapped(ITrack track) {
       //MainLogic.Instance.CurrentTrack = track;
-      var trackQueue = MainLogic.Instance.TrackQueue;
+      var trackQueue = TrackQueue.Instance;
       var queue = new List<ITrack>();
       var tracks = this.Tracks;
       var index = tracks.IndexOf(track);

@@ -2,7 +2,7 @@
 using System.IO;
 using System.Reflection;
 
-namespace Music_Player.Services {
+namespace Music_Player.Helpers {
   public static class Helpers {
 
     public static Stream GetStream(string path) {

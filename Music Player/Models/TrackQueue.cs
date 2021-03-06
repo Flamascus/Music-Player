@@ -8,10 +8,12 @@ using System.Linq;
 namespace Music_Player.Models {
   public class TrackQueue { //todo: inherit from ienumerable
 
+    public static TrackQueue Instance = new TrackQueue();
+
     public event EventHandler<TrackEventArgs> NewSongSelected;
 
     public List<ITrack> NextUpTracks { get; private set; } = new List<ITrack>();
-    public List<ITrack> QueuedTracks { get; private set; }
+    public List<ITrack> QueuedTracks { get; private set; } = new List<ITrack>();
     public List<ITrack> TrackHistory { get; private set; } = new List<ITrack>(); //todo: implement properly!
 
 
@@ -36,10 +38,9 @@ namespace Music_Player.Models {
     private static Random _rnd = new Random();
     public bool IsShuffle { get; private set; }
 
-    public TrackQueue(List<ITrack> tracks) {
+    private TrackQueue() {
       var manager = CrossMediaManager.Current;
       this._mediaManager = manager;
-      this.QueuedTracks = tracks;
       manager.MediaItemFinished += _MediaItemFinished;
     }
 

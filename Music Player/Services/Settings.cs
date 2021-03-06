@@ -8,6 +8,10 @@ namespace Music_Player.Services {
   //todo: implement
   public class Settings {
 
+    public static Settings Instance = _instance == null ? _instance = new Settings() : _instance;
+
+    private static Settings _instance;
+
     public string MusicDirectory {
       get => _musicDirectory;
       set {
@@ -32,7 +36,7 @@ namespace Music_Player.Services {
     private bool _readFromCache;
     private const string _FILE_NAME = "settings.ini";
 
-    public Settings() {
+    private Settings() {
       var content = _ReadFile();
       if (content.Length == 0)
         this._InitSettings();
@@ -46,7 +50,7 @@ namespace Music_Player.Services {
       this._readFromCache = bool.Parse(GetSetting(nameof(ReadFromCache)));
     }
 
-    private static string[] _ReadFile() => _nativeFeatures.ReadAllLinesAppFile(_FILE_NAME);
+    private static string[] _ReadFile() => DependencyService.Get<INativeFeatures>().ReadAllLinesAppFile(_FILE_NAME);
     private static void _SaveSettings(string[] content) {
       var sb = new StringBuilder();
       foreach (var line in content)

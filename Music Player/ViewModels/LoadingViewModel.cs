@@ -1,17 +1,15 @@
-﻿using Music_Player.Services;
+﻿using Music_Player.Models;
+using Music_Player.Services;
 using System;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
 namespace Music_Player.ViewModels {
   class LoadingViewModel : ANotifyPropertyChanged {
-    private MainLogic _logic = MainLogic.Instance;
 
     private bool _finished;
     public float Progress {
       get { 
-        var progress = this._logic.Progress;
+        var progress = TrackList.Instance.Progress;
         if (progress == 1 && !this._finished) {
           this._finished = true;
           ProgressFinished?.Invoke(null, null);
