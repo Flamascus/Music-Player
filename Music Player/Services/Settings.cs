@@ -56,12 +56,12 @@ namespace Music_Player.Services {
       foreach (var line in content)
         sb.AppendLine(line);
 
-      _nativeFeatures.WriteAppFile(_FILE_NAME, sb.ToString());
+      DependencyService.Get<INativeFeatures>().WriteAppFile(_FILE_NAME, sb.ToString());
     }
     
     //sets default values for settings
     private void _InitSettings() {
-      this.WriteSetting(nameof(MusicDirectory), _nativeFeatures.MusicLibaryPath);
+      this.WriteSetting(nameof(MusicDirectory), DependencyService.Get<INativeFeatures>().MusicLibaryPath);
       this.WriteSetting(nameof(ReadFromCache), true.ToString());
     }
 

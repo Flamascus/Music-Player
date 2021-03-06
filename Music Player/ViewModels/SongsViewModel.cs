@@ -25,7 +25,6 @@ namespace Music_Player.ViewModels {
     }
 
     public void OnTrackTapped(ITrack track) {
-      //MainLogic.Instance.CurrentTrack = track;
       var trackQueue = TrackQueue.Instance;
       var queue = new List<ITrack>();
       var tracks = this.Tracks;

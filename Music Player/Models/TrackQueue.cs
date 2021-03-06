@@ -1,9 +1,9 @@
 ﻿using MediaManager;
+using Music_Player.Helpers;
 using Music_Player.Interfaces;
 using Music_Player.Services;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Music_Player.Models {
   public class TrackQueue { //todo: inherit from ienumerable
@@ -16,8 +16,14 @@ namespace Music_Player.Models {
     public List<ITrack> QueuedTracks { get; private set; } = new List<ITrack>();
     public List<ITrack> TrackHistory { get; private set; } = new List<ITrack>(); //todo: implement properly!
 
+    public List<ITrack> AllTracks { //todo: implement properly!
+      get {
+        var tracks = new List<ITrack>(NextUpTracks);
+        tracks.AddRange(QueuedTracks);
+        return tracks;
+      }
+    }
 
-    //todo: make method instead of property
     public ITrack CurrentTrack {
       get => this._currentTrack;
       set {
@@ -30,12 +36,10 @@ namespace Music_Player.Models {
       }
     }
 
-    //private int _index;
     private ITrack _currentTrack;
 
     private bool _wasPaused; //indicates if the track was already paused or if its the first play   
-    private IMediaManager _mediaManager;
-    private static Random _rnd = new Random();
+    private IMediaManager _mediaManager;    
     public bool IsShuffle { get; private set; }
 
     private TrackQueue() {
@@ -47,7 +51,7 @@ namespace Music_Player.Models {
     public void ChangeQueue(List<ITrack> tracks) {
       this.QueuedTracks = tracks;
 
-      this.CurrentTrack = _Dequeue(tracks);
+      this.CurrentTrack = tracks.Dequeue();
     }
 
     private void _MediaItemFinished(object sender, MediaManager.Media.MediaItemEventArgs e) {
@@ -73,10 +77,10 @@ namespace Music_Player.Models {
 
     public void Next() {
       if (this.NextUpTracks.Count > 0)
-        this.Play(_Dequeue(this.NextUpTracks));
+        this.Play(this.NextUpTracks.Dequeue());
 
-      else if (this.QueuedTracks.Count > 0)       
-          this.Play(_Dequeue(this.QueuedTracks));
+      else if (this.QueuedTracks.Count > 0)
+        this.Play(this.QueuedTracks.Dequeue());
     }
 
     //todo: implement again
@@ -86,45 +90,12 @@ namespace Music_Player.Models {
     }
 
     public void Shuffle() {
-      _ShuffleList(this.QueuedTracks);
+      this.QueuedTracks.Shuffle();
       var track = this.QueuedTracks[0];
       this.QueuedTracks.RemoveAt(0);
       this.CurrentTrack = track;
       this.IsShuffle = true;
       this.Play();
-    }
-
-    //todo: put into track and not queue!
-    public void JumpToPercent(double value) {
-      var duration = this._currentTrack.Duration;
-      var position = TimeSpan.FromTicks((long)(duration.Ticks * value));
-      this._mediaManager.SeekTo(position);
-    }
-
-    //todo: put into track and not queue!
-    public double GetProgress() {
-      var duration = this._currentTrack.Duration;
-      var position = this._mediaManager.Position;
-      return ((double)position.Ticks / duration.Ticks);
-    }
-
-    private static void _ShuffleList<T>(List<T> list) {
-      var i = list.Count;
-
-      while (i > 1) {
-        i--; //todo: can probably put this into line above
-        var k = _rnd.Next(i + 1);
-        var temp = list[k];
-        list[k] = list[i];
-        list[i] = temp;
-      }
-    }
-
-    //todo: extension method
-    private static T _Dequeue<T>(List<T> list) {
-      var item = list.FirstOrDefault();
-      list.RemoveAt(0);
-      return item;
     }
 
   }

@@ -100,6 +100,10 @@ namespace Music_Player.Droid.Classes {
       MainActivity.Window.SetNavigationBarColor(ToAndroidColor(color));
     }
 
+    public void SetFullScreen() {
+      MainActivity.Window.AddFlags(Android.Views.WindowManagerFlags.Fullscreen);
+    }
+
     private static Android.Graphics.Color ToAndroidColor(Color color) {
       return Android.Graphics.Color.Argb(
         (int)(255 * color.A),

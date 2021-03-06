@@ -17,5 +17,7 @@ namespace Music_Player.Interfaces {
     ITrack Create(File file);
     ITrack Create(string path, string title, string combinedArtistNames, string combinedGenreNames, TimeSpan duration);
     Color GetImageColor();
+    double GetProgress();
+    void JumpToPercent(double value);
   }
 }

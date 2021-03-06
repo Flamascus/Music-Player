@@ -1,19 +1,29 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:local="clr-namespace:Music_Player.Services"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:yummy="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
              x:Class="Music_Player.Views.TrackPage"
+             xmlns:System="clr-namespace:System;assembly=mscorlib"
              BackgroundColor="{StaticResource Back}"
-             Title="Library">
-  <ContentPage.Content>
-    <local:GradientColorStack x:Name="Gradient">
-      <StackLayout VerticalOptions="CenterAndExpand" Margin="20, 10, 20, 0" Spacing="20">
+             Title="Library"
+             NavigationPage.HasNavigationBar="False">
 
-        <Grid>
+  <ContentPage.Content>
+    <yummy:PancakeView BackgroundGradientStartPoint="0,0" BackgroundGradientEndPoint="1,1">
+      <yummy:PancakeView.BackgroundGradientStops>
+        <yummy:GradientStopCollection>
+          <yummy:GradientStop x:Name="GradientStart" Color="{Binding Color}" Offset="0" />
+          <yummy:GradientStop x:Name="GradientEnd" Color="{Binding ColorDark}" Offset="1" />
+        </yummy:GradientStopCollection>
+      </yummy:PancakeView.BackgroundGradientStops>
+      <StackLayout VerticalOptions="CenterAndExpand" Spacing="20" Margin="0, 10, 0, 0">
+
+        <Grid Padding="20">
           <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
           </Grid.ColumnDefinitions>
-          
+
           <Image Source="down.png" HorizontalOptions="Start" WidthRequest="20" Grid.Column="0">
             <Image.GestureRecognizers>
               <TapGestureRecognizer Tapped="_CloseTapped"/>
@@ -22,7 +32,25 @@
           <Image Source="options.png" HorizontalOptions="End" WidthRequest="20" Grid.Column="1"/>
         </Grid>
 
-        <Frame CornerRadius="30" 
+        <CarouselView ItemsSource="{Binding Tracks}" Grid.Column="0" Grid.RowSpan="2" HeightRequest="320" >
+          <CarouselView.ItemsLayout>
+            <LinearItemsLayout Orientation="Horizontal" ItemSpacing="40" SnapPointsType="MandatorySingle"/>
+          </CarouselView.ItemsLayout>
+          <CarouselView.ItemTemplate>
+            <DataTemplate>
+              <Frame CornerRadius="30" 
+                     Padding="0"
+                     IsClippedToBounds="True"
+                     BackgroundColor="Transparent">
+                <Image x:Name="Cover"
+                       Source="{Binding CoverSource}"
+                       HorizontalOptions="Start"
+                       Aspect="AspectFill"/>
+              </Frame>
+            </DataTemplate>
+          </CarouselView.ItemTemplate>
+        </CarouselView>
+        <!--<Frame CornerRadius="30" 
                Padding="0"
                HorizontalOptions="Start"
                WidthRequest="300"
@@ -31,16 +59,16 @@
                BackgroundColor="Transparent"
                Grid.Column="0"
                Grid.RowSpan="2">
-          <Image x:Name="Cover"
+            <Image x:Name="Cover"
                  Source="{Binding CoverSource}"
                  Aspect="AspectFill"/>
-        </Frame>
+          </Frame>-->
 
         <Label Text="{Binding Title}" FontSize="Large"  HorizontalOptions="Center"/>
         <Label Text="{Binding Producer}" FontSize="Medium" HorizontalOptions="Center"/>
         <Slider x:Name="Slider" DragCompleted="Slider_DragCompleted"/>
 
-        <Grid HeightRequest="75">
+        <Grid HeightRequest="75" Padding="20">
           <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
@@ -90,6 +118,6 @@
           </Image>
         </Grid>
       </StackLayout>
-    </local:GradientColorStack>
+    </yummy:PancakeView>
   </ContentPage.Content>
 </ContentPage>

@@ -1,5 +1,6 @@
 ﻿using Android.Graphics;
 using Android.Media;
+using MediaManager;
 using Music_Player.Droid.Classes;
 using Music_Player.Interfaces;
 using Music_Player.Models;
@@ -20,7 +21,7 @@ namespace Music_Player.Droid.Classes {
     public string CombinedArtistNames { get; private set; }
     public string[] ArtistNames { get; private set; }
 
-    public ITrack This => this; //todo: only temporary solution, remove later
+    public ITrack This => this;
 
     public TimeSpan Duration { get; }
 
@@ -162,16 +163,38 @@ namespace Music_Player.Droid.Classes {
     //todo: only calculate this one time
     public Color GetImageColor() {
       if (this.hasPicture == null || !this.hasPicture.Value)
-        return Color.FromHex("#363636");
+        return Color.FromHex("#8dd3c8");
 
       var image = BitmapFactory.DecodeStream(new MemoryStream(_GetBytes()));
-      var pixel = image.GetColor(0, 0);
-      return new Color(
-        pixel.Red(),
-        pixel.Green(),
-        pixel.Blue(),
-        pixel.Alpha()
-        );
+      double saturation = 0;
+      var color = image.GetXamColor(0, 0);
+      var steps = 5;
+      var stepSizeX = image.Width / steps;
+      var stepSizeY = image.Height / steps;
+
+      for (var y = 0; y < image.Height; y+=stepSizeY)
+        for (var x = 0; x < image.Width; x+=stepSizeX) {
+          var newColor = image.GetXamColor(x, y);
+
+          if (color.Saturation >= saturation) {
+            saturation = newColor.Saturation;
+            color = newColor;
+          }
+        }
+
+      return color;
+    }
+
+    public void JumpToPercent(double value) {
+      var duration = this.Duration;
+      var position = TimeSpan.FromTicks((long)(duration.Ticks * value));
+      CrossMediaManager.Current.SeekTo(position);
+    }
+
+    public double GetProgress() {
+      var duration = this.Duration;
+      var position = CrossMediaManager.Current.Position;
+      return ((double)position.Ticks / duration.Ticks);
     }
 
     public override string ToString() => $"{this.CombinedArtistNames} - {this.Title}";

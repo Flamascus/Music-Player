@@ -1,9 +1,14 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Reflection;
+
 
 namespace Music_Player.Helpers {
   public static class Helpers {
+
+    private static Random _rnd = new Random();
 
     public static Stream GetStream(string path) {
       var assembly = IntrospectionExtensions.GetTypeInfo(typeof(Helpers)).Assembly;
@@ -38,6 +43,23 @@ namespace Music_Player.Helpers {
         writer.Write(content);
     }
 
+    public static void Shuffle<T>(this List<T> @this) {
+      var i = @this.Count;
+
+      while (i > 1) {
+        i--;
+        var k = _rnd.Next(i + 1);
+        var temp = @this[k];
+        @this[k] = @this[i];
+        @this[i] = temp;
+      }
+    }
+
+    public static T Dequeue<T>(this List<T> @this) {
+      var item = @this.FirstOrDefault();
+      @this.RemoveAt(0);
+      return item;
+    }
 
   }
 }

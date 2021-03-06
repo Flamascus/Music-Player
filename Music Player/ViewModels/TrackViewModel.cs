@@ -1,6 +1,7 @@
 ﻿using Music_Player.Interfaces;
 using Music_Player.Models;
 using Music_Player.Services;
+using System.Collections.Generic;
 using System.Windows.Input;
 using Xamarin.Forms;
 
@@ -19,6 +20,9 @@ namespace Music_Player.ViewModels {
       }
     }
 
+    //todo: only temp!!
+    public List<ITrack> Tracks => TrackQueue.Instance.AllTracks;
+
     public string Title => this.Track.Title;
     public string Producer => this.Track.CombinedArtistNames;
     public ImageSource CoverSource => this.Track.CoverSource;
@@ -26,8 +30,8 @@ namespace Music_Player.ViewModels {
     public string ShuffleImageSource => this._queue.IsShuffle ? "shuffle_selected.png" : "shuffle.png";
 
     //colors used for gradient of trackview
-    public Color Color { get; }
-    public Color ColorDark { get; }
+    public Color Color { get; private set; }
+    public Color ColorDark { get; private set; }
 
     private bool _isPlaying;
 
@@ -41,7 +45,7 @@ namespace Music_Player.ViewModels {
       var queue = TrackQueue.Instance;
 
       this._queue = queue;
-      this.Track = queue.CurrentTrack; //todo: shouldnt access backing property
+      this.Track = queue.CurrentTrack;
       
       this.PlayTapCommand = new Command(PlayTapped);
       this.NextTapCommand = new Command(NextTapped);
@@ -49,15 +53,22 @@ namespace Music_Player.ViewModels {
       this.ShuffleTapCommand = new Command(ShuffleTapped);
       queue.NewSongSelected += _OnNewSongSelected;
 
-      var color =  this._track.GetImageColor();
+      this._GetColors();
+    }
+
+    private void _GetColors() {
+      var color = this._track.GetImageColor();
 
       if (color.R == 0 && color.G == 0 && color.B == 0) {
         this.Color = Color.DimGray;
         this.ColorDark = color;
       } else {
         this.Color = color;
-        this.ColorDark = new Color(color.R / 2, color.G / 2, color.B / 2, color.A);
+        this.ColorDark = new Color(color.R / 3, color.G / 3, color.B / 3, color.A);
       }
+
+      this.OnPropertyChanged(nameof(Color));
+      this.OnPropertyChanged(nameof(ColorDark));
     }
 
     public ICommand PlayTapCommand { get; }
@@ -84,10 +95,11 @@ namespace Music_Player.ViewModels {
 
     private void _OnNewSongSelected(object sender, TrackEventArgs args) {
       this.Track = args.Track;
+      this._GetColors();
     }
     
-    public void TrackPositionChanged(double value) => this._queue.JumpToPercent(value);
+    public void TrackPositionChanged(double value) => this._queue.CurrentTrack.JumpToPercent(value);
 
-    public double Progress => this._queue.GetProgress();
+    public double Progress => this._queue.CurrentTrack.GetProgress();
   }
 }
