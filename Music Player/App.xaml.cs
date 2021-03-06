@@ -1,5 +1,6 @@
 ﻿using MediaManager;
 using System;
+using System.Diagnostics;
 using Xamarin.Forms;
 
 namespace Music_Player {
@@ -12,7 +13,7 @@ namespace Music_Player {
         //this.MainPage = new LoadingPage(this);
         this.MainPage = new AppShell();
       } catch (Exception e) {
-
+        Trace.WriteLine(e.Message);
       }
     }
 

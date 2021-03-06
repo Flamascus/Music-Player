@@ -28,13 +28,13 @@ namespace Music_Player.Droid.Classes {
 
     public void RequestPerimissions() {
       if (Build.VERSION.SdkInt >= BuildVersionCodes.M) {
-        if (!(_CheckPermissionGranted(Manifest.Permission.ReadExternalStorage)
-          && !_CheckPermissionGranted(Manifest.Permission.WriteExternalStorage)))
-          _RequestPermission();
+        if (!(this._CheckPermissionGranted(Manifest.Permission.ReadExternalStorage)
+          && !this._CheckPermissionGranted(Manifest.Permission.WriteExternalStorage)))
+          this._RequestPermission();
       }
 
-      while (!_CheckPermissionGranted(Manifest.Permission.WriteExternalStorage)
-        || !_CheckPermissionGranted(Manifest.Permission.ReadExternalStorage))
+      while (!this._CheckPermissionGranted(Manifest.Permission.WriteExternalStorage)
+        || !this._CheckPermissionGranted(Manifest.Permission.ReadExternalStorage))
         Task.Delay(50);
     }
 
@@ -45,7 +45,7 @@ namespace Music_Player.Droid.Classes {
 
     // Check if the permission is already available.
     private bool _CheckPermissionGranted(string Permissions)
-      => ContextCompat.CheckSelfPermission(MainActivity, Permissions) != Permission.Granted ? false : true;
+      => ContextCompat.CheckSelfPermission(MainActivity, Permissions) == Permission.Granted;
 
 
     public string[] ReadAllLines(string path) => File.ReadAllLines(path); 
@@ -71,9 +71,9 @@ namespace Music_Player.Droid.Classes {
 
       var path = Path.Combine(_GetDirectoryString(useInternalPath), fileName);
 
-      using (var stream = File.Create(path))
-      using (var writer = new StreamWriter(stream))
-        writer.Write(content);
+      using var stream = File.Create(path);
+      using var writer = new StreamWriter(stream);
+      writer.Write(content);
     }
 
     //todo: can probably put this in mainlogic
@@ -87,24 +87,24 @@ namespace Music_Player.Droid.Classes {
 
       return File.ReadAllText(path);
 
-      using (var stream = File.Create(path))
-      using (var reader = new StreamReader(stream))
-        return reader.ReadToEnd();
+      //using var stream = File.Create(path);
+      //using var reader = new StreamReader(stream);
+      //return reader.ReadToEnd();
     }
 
     public void SetStatusBarColor(Color color) {
-      MainActivity.Window.SetStatusBarColor(ToAndroidColor(color));
+      MainActivity.Window.SetStatusBarColor(_ToAndroidColor(color));
     }
 
     public void SetNavigationBarColor(Color color) {
-      MainActivity.Window.SetNavigationBarColor(ToAndroidColor(color));
+      MainActivity.Window.SetNavigationBarColor(_ToAndroidColor(color));
     }
 
     public void SetFullScreen() {
       MainActivity.Window.AddFlags(Android.Views.WindowManagerFlags.Fullscreen);
     }
 
-    private static Android.Graphics.Color ToAndroidColor(Color color) {
+    private static Android.Graphics.Color _ToAndroidColor(Color color) {
       return Android.Graphics.Color.Argb(
         (int)(255 * color.A),
         (int)(255 * color.R),

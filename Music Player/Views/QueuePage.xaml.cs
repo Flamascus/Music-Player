@@ -15,13 +15,13 @@ namespace Music_Player.Views {
     public QueuePage() {
       this.InitializeComponent();
       this._model = new QueueViewModel();
-      this.BindingContext = _model;
+      this.BindingContext = this._model;
     }
 
-    private void NextUpTrackView_Tapped(object sender, EventArgs _)
-      => this._model.JumpToClickedTrack(((SmallTrackView)sender).Track, TrackQueue.Instance.NextUpTracks);
+    private void _NextUpTrackView_Tapped(object sender, EventArgs _)
+      => TrackQueue.Instance.JumpToNextUpTrack(((SmallTrackView)sender).Track);
 
-    private void QueuedTrackView_Tapped(object sender, EventArgs _)
-      => this._model.JumpToClickedTrack(((SmallTrackView)sender).Track, TrackQueue.Instance.QueuedTracks);
+    private void _QueuedTrackView_Tapped(object sender, EventArgs _)
+      => TrackQueue.Instance.JumpToQueueTrack(((SmallTrackView)sender).Track);
   }
 }

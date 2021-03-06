@@ -2,6 +2,7 @@
 using Music_Player.Models;
 using Music_Player.Services;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Input;
 using Xamarin.Forms;
 
@@ -13,15 +14,15 @@ namespace Music_Player.ViewModels {
       set {
         this._track = value;
         this._isPlaying = true;
-        this.OnPropertyChanged(nameof(Title));
-        this.OnPropertyChanged(nameof(Producer));
-        this.OnPropertyChanged(nameof(CoverSource));
-        this.OnPropertyChanged(nameof(PlayPauseImageSource));
+        this.OnPropertyChanged(nameof(this.Title));
+        this.OnPropertyChanged(nameof(this.Producer));
+        this.OnPropertyChanged(nameof(this.CoverSource));
+        this.OnPropertyChanged(nameof(this.PlayPauseImageSource));
       }
     }
 
     //todo: only temp!!
-    public List<ITrack> Tracks => TrackQueue.Instance.AllTracks;
+    public ICollection<ITrack> Tracks => TrackQueue.Instance.AllTracks;
 
     public string Title => this.Track.Title;
     public string Producer => this.Track.CombinedArtistNames;
@@ -38,7 +39,7 @@ namespace Music_Player.ViewModels {
     private readonly TrackQueue _queue; 
     private ITrack _track;
 
-    public static TrackViewModel Instance = _instance == null ? _instance = new TrackViewModel() : _instance;
+    public static TrackViewModel Instance = _instance ?? (_instance = new TrackViewModel());
     private static TrackViewModel _instance;
 
     private TrackViewModel() {
@@ -47,11 +48,11 @@ namespace Music_Player.ViewModels {
       this._queue = queue;
       this.Track = queue.CurrentTrack;
       
-      this.PlayTapCommand = new Command(PlayTapped);
-      this.NextTapCommand = new Command(NextTapped);
-      this.PreviousTapCommand = new Command(PreviousTapped);
-      this.ShuffleTapCommand = new Command(ShuffleTapped);
-      queue.NewSongSelected += _OnNewSongSelected;
+      this.PlayTapCommand = new Command(this.PlayTapped);
+      this.NextTapCommand = new Command(this.NextTapped);
+      this.PreviousTapCommand = new Command(this.PreviousTapped);
+      this.ShuffleTapCommand = new Command(this.ShuffleTapped);
+      queue.NewSongSelected += this._OnNewSongSelected;
 
       this._GetColors();
     }
@@ -67,8 +68,8 @@ namespace Music_Player.ViewModels {
         this.ColorDark = new Color(color.R / 3, color.G / 3, color.B / 3, color.A);
       }
 
-      this.OnPropertyChanged(nameof(Color));
-      this.OnPropertyChanged(nameof(ColorDark));
+      this.OnPropertyChanged(nameof(this.Color));
+      this.OnPropertyChanged(nameof(this.ColorDark));
     }
 
     public ICommand PlayTapCommand { get; }
@@ -78,7 +79,7 @@ namespace Music_Player.ViewModels {
 
     public void PlayTapped() {
       this._isPlaying = !this._isPlaying;
-      this.OnPropertyChanged(nameof(PlayPauseImageSource));
+      this.OnPropertyChanged(nameof(this.PlayPauseImageSource));
 
       if (this._isPlaying)
         this._queue.Play();
@@ -90,7 +91,7 @@ namespace Music_Player.ViewModels {
     public void PreviousTapped() => this._queue.Previous();
     public void ShuffleTapped() {
       this._queue.Shuffle();
-      this.OnPropertyChanged(nameof(ShuffleImageSource));
+      this.OnPropertyChanged(nameof(this.ShuffleImageSource));
     }
 
     private void _OnNewSongSelected(object sender, TrackEventArgs args) {

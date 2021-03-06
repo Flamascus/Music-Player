@@ -8,30 +8,28 @@ namespace Music_Player.Services {
   //todo: implement
   public class Settings {
 
-    public static Settings Instance = _instance == null ? _instance = new Settings() : _instance;
+    public static Settings Instance = _instance ?? (_instance = new Settings());
 
     private static Settings _instance;
 
     public string MusicDirectory {
-      get => _musicDirectory;
+      get => this._musicDirectory;
       set {
-        _musicDirectory = value;
-        this.WriteSetting(nameof(MusicDirectory), value);
+        this._musicDirectory = value;
+        this.WriteSetting(nameof(this.MusicDirectory), value);
         this.ReadFromCache = false;
       }
     }
     //public List<string> Blacklist { get; }
 
     public bool ReadFromCache {
-      get => _readFromCache;
+      get => this._readFromCache;
       set {
-        this.WriteSetting(nameof(ReadFromCache), value.ToString());
-        _readFromCache = value;
+        this.WriteSetting(nameof(this.ReadFromCache), value.ToString());
+        this._readFromCache = value;
       }
     }
 
-
-    private static readonly INativeFeatures _nativeFeatures = DependencyService.Get<INativeFeatures>();
     private string _musicDirectory;
     private bool _readFromCache;
     private const string _FILE_NAME = "settings.ini";
@@ -45,9 +43,8 @@ namespace Music_Player.Services {
     }
 
     private void _ReadSettings() {
-      this._musicDirectory = GetSetting(nameof(MusicDirectory));
-      var setting = GetSetting(nameof(ReadFromCache));
-      this._readFromCache = bool.Parse(GetSetting(nameof(ReadFromCache)));
+      this._musicDirectory = this.GetSetting(nameof(this.MusicDirectory));
+      this._readFromCache = bool.Parse(this.GetSetting(nameof(this.ReadFromCache)));
     }
 
     private static string[] _ReadFile() => DependencyService.Get<INativeFeatures>().ReadAllLinesAppFile(_FILE_NAME);
@@ -61,8 +58,8 @@ namespace Music_Player.Services {
     
     //sets default values for settings
     private void _InitSettings() {
-      this.WriteSetting(nameof(MusicDirectory), DependencyService.Get<INativeFeatures>().MusicLibaryPath);
-      this.WriteSetting(nameof(ReadFromCache), true.ToString());
+      this.WriteSetting(nameof(this.MusicDirectory), DependencyService.Get<INativeFeatures>().MusicLibaryPath);
+      this.WriteSetting(nameof(this.ReadFromCache), true.ToString());
     }
 
     public void WriteSetting(string key, string value) {

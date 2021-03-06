@@ -1,7 +1,5 @@
 ﻿using Music_Player.Interfaces;
 using Music_Player.Models;
-using Music_Player.Services;
-
 namespace Music_Player.ViewModels {
   public class OptionsViewModel {
 
@@ -11,8 +9,8 @@ namespace Music_Player.ViewModels {
       this._track = track;
     }
 
-    public void AddNext() => TrackQueue.Instance.NextUpTracks.Insert(0, this._track);
-    public void AddToQueue() => TrackQueue.Instance.NextUpTracks.Add(this._track);
+    public void AddNext() => TrackQueue.Instance.AddNext(this._track);
+    public void AddToQueue() => TrackQueue.Instance.AddToQueue(this._track);
 
   }
 }

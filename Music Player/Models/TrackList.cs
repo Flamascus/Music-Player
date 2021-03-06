@@ -28,7 +28,7 @@ namespace Music_Player.Models {
 
       this.items = (Settings.Instance.ReadFromCache && CacheManager.TryReadCache(out var tracks))
         ? tracks
-        : _CreateTrackListFromFiles();
+        : this._CreateTrackListFromFiles();
 
       this.Progress = 1;
     }

@@ -8,7 +8,7 @@ using System.Reflection;
 namespace Music_Player.Helpers {
   public static class Helpers {
 
-    private static Random _rnd = new Random();
+    private static readonly Random _rnd = new Random();
 
     public static Stream GetStream(string path) {
       var assembly = IntrospectionExtensions.GetTypeInfo(typeof(Helpers)).Assembly;

@@ -21,8 +21,6 @@ namespace Music_Player.Droid.Classes {
     public string CombinedArtistNames { get; private set; }
     public string[] ArtistNames { get; private set; }
 
-    public ITrack This => this;
-
     public TimeSpan Duration { get; }
 
     private const string _DEFAULT_PIC_PATH = "record_new.png";
@@ -31,8 +29,8 @@ namespace Music_Player.Droid.Classes {
       get {
 
         //first time called code
-        if (hasPicture == null) {
-          var source = _GetImageSource();
+        if (this.hasPicture == null) {
+          var source = this._GetImageSource();
           if (source == null) {
             this.hasPicture = false;
             return ImageSource.FromFile(_DEFAULT_PIC_PATH);
@@ -42,7 +40,7 @@ namespace Music_Player.Droid.Classes {
           }
         }
 
-        return this.hasPicture.Value ? _GetImageSource() : ImageSource.FromFile(_DEFAULT_PIC_PATH);
+        return this.hasPicture.Value ? this._GetImageSource() : ImageSource.FromFile(_DEFAULT_PIC_PATH);
       }
     }
 
@@ -142,7 +140,7 @@ namespace Music_Player.Droid.Classes {
       for (var i = 0; i < this.GenreNames.Length - 1; ++i)
         combined += this.GenreNames[i] + '/';
 
-      return combined += this.GenreNames[this.GenreNames.Length - 1];
+      return combined += this.GenreNames[^1];
     }
 
     private ImageSource _GetImageSource() {
@@ -165,7 +163,7 @@ namespace Music_Player.Droid.Classes {
       if (this.hasPicture == null || !this.hasPicture.Value)
         return Color.FromHex("#8dd3c8");
 
-      var image = BitmapFactory.DecodeStream(new MemoryStream(_GetBytes()));
+      var image = BitmapFactory.DecodeStream(new MemoryStream(this._GetBytes()));
       double saturation = 0;
       var color = image.GetXamColor(0, 0);
       var steps = 5;

@@ -9,10 +9,10 @@ namespace Music_Player.ViewModels {
     private List<ITrack> _tracks;
 
     public List<ITrack> Tracks {
-      get => _tracks;
+      get => this._tracks;
       set {
         this.OnPropertyChanged();
-        _tracks = value;
+        this._tracks = value;
       }
     }
 
