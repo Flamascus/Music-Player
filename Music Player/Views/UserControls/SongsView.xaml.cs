@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using static Music_Player.Views.UserControls.SmallTrackView;
+using Music_Player.Models;
 
 namespace Music_Player.Views.UserControls {
   [XamlCompilation(XamlCompilationOptions.Compile)]
@@ -16,7 +17,25 @@ namespace Music_Player.Views.UserControls {
       var model = new SongsViewModel();
       this._model = model;
       this.BindingContext = model;
+
       this.InitializeComponent();
+
+      if (model.IsLoading) { //todo: put loading stuff in extra class and inherit from that
+        this._ShowLoading(true);
+        model.FinishedLoading += this._Model_FinishedLoading;
+      }
+    }
+
+
+    private void _Model_FinishedLoading(object sender, EventArgs e) {
+      this._ShowLoading(false);
+      this._model.FinishedLoading -= this._Model_FinishedLoading;
+    }
+
+    private void _ShowLoading(bool isLoading = true) {
+      this.activityIndicator.IsRunning = isLoading;
+      this.activityIndicator.IsVisible = isLoading;
+      this.lvTracks.IsVisible = !isLoading;
     }
 
     public SongsView(List<ITrack> tracks) {

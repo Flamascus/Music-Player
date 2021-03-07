@@ -189,7 +189,10 @@ namespace Music_Player.Droid.Classes {
       CrossMediaManager.Current.SeekTo(position);
     }
 
-    public double GetProgress() {
+    public TimeSpan GetProgress() => CrossMediaManager.Current.Position;
+    public void SetProgress(TimeSpan progress) => CrossMediaManager.Current.SeekTo(progress);
+
+    public double GetProgressPercent() {
       var duration = this.Duration;
       var position = CrossMediaManager.Current.Position;
       return ((double)position.Ticks / duration.Ticks);

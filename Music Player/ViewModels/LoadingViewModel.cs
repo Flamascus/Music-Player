@@ -8,7 +8,7 @@ namespace Music_Player.ViewModels {
 
     private bool _finished;
     public float Progress {
-      get { 
+      get {
         var progress = TrackList.Instance.Progress;
         if (progress == 1 && !this._finished) {
           this._finished = true;
@@ -16,18 +16,18 @@ namespace Music_Player.ViewModels {
         }
 
         return progress;
+      }
     }
-  }
 
     public LoadingViewModel() {
       //_logic.InitAsync();
-      Task.Run(() => SendSignal());
+      Task.Run(() => this.SendSignal());
     }
 
     public void SendSignal() {
-      while (!_finished) {
+      while (!this._finished) {
         Task.Delay(50);
-        OnPropertyChanged(nameof(Progress));
+        this.OnPropertyChanged(nameof(this.Progress));
       }
     }
 

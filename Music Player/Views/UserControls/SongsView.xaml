@@ -3,14 +3,17 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:usercontrols="clr-namespace:Music_Player.Views.UserControls"
              x:Class="Music_Player.Views.UserControls.SongsView">
   <ContentView.Content>
-    <ListView x:Name="lvTracks" ItemsSource="{Binding Tracks}" RowHeight="69" SeparatorVisibility="None">
-      <ListView.ItemTemplate>
-        <DataTemplate>
-          <ViewCell>
-            <usercontrols:SmallTrackView Track="{Binding .}" Tapped="TrackView_Tapped" OptionsTapped="_OptionsTapped"/>
-          </ViewCell>
-        </DataTemplate>
-      </ListView.ItemTemplate>
-    </ListView>
+    <StackLayout>
+      <ActivityIndicator x:Name="activityIndicator" VerticalOptions="CenterAndExpand" IsVisible="False"/>
+      <ListView x:Name="lvTracks" ItemsSource="{Binding Tracks}" RowHeight="69" SeparatorVisibility="None">
+        <ListView.ItemTemplate>
+          <DataTemplate>
+            <ViewCell>
+              <usercontrols:SmallTrackView Track="{Binding .}" Tapped="TrackView_Tapped" OptionsTapped="_OptionsTapped"/>
+            </ViewCell>
+          </DataTemplate>
+        </ListView.ItemTemplate>
+      </ListView>
+    </StackLayout>
   </ContentView.Content>
 </ContentView>

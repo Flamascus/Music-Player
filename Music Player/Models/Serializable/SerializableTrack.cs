@@ -19,9 +19,8 @@ namespace Music_Player.Models {
       this.Duration = duration;
     }
 
-    public static SerializableTrack FromTrack(ITrack track) {
-      return new SerializableTrack(track.Path, track.Title, track.CombinedArtistNames, track.CombinedGenreName, track.Duration);
-    }
+    public static SerializableTrack FromTrack(ITrack track)
+      => new SerializableTrack(track.Path, track.Title, track.CombinedArtistNames, track.CombinedGenreName, track.Duration);
 
     public ITrack ToTrack() {
       var builder = DependencyService.Get<ITrack>();

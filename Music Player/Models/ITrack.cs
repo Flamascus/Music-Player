@@ -3,7 +3,7 @@ using Java.IO;
 using Xamarin.Forms;
 
 namespace Music_Player.Interfaces {
-  public interface ITrack {
+  public interface ITrack  {
     string Title { get; }
     string CombinedArtistNames { get; }
     string[] ArtistNames { get; }
@@ -16,7 +16,9 @@ namespace Music_Player.Interfaces {
     ITrack Create(File file);
     ITrack Create(string path, string title, string combinedArtistNames, string combinedGenreNames, TimeSpan duration);
     Color GetImageColor();
-    double GetProgress();
+    TimeSpan GetProgress();
+    double GetProgressPercent();
     void JumpToPercent(double value);
+    void SetProgress(TimeSpan progress);
   }
 }

@@ -14,14 +14,14 @@ namespace Music_Player.Models {
 
     public List<ITrack> NextUpTracks { get; private set; } = new List<ITrack>();
     public List<ITrack> QueuedTracks { get; private set; } = new List<ITrack>();
-    public List<ITrack> TrackHistory { get; private set; } = new List<ITrack>(); //todo: implement properly!
+    //public List<ITrack> TrackHistory { get; private set; } = new List<ITrack>(); //todo: implement properly!
     public List<ITrack> AllTracks { get; private set; } = new List<ITrack>();
 
     public ITrack CurrentTrack {
       get => this._currentTrack;
       private set {
-        if (this._currentTrack != null)
-          this.TrackHistory.Add(this._currentTrack);
+        //if (this._currentTrack != null)
+          //this.TrackHistory.Add(this._currentTrack);
 
         this._currentTrack = value;
         this.NewSongSelected?.Invoke(this, new TrackEventArgs(value));
@@ -41,6 +41,13 @@ namespace Music_Player.Models {
       var manager = CrossMediaManager.Current;
       this._mediaManager = manager;
       manager.MediaItemFinished += this._MediaItemFinished;
+    }
+
+    public void FullyCreateQueue(List<ITrack> nextUps, List<ITrack> queued, ITrack current) {
+      this.NextUpTracks = nextUps;
+      this.QueuedTracks = queued;
+      this.CurrentTrack = current;
+      this._ReloadFullQueue();
     }
 
     public void ChangeQueue(List<ITrack> tracks) {
@@ -76,12 +83,14 @@ namespace Music_Player.Models {
     }
 
     private void _ReloadFullQueue() {
-      var tracks = new List<ITrack>(this.TrackHistory) { this.CurrentTrack };
+      //var tracks = new List<ITrack>(this.TrackHistory) { this.CurrentTrack };
+      var tracks = new List<ITrack> { this.CurrentTrack };
       tracks.AddRange(this.NextUpTracks);
       tracks.AddRange(this.QueuedTracks);
       this.AllTracks = tracks;
 
-      this.Index = this.TrackHistory.Count + 1;
+      this.Index = 0;
+      //this.Index = this.TrackHistory.Count + 1;
     }
 
     private void _MediaItemFinished(object sender, MediaManager.Media.MediaItemEventArgs e) => this.Next();

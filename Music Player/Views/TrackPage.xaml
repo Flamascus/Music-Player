@@ -35,7 +35,7 @@
                       ItemsSource="{Binding Tracks}"                   
                       Grid.Column="0"
                       Grid.RowSpan="2"
-                      HeightRequest="320" >
+                      HeightRequest="320">
           <CarouselView.ItemsLayout>
             <LinearItemsLayout Orientation="Horizontal" ItemSpacing="40" SnapPointsType="MandatorySingle"/>
           </CarouselView.ItemsLayout>

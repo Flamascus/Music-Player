@@ -9,8 +9,6 @@ namespace Music_Player.Models {
     public static ArtistList Instance = new ArtistList();
     private ArtistList() { }
 
-    public bool IsInitialized { get; set; } //todo: only for debug!
-
     public void Init() {
       var tracks = TrackList.Instance;
       var allArtistNames = new List<string>();
@@ -26,7 +24,7 @@ namespace Music_Player.Models {
       var artists = allArtistNames.Select(g => new Artist(g, tracks.Where(t => t.ArtistNames.Contains(g)).ToList())).ToList();
 
       this.items = artists;
-      this.IsInitialized = true;
+      this.IsLoading = false;
     }
   }
 }

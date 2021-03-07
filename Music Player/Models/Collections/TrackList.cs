@@ -23,14 +23,12 @@ namespace Music_Player.Models {
     private TrackList() { }
 
     public void Init() {
-      Task.Delay(200); //todo: dunno why this is needed
-      //var lines = _nativeFeatures.ReadAllLinesAppFile("trackCache.txt");
-
-      this.items = (Settings.Instance.ReadFromCache && CacheManager.TryReadCache(out var tracks))
+      this.items = (Settings.Instance.ReadFromCache && CacheManager.TryReadTrackCache(out var tracks))
         ? tracks
         : this._CreateTrackListFromFiles();
 
       this.Progress = 1;
+      this.IsLoading = false;
     }
 
     private List<ITrack> _CreateTrackListFromFiles() {

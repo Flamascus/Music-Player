@@ -8,7 +8,7 @@ using Xamarin.Forms;
 namespace Music_Player {
   public partial class AppShell : Shell {
     public AppShell() {
-      InitializeComponent();
+      this.InitializeComponent();
 
       DependencyService.Get<INativeFeatures>().RequestPerimissions();
 
@@ -19,7 +19,7 @@ namespace Music_Player {
         ArtistList.Instance.Init();
       });
 
-      Navigation.PushAsync(new LoadingPage());
+      //Navigation.PushAsync(new LoadingPage());
     }
 
     private async void OnMenuItemClicked(object sender, EventArgs e) {

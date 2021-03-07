@@ -1,10 +1,11 @@
-﻿using System.Collections;
+﻿using Music_Player.Interfaces;
+using System.Collections;
 using System.Collections.Generic;
 
 namespace Music_Player.Helpers {
-  public class AReadOnlyList<T> : IReadOnlyList<T> {
+  public class AReadOnlyList<T> : ALoadable, IReadOnlyList<T> {
 
-    protected IReadOnlyList<T> items;
+    protected IReadOnlyList<T> items = new List<T>(); 
 
     public T this[int index] => this.items[index];
     public int Count => this.items.Count;

@@ -47,13 +47,12 @@ namespace Music_Player.Views {
     private void _OnNewSongSelected(object _, TrackEventArgs __) {
       if (!this.isSwipe)
         this._SetCarouselIndex();
-
-        this._SetBarColors();
+      this._SetBarColors();
     }
 
     private void _SetCarouselIndex() {      
       this.carousel.PositionChanged -= this._Carousel_PositionChanged;
-      this.carousel.Position = TrackQueue.Instance.Index - 1;
+      this.carousel.Position = TrackQueue.Instance.Index;
       this.carousel.PositionChanged += this._Carousel_PositionChanged;
     }
 

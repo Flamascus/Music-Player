@@ -3,7 +3,6 @@ using Music_Player.Services;
 using Music_Player.Views.UserControls;
 using System;
 using System.Linq;
-using System.Threading;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -12,15 +11,14 @@ namespace Music_Player.Views {
   public partial class LibraryTabbedPage : ContentPage {
 
     public LibraryTabbedPage() {
-      Thread.Sleep(200); //todo: dunno why this is needed
       this.InitializeComponent();
 
-      TrackQueue.Instance.NewSongSelected += ShowPlayer;
+      TrackQueue.Instance.NewSongSelected += this.ShowPlayer;
     }
 
     public void ShowPlayer(object _, TrackEventArgs __) {
       this.stackLayout.Children.Add(new BottomTrackView());
-      TrackQueue.Instance.NewSongSelected -= ShowPlayer;
+      TrackQueue.Instance.NewSongSelected -= this.ShowPlayer;
     }
 
     private void _SearchClicked(object _, EventArgs __) => this.Navigation.PushAsync(new SearchPage());

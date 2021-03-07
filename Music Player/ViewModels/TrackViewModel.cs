@@ -2,7 +2,6 @@
 using Music_Player.Models;
 using Music_Player.Services;
 using System.Collections.Generic;
-using System.Linq;
 using System.Windows.Input;
 using Xamarin.Forms;
 
@@ -101,6 +100,6 @@ namespace Music_Player.ViewModels {
     
     public void TrackPositionChanged(double value) => this._queue.CurrentTrack.JumpToPercent(value);
 
-    public double Progress => this._queue.CurrentTrack.GetProgress();
+    public double Progress => this._queue.CurrentTrack.GetProgressPercent();
   }
 }

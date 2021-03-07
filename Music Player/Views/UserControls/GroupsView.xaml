@@ -3,13 +3,16 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Music_Player.Views.UserControls.GroupsView">
   <ContentView.Content>
-        <ListView x:Name="lvGenres" ItemsSource="{Binding Groups}" RowHeight="60" ItemTapped="lvItemTapped">
-            <ListView.ItemTemplate>
-            <DataTemplate>
-                    <TextCell Text="{Binding Name}" TextColor="{StaticResource Text}"
+    <StackLayout>
+      <ActivityIndicator x:Name="activityIndicator" VerticalOptions="CenterAndExpand" IsVisible="False"/>
+      <ListView x:Name="lvGroups" ItemsSource="{Binding Groups}" RowHeight="60" ItemTapped="lvItemTapped">
+        <ListView.ItemTemplate>
+          <DataTemplate>
+            <TextCell Text="{Binding Name}" TextColor="{StaticResource Text}"
                               Detail="{Binding TrackAmountUi}" DetailColor="{StaticResource Front}"/>
-                </DataTemplate>
+          </DataTemplate>
         </ListView.ItemTemplate>
-        </ListView>
-    </ContentView.Content>
+      </ListView>
+    </StackLayout>
+  </ContentView.Content>
 </ContentView>
