@@ -25,3 +25,5 @@
 
 + Searchbaricon in correct color -> custom renderer
 + Crashes if no music on phone
++ play last track not working atm
++ trackPage often displays wrong album cover
