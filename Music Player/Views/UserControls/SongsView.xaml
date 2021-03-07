@@ -5,6 +5,7 @@
   <ContentView.Content>
     <StackLayout>
       <ActivityIndicator x:Name="activityIndicator" VerticalOptions="CenterAndExpand" IsVisible="False"/>
+      <Label x:Name="lblNoTracks" HorizontalOptions="Center" VerticalOptions="CenterAndExpand" Text="Feels empty here without any songs.." IsVisible="False"/>
       <ListView x:Name="lvTracks" ItemsSource="{Binding Tracks}" RowHeight="69" SeparatorVisibility="None">
         <ListView.ItemTemplate>
           <DataTemplate>

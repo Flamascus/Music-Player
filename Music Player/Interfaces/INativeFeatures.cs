@@ -18,5 +18,6 @@ namespace Music_Player.Interfaces {
     string ReadAppFile(string fileName, bool useInternalPath = true);
     void WriteAppFile(string fileName, string content, bool useInternalPath = true);
     void SetFullScreen();
+    bool DirectoryExists(string path);
   }
 }

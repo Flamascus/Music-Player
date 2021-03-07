@@ -40,6 +40,7 @@ namespace Music_Player.ViewModels {
       }
     }
 
+    //todo: check why this gets fired twice
     private void _Instance_FinishedLoading(object sender, EventArgs e) {
       this.Tracks = TrackList.Instance.ToList();
       this.IsLoading = false;

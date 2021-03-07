@@ -17,6 +17,7 @@
 + better looking song notification
 + instantly apply setting changes
 + caching notification
++ directory explorer
 
 ---
 + display message if no songs found

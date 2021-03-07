@@ -113,5 +113,7 @@ namespace Music_Player.Droid.Classes {
         );
     }
 
+    public bool DirectoryExists(string path) => Directory.Exists(path);
+
   }
 }

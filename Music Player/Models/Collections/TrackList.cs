@@ -2,8 +2,8 @@
 using Music_Player.Interfaces;
 using Music_Player.Services;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace Music_Player.Models {
@@ -36,11 +36,14 @@ namespace Music_Player.Models {
       var nativeFeatures = _nativeFeatures;
       //var path = nativeFeatures.MusicLibaryPath + "/music4phone" + "/folder 28";
       var path = settings.MusicDirectory;
+
+      if (!nativeFeatures.DirectoryExists(path))
+        return new List<ITrack>();
+
       var files = nativeFeatures.EnumerateFiles3(path).Where(file => _supportedFormats.Any(format => file.Name.EndsWith(format))).ToList();
 
-      if (files.Count == 0) { //todo: check maybe not needed   
+      if (files.Count == 0)
         return new List<ITrack>();
-      }
 
       var trackBuilder = DependencyService.Get<ITrack>();
       var tracks = new List<ITrack>();
@@ -57,7 +60,6 @@ namespace Music_Player.Models {
 
       return tracks;
     }
-
 
   }
 }

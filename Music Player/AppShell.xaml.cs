@@ -1,6 +1,5 @@
 ﻿using Music_Player.Interfaces;
 using Music_Player.Models;
-using Music_Player.Views;
 using System;
 using System.Threading.Tasks;
 using Xamarin.Forms;
