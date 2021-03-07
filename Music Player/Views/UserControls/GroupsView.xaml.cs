@@ -58,7 +58,7 @@ namespace Music_Player.Views.UserControls {
 
     //todo: not unsubscribing from event atm
     private void _FinishedLoading(object sender, EventArgs e) {
-      this._ShowLoading(false);
+      Device.BeginInvokeOnMainThread(() => this._ShowLoading(false));
       this._SetGroupType(this._groupType);
     }
 
