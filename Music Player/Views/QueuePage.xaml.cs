@@ -5,6 +5,7 @@ using Music_Player.ViewModels;
 using Music_Player.Views.UserControls;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using static Music_Player.Views.UserControls.SmallTrackView;
 
 namespace Music_Player.Views {
   [XamlCompilation(XamlCompilationOptions.Compile)]
@@ -23,5 +24,10 @@ namespace Music_Player.Views {
 
     private void _QueuedTrackView_Tapped(object sender, EventArgs _)
       => TrackQueue.Instance.JumpToQueueTrack(((SmallTrackView)sender).Track);
+
+    private async void _OptionsTapped(object sender, OptionsEventArgs e) {
+      await TrackOptions.DisplayBasicOptionsAsync(e.Track);
+      this._model.Refresh();
+    }
   }
 }

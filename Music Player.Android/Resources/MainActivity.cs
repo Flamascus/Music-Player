@@ -2,6 +2,7 @@
 using Android.Content.PM;
 using Android.Runtime;
 using Music_Player.Droid.Classes;
+using Music_Player.Services;
 using System.IO;
 using System.Diagnostics;
 using Android.OS;
@@ -55,7 +56,8 @@ namespace Music_Player.Droid {
 
     internal static void LogUnhandledException(Exception exception) {
       try {
-        Crashes.TrackError(exception);
+        if (Settings.Instance.SendReportsEnabled)
+          Crashes.TrackError(exception);
 
         const string errorFileName = "Fatal.log";
         var libraryPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal); // iOS: Environment.SpecialFolder.Resources

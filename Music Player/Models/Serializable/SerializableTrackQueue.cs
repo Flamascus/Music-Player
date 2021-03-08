@@ -21,6 +21,9 @@ namespace Music_Player.Models.Serializable {
     public static SerializableTrackQueue Create() {
       var queue = TrackQueue.Instance;
 
+      if (queue.CurrentTrack == null)
+        return null;
+
       return new SerializableTrackQueue(
         queue.CurrentTrack.Path,
         queue.CurrentTrack.GetProgress(),
@@ -34,6 +37,9 @@ namespace Music_Player.Models.Serializable {
       var nextUps = this._CreateTrackList(this.NextUpTracksPaths);
       var queued = this._CreateTrackList(this.QueuedTracksPaths);
       var currentTrack = TrackList.Instance.FirstOrDefault(t => t.Id == this.CurrentTrackPath.GetHashCode());
+
+      if (currentTrack == null)
+        return;
 
       queue.FullyCreateQueue(nextUps, queued, currentTrack);
       queue.CurrentTrack.SetProgress(this.Progress);

@@ -15,7 +15,8 @@ namespace Music_Player {
     }
 
     protected override void OnStart() {
-      AppCenter.Start("android=b02bf2d0-1291-443c-9f73-9d4a186e7e19;" +
+      if (Settings.Instance.SendReportsEnabled)
+        AppCenter.Start("android=b02bf2d0-1291-443c-9f73-9d4a186e7e19;" +
                   "uwp={Your UWP App secret here};" +
                   "ios={Your iOS App secret here}",
                   typeof(Analytics), typeof(Crashes));

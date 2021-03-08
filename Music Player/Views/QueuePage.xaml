@@ -9,30 +9,39 @@
 
         <BoxView BackgroundColor="{StaticResource Back2}" HeightRequest="2"/>
         <Label Text="Currently Playing:" FontAttributes="Bold"/>
-        <usercontrols:SmallTrackView Track="{Binding CurrentTrack}"/>
+        <usercontrols:SmallTrackView Track="{Binding CurrentTrack}"
+                                     OptionsTapped="_OptionsTapped"/>
 
-        <BoxView BackgroundColor="{StaticResource Back2}" HeightRequest="2"/>
-        <Label Text="Next Up:"/>
-        <StackLayout BindableLayout.ItemsSource="{Binding NextUpTracks}" Spacing="0">
-          <BindableLayout.ItemTemplate>
-            <DataTemplate>
-              <usercontrols:SmallTrackView Track="{Binding .}" Tapped="_NextUpTrackView_Tapped"/>
-            </DataTemplate>
-          </BindableLayout.ItemTemplate>
+        <StackLayout IsVisible="{Binding NextUpsVisible}">
+          <BoxView BackgroundColor="{StaticResource Back2}" HeightRequest="2"/>
+          <Label Text="Next Up:"/>
+          <StackLayout BindableLayout.ItemsSource="{Binding NextUpTracks}" Spacing="0">
+            <BindableLayout.ItemTemplate>
+              <DataTemplate>
+                <usercontrols:SmallTrackView Track="{Binding .}"
+                                           Tapped="_NextUpTrackView_Tapped"
+                                           OptionsTapped="_OptionsTapped"/>
+              </DataTemplate>
+            </BindableLayout.ItemTemplate>
+          </StackLayout>
         </StackLayout>
-        
-        <BoxView BackgroundColor="{StaticResource Back2}" HeightRequest="2"/>
-        <Label Text="Next In Queue:"/>
-        <StackLayout BindableLayout.ItemsSource="{Binding QueuedTracks}" Spacing="0">
-          <BindableLayout.ItemTemplate>
-            <DataTemplate>
-              <usercontrols:SmallTrackView Track="{Binding .}" Tapped="_QueuedTrackView_Tapped"/>
-            </DataTemplate>
-          </BindableLayout.ItemTemplate>
-        </StackLayout>
-        <BoxView BackgroundColor="{StaticResource Back2}" HeightRequest="2"/>
 
+        <StackLayout IsVisible="{Binding QueuedVisible}">
+          <BoxView BackgroundColor="{StaticResource Back2}" HeightRequest="2"/>
+          <Label Text="Next In Queue:"/>
+          <StackLayout BindableLayout.ItemsSource="{Binding QueuedTracks}" Spacing="0">
+            <BindableLayout.ItemTemplate>
+              <DataTemplate>
+                <usercontrols:SmallTrackView Track="{Binding .}"
+                                           Tapped="_QueuedTrackView_Tapped"
+                                           OptionsTapped="_OptionsTapped"/>
+              </DataTemplate>
+            </BindableLayout.ItemTemplate>
+          </StackLayout>
+          <BoxView BackgroundColor="{StaticResource Back2}" HeightRequest="2"/>
+        </StackLayout>
       </StackLayout>
+      
     </ScrollView>
   </ContentPage.Content>
 </ContentPage>

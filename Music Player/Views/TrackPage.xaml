@@ -28,7 +28,11 @@
               <TapGestureRecognizer Tapped="_CloseTapped"/>
             </Image.GestureRecognizers>
           </Image>
-          <Image Source="options.png" HorizontalOptions="End" WidthRequest="20" Grid.Column="1"/>
+          <Image Source="options.png" HorizontalOptions="End" WidthRequest="20" Grid.Column="1">
+            <Image.GestureRecognizers>
+              <TapGestureRecognizer Tapped="_OptionsTapped"/>
+            </Image.GestureRecognizers>
+          </Image>
         </Grid>
 
         <CarouselView x:Name="carousel"

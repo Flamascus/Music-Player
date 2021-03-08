@@ -5,7 +5,10 @@ using System.Collections.Generic;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using static Music_Player.Views.UserControls.SmallTrackView;
-using System.Diagnostics;
+using System.Threading.Tasks;
+using Music_Player.Models;
+using Music_Player.Enums;
+using System.Linq;
 
 namespace Music_Player.Views.UserControls {
   [XamlCompilation(XamlCompilationOptions.Compile)]
@@ -57,12 +60,13 @@ namespace Music_Player.Views.UserControls {
     }
 
     public List<ITrack> Tracks { get; }
+    public Task DisplayActionSheet { get; private set; }
 
     private void _TrackView_Tapped(object sender, EventArgs e) {
       var trackView = (SmallTrackView)sender;
       this._model.OnTrackTapped(trackView.Track);
     }
 
-    private void _OptionsTapped(object sender, OptionsEventArgs e) => this.Navigation.PushAsync(new OptionsPage(e.Track));
+    private void _OptionsTapped(object _, OptionsEventArgs e) => TrackOptions.DisplayBasicOptionsAsync(e.Track);
   }
 }

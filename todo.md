@@ -18,6 +18,7 @@
 + instantly apply setting changes
 + caching notification
 + directory explorer
++ expanding pages (bottomTrackView and queue using expander)
 
 ---
 + display message if no songs found

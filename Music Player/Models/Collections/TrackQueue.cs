@@ -66,6 +66,11 @@ namespace Music_Player.Models {
       this._ReloadFullQueue();
     }
 
+    public void AddToEndOfQueue(ITrack track) {
+      this.QueuedTracks.Add(track);
+      this._ReloadFullQueue();
+    }
+
     public void JumpToNextUpTrack(ITrack track) => this._JumpToClickedTrack(track, this.NextUpTracks);
 
     public void JumpToQueueTrack(ITrack track) => this._JumpToClickedTrack(track, this.QueuedTracks);
@@ -100,6 +105,7 @@ namespace Music_Player.Models {
       this._mediaManager.Play(track.Path);
     }
 
+    //todo: works fine with first start but doesnt with new song selected, differentiate with check of crossmediainitization
     public void Play() {
       if (!this._wasPaused) {
         var progress = this.CurrentTrack.GetProgress();

@@ -25,13 +25,22 @@ namespace Music_Player.Services {
     public bool ReadFromCache {
       get => this._readFromCache;
       set {
-        this.WriteSetting(nameof(this.ReadFromCache), value.ToString());
+        this.WriteSetting(nameof(this.ReadFromCache), value);
         this._readFromCache = value;
+      }
+    }
+
+    public bool SendReportsEnabled {
+      get => this._sendReportsEnabled;
+      set {
+        this.WriteSetting(nameof(this.SendReportsEnabled), value);
+        this._sendReportsEnabled = value;
       }
     }
 
     private string _musicDirectory;
     private bool _readFromCache;
+    private bool _sendReportsEnabled;
     private const string _FILE_NAME = "settings.ini";
 
     private Settings() {
@@ -45,6 +54,7 @@ namespace Music_Player.Services {
     private void _ReadSettings() {
       this._musicDirectory = this.GetSetting(nameof(this.MusicDirectory));
       this._readFromCache = bool.Parse(this.GetSetting(nameof(this.ReadFromCache)));
+      this._sendReportsEnabled = bool.Parse(this.GetSetting(nameof(this.SendReportsEnabled)));
     }
 
     private static string[] _ReadFile() => DependencyService.Get<INativeFeatures>().ReadAllLinesAppFile(_FILE_NAME);
@@ -55,14 +65,15 @@ namespace Music_Player.Services {
 
       DependencyService.Get<INativeFeatures>().WriteAppFile(_FILE_NAME, sb.ToString());
     }
-    
+
     //sets default values for settings
     private void _InitSettings() {
       this.WriteSetting(nameof(this.MusicDirectory), DependencyService.Get<INativeFeatures>().MusicLibaryPath);
-      this.WriteSetting(nameof(this.ReadFromCache), true.ToString());
+      this.WriteSetting(nameof(this.ReadFromCache), true);
+      this.WriteSetting(nameof(this.SendReportsEnabled), true);
     }
 
-    public void WriteSetting(string key, string value) {
+    public void WriteSetting(string key, object value) {
       var settingFound = false;
       var settingString = $"{key}-{value}";
       var content = _ReadFile();

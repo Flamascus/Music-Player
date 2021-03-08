@@ -4,16 +4,17 @@
              x:Class="Music_Player.Views.SettingsPage"
              BackgroundColor="{StaticResource Back}"           
              Title="Settings">
-    <ContentPage.Content>
-        <TableView>
-            <TableRoot>
-                <TableSection Title="Settings" TextColor="{StaticResource Accent}">
-                    <TextCell Text="Info: Applying settings needs app restart atm"/>
-                    <EntryCell Label="Music Directory:" Placeholder="DirectoryPath" Text="{Binding MusicDirectory}"/>
-                    <!--<SwitchCell Text="Test Settings" On="true" OnColor="{StaticResource Accent}"/>
+  <ContentPage.Content>
+    <TableView>
+      <TableRoot>
+        <TableSection Title="Settings">
+          <TextCell Text="Info: Applying settings needs app restart atm" TextColor="{x:StaticResource Text}"/>
+          <EntryCell Label="Music Directory:" Placeholder="DirectoryPath" Text="{Binding MusicDirectory}"/>
+          <SwitchCell Text="Send crash-reports (this helps me alot!)" On="{Binding SendReportsEnabled}"/>
+          <!--<SwitchCell Text="Test Settings" On="true" OnColor="{StaticResource Accent}"/>
                     <SwitchCell Text="Another Test Setting" OnColor="{StaticResource Accent}"/>-->
-                </TableSection>
-            </TableRoot>
-        </TableView>
-    </ContentPage.Content>
+        </TableSection>
+      </TableRoot>
+    </TableView>
+  </ContentPage.Content>
 </ContentPage>
