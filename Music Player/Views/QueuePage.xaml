@@ -14,7 +14,7 @@
 
         <StackLayout IsVisible="{Binding NextUpsVisible}">
           <BoxView BackgroundColor="{StaticResource Back2}" HeightRequest="2"/>
-          <Label Text="Next Up:"/>
+          <Label Text="Next Up:" FontAttributes="Bold"/>
           <StackLayout BindableLayout.ItemsSource="{Binding NextUpTracks}" Spacing="0">
             <BindableLayout.ItemTemplate>
               <DataTemplate>
@@ -28,7 +28,7 @@
 
         <StackLayout IsVisible="{Binding QueuedVisible}">
           <BoxView BackgroundColor="{StaticResource Back2}" HeightRequest="2"/>
-          <Label Text="Next In Queue:"/>
+          <Label Text="Next In Queue:" FontAttributes="Bold"/>
           <StackLayout BindableLayout.ItemsSource="{Binding QueuedTracks}" Spacing="0">
             <BindableLayout.ItemTemplate>
               <DataTemplate>
