@@ -33,9 +33,9 @@ namespace Music_Player.Models.Serializable {
       var queue = TrackQueue.Instance;
       var nextUps = this._CreateTrackList(this.NextUpTracksPaths);
       var queued = this._CreateTrackList(this.QueuedTracksPaths);
+      var currentTrack = TrackList.Instance.FirstOrDefault(t => t.Id == this.CurrentTrackPath.GetHashCode());
 
-
-      queue.FullyCreateQueue(nextUps, queued, TrackList.Instance.FirstOrDefault(t => t.Path == this.CurrentTrackPath));
+      queue.FullyCreateQueue(nextUps, queued, currentTrack);
       queue.CurrentTrack.SetProgress(this.Progress);
     }
 
@@ -43,7 +43,8 @@ namespace Music_Player.Models.Serializable {
       var tracks = new List<ITrack>();
 
       foreach (var path in paths) {
-        var song = TrackList.Instance.FirstOrDefault(t=> t.Path == path);
+        var id = path.GetHashCode();
+        var song = TrackList.Instance.FirstOrDefault(t=> t.Id == id);
         if (song != null)
           tracks.Add(song);
       }

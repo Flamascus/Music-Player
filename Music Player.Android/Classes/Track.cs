@@ -25,6 +25,8 @@ namespace Music_Player.Droid.Classes {
 
     private const string _DEFAULT_PIC_PATH = "record_new.png";
 
+    public int Id { get; }
+
     public ImageSource CoverSource {
       get {
 
@@ -50,7 +52,7 @@ namespace Music_Player.Droid.Classes {
     public string CombinedGenreName { get; }
 
 
-    private bool? hasPicture;
+    private bool? hasPicture;  
     private readonly File _file;
 
     public Track() { }
@@ -66,7 +68,8 @@ namespace Music_Player.Droid.Classes {
       this.ArtistNames = combinedArtistNames.Split('&').Select(a => a.Trim()).ToArray();
       this.Duration = duration;
       this.CombinedGenreName = combinedgenreNames;
-      this.GenreNames = combinedgenreNames.Split('/');     
+      this.GenreNames = combinedgenreNames.Split('/');
+      this.Id = this.Path.GetHashCode();
     }
 
     //todo: clean up
@@ -89,7 +92,7 @@ namespace Music_Player.Droid.Classes {
 
         var genreList = new List<string>();
 
-        foreach(var g in tGenres) {
+        foreach (var g in tGenres) {
           var splitted = g.Split('/');
           foreach (var s in splitted)
             genreList.Add(s.Trim());
@@ -121,7 +124,7 @@ namespace Music_Player.Droid.Classes {
           this.ArtistNames = new[] { combinedArtists };
           this.Duration = TimeSpan.Parse(reader.ExtractMetadata(MetadataKey.Duration));
 
-        } catch(Exception) {
+        } catch (Exception) {
           //set default values
           this.GenreNames = new[] { string.Empty }; //todo: check if null array also works;
           this.ArtistNames = new[] { string.Empty };
@@ -132,6 +135,7 @@ namespace Music_Player.Droid.Classes {
       this.Title = (title == null || title == string.Empty) ? file.Name : title.Trim();
       this.CombinedArtistNames = combinedArtists == null ? string.Empty : combinedArtists.Trim();
       this.CombinedGenreName = this._CreateCombinedGenreName(this.GenreNames);
+      this.Id = this.Path.GetHashCode();
     }
 
     //todo: shouldnt be done like this
@@ -170,8 +174,8 @@ namespace Music_Player.Droid.Classes {
       var stepSizeX = image.Width / steps;
       var stepSizeY = image.Height / steps;
 
-      for (var y = 0; y < image.Height; y+=stepSizeY)
-        for (var x = 0; x < image.Width; x+=stepSizeX) {
+      for (var y = 0; y < image.Height; y += stepSizeY)
+        for (var x = 0; x < image.Width; x += stepSizeX) {
           var newColor = image.GetXamColor(x, y);
 
           if (color.Saturation >= saturation) {

@@ -12,6 +12,7 @@ namespace Music_Player.Interfaces {
     string[] GenreNames { get; }
     string CombinedGenreName { get; }
     TimeSpan Duration { get; }
+    int Id { get; }
 
     ITrack Create(File file);
     ITrack Create(string path, string title, string combinedArtistNames, string combinedGenreNames, TimeSpan duration);

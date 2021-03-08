@@ -15,8 +15,6 @@ namespace Music_Player.Models {
 
     private static readonly INativeFeatures _nativeFeatures = DependencyService.Get<INativeFeatures>();
 
-    public float Progress { get; private set; }
-
     private static readonly string[] _supportedFormats
       = new string[] { ".mp3", ".aac", ".ogg", ".wma", ".alac", ".pcm", ".flac", ".wav" };
 
@@ -27,7 +25,6 @@ namespace Music_Player.Models {
         ? tracks
         : this._CreateTrackListFromFiles();
 
-      this.Progress = 1;
       this.IsLoading = false;
     }
 
@@ -49,10 +46,8 @@ namespace Music_Player.Models {
       var tracks = new List<ITrack>();
       var count = files.Count;
 
-      for (var i = 0; i < files.Count; ++i) {
-        this.Progress = (float)i / count;
-        tracks.Add(trackBuilder.Create(files[i]));
-      }
+      foreach (var file in files)
+        tracks.Add(trackBuilder.Create(file));
 
       tracks = tracks.OrderBy(t => t.Title).ToList();
       CacheManager.CacheTracks(tracks);

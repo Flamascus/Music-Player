@@ -8,7 +8,7 @@ namespace Music_Player.Services {
   //todo: implement
   public class Settings {
 
-    public static Settings Instance = _instance ?? (_instance = new Settings());
+    public static Settings Instance = _instance ??= new Settings();
 
     private static Settings _instance;
 

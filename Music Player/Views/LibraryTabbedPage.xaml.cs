@@ -17,7 +17,7 @@ namespace Music_Player.Views {
     }
 
     public void ShowPlayer(object _, TrackEventArgs __) {
-      this.stackLayout.Children.Add(new BottomTrackView());
+      Device.BeginInvokeOnMainThread(() => this.stackLayout.Children.Add(new BottomTrackView()));
       TrackQueue.Instance.NewSongSelected -= this.ShowPlayer;
     }
 

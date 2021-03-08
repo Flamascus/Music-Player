@@ -34,7 +34,7 @@
             </Image.GestureRecognizers>
           </Image>
         </Grid>
-        <Slider x:Name="Slider" DragCompleted="Slider_DragCompleted" Margin="0, 5, 0, 0"/>
+        <Slider x:Name="Slider" DragCompleted="_Slider_DragCompleted" Margin="0, 5, 0, 0"/>
       </StackLayout>
     </yummy:PancakeView>
   </ContentView.Content>

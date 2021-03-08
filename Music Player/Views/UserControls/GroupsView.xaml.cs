@@ -68,7 +68,7 @@ namespace Music_Player.Views.UserControls {
       this.lvGroups.IsVisible = !isLoading;
     }
 
-    public void lvItemTapped(object sender, ItemTappedEventArgs e) {
+    public void LvItemTapped(object sender, ItemTappedEventArgs e) {
       var lv = (ListView)sender;
 
       var group = (IDisplayGroup)lv.SelectedItem;

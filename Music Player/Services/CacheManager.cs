@@ -1,8 +1,11 @@
-﻿using Music_Player.Interfaces;
+﻿using Microsoft.AppCenter.Crashes;
+using Music_Player.Interfaces;
 using Music_Player.Models;
 using Music_Player.Models.Serializable;
 using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using Xamarin.Forms;
 

@@ -102,9 +102,23 @@ namespace Music_Player.Models {
 
     public void Play() {
       if (!this._wasPaused) {
-        this._mediaManager.Play(this.CurrentTrack.Path);
+        var progress = this.CurrentTrack.GetProgress();
+
+        if (progress != TimeSpan.Zero)
+          this._PlayAtTime(progress);
+        else
+          this._mediaManager.Play(this.CurrentTrack.Path);
+
       } else
         this._mediaManager.Play();
+    }
+
+    private void _PlayAtTime(TimeSpan time) {
+      var task = this._mediaManager.Extractor.CreateMediaItem(this.CurrentTrack.Path);
+      task.Wait();
+
+      this._mediaManager.Play(task.Result, time);
+      this._mediaManager.SeekTo(time);
     }
 
     public void Pause() {

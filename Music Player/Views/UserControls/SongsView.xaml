@@ -10,7 +10,7 @@
         <ListView.ItemTemplate>
           <DataTemplate>
             <ViewCell>
-              <usercontrols:SmallTrackView Track="{Binding .}" Tapped="TrackView_Tapped" OptionsTapped="_OptionsTapped"/>
+              <usercontrols:SmallTrackView Track="{Binding .}" Tapped="_TrackView_Tapped" OptionsTapped="_OptionsTapped"/>
             </ViewCell>
           </DataTemplate>
         </ListView.ItemTemplate>

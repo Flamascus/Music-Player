@@ -5,7 +5,7 @@
   <ContentView.Content>
     <StackLayout>
       <ActivityIndicator x:Name="activityIndicator" VerticalOptions="CenterAndExpand" IsVisible="False"/>
-      <ListView x:Name="lvGroups" ItemsSource="{Binding Groups}" RowHeight="60" ItemTapped="lvItemTapped">
+      <ListView x:Name="lvGroups" ItemsSource="{Binding Groups}" RowHeight="60" ItemTapped="LvItemTapped">
         <ListView.ItemTemplate>
           <DataTemplate>
             <TextCell Text="{Binding Name}" TextColor="{StaticResource Text}"

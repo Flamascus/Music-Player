@@ -15,9 +15,6 @@ using Xamarin.Forms;
 namespace Music_Player.Droid.Classes {
   public class NativeFeatures : INativeFeatures {
 
-    //private static string LocalPath => 
-
-
     private static string _externalPath => Environment.GetExternalStoragePublicDirectory(Environment.DirectoryDocuments).AbsolutePath;
     private static string _appPath => MainActivity.ApplicationContext.GetExternalFilesDir(null).AbsolutePath;
 

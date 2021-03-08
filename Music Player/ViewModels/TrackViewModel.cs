@@ -12,7 +12,6 @@ namespace Music_Player.ViewModels {
       get => this._track;
       set {
         this._track = value;
-        this._isPlaying = true;
         this.OnPropertyChanged(nameof(this.Title));
         this.OnPropertyChanged(nameof(this.Producer));
         this.OnPropertyChanged(nameof(this.CoverSource));
@@ -38,7 +37,7 @@ namespace Music_Player.ViewModels {
     private readonly TrackQueue _queue; 
     private ITrack _track;
 
-    public static TrackViewModel Instance = _instance ?? (_instance = new TrackViewModel());
+    public static TrackViewModel Instance = _instance ??= new TrackViewModel();
     private static TrackViewModel _instance;
 
     private TrackViewModel() {
@@ -95,6 +94,7 @@ namespace Music_Player.ViewModels {
 
     private void _OnNewSongSelected(object sender, TrackEventArgs args) {
       this.Track = args.Track;
+      this._isPlaying = true;
       this._GetColors();
     }
     

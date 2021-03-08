@@ -45,9 +45,11 @@ namespace Music_Player.Views {
     }
 
     private void _OnNewSongSelected(object _, TrackEventArgs __) {
-      if (!this.isSwipe)
-        this._SetCarouselIndex();
-      this._SetBarColors();
+      Device.BeginInvokeOnMainThread(() => {
+        if (!this.isSwipe)
+          this._SetCarouselIndex();
+        this._SetBarColors();
+      });
     }
 
     private void _SetCarouselIndex() {      

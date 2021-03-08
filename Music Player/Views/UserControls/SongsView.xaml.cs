@@ -58,7 +58,7 @@ namespace Music_Player.Views.UserControls {
 
     public List<ITrack> Tracks { get; }
 
-    private void TrackView_Tapped(object sender, EventArgs e) {
+    private void _TrackView_Tapped(object sender, EventArgs e) {
       var trackView = (SmallTrackView)sender;
       this._model.OnTrackTapped(trackView.Track);
     }
