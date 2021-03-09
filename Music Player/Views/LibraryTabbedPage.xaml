@@ -32,7 +32,7 @@
         </xct:TabViewItem>
 
         <xct:TabViewItem Text="Playlists" TextColor="{StaticResource Text}" TextColorSelected="{StaticResource Accent}">
-          <Label Text="to be implemented.."></Label>
+          <usercontrols:GroupsView GroupType="Playlists"/>
         </xct:TabViewItem>
       </xct:TabView>
     </StackLayout>

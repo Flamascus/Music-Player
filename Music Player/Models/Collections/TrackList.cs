@@ -31,7 +31,6 @@ namespace Music_Player.Models {
     private List<ITrack> _CreateTrackListFromFiles() {
       var settings = Settings.Instance;
       var nativeFeatures = _nativeFeatures;
-      //var path = nativeFeatures.MusicLibaryPath + "/music4phone" + "/folder 28";
       var path = settings.MusicDirectory;
 
       if (!nativeFeatures.DirectoryExists(path))

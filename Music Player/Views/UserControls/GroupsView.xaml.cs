@@ -7,6 +7,7 @@ using Xamarin.Forms;
 using System;
 using Xamarin.Forms.Xaml;
 using System.Linq;
+using Music_Player.Models.Collections;
 
 namespace Music_Player.Views.UserControls {
   [XamlCompilation(XamlCompilationOptions.Compile)]
@@ -30,9 +31,11 @@ namespace Music_Player.Views.UserControls {
       this.BindingContext = model;
     }
 
+    //todo: find a way to remove duplicate code
     private void _SetGroupType(GroupType groupType) {
       var artists = ArtistList.Instance;
       var genres = GenreList.Instance;
+      var playlists = PlaylistList.Instance;
 
       switch (groupType) {
         case GroupType.Artists:
@@ -49,6 +52,14 @@ namespace Music_Player.Views.UserControls {
             genres.FinishedLoading += this._FinishedLoading;
           } else
             this._model.Groups = genres.Select(g => (IDisplayGroup)g).ToList();
+          break;
+
+        case GroupType.Playlists:
+          if (playlists.IsLoading) {
+            this._ShowLoading();
+            playlists.FinishedLoading += this._FinishedLoading;
+          } else
+            this._model.Groups = playlists.Select(g => (IDisplayGroup)g).ToList();
           break;
 
         default:

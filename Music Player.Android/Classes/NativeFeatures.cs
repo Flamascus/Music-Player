@@ -82,6 +82,9 @@ namespace Music_Player.Droid.Classes {
     public string ReadAppFile(string fileName, bool useInternalPath = true) {
       var path = Path.Combine(_GetDirectoryString(useInternalPath), fileName);
 
+      if (!File.Exists(path))
+        return null;
+
       return File.ReadAllText(path);
 
       //using var stream = File.Create(path);

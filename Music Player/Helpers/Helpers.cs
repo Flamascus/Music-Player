@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Music_Player.Interfaces;
+using Music_Player.Models;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -39,8 +41,8 @@ namespace Music_Player.Helpers {
     }
 
     public static void Write(string path, string content) {
-      using (var writer = new StreamWriter(GetStream(path)))
-        writer.Write(content);
+      using var writer = new StreamWriter(GetStream(path));
+      writer.Write(content);
     }
 
     public static void Shuffle<T>(this List<T> @this) {
@@ -59,6 +61,19 @@ namespace Music_Player.Helpers {
       var item = @this.FirstOrDefault();
       @this.RemoveAt(0);
       return item;
+    }
+
+    public static List<ITrack> CreateTracklistFromPaths(string[] paths) {
+      var tracks = new List<ITrack>();
+
+      foreach (var path in paths) {
+        var id = path.GetHashCode();
+        var song = TrackList.Instance.FirstOrDefault(t => t.Id == id);
+        if (song != null)
+          tracks.Add(song);
+      }
+
+      return tracks;
     }
 
   }

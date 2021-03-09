@@ -4,6 +4,8 @@
     AddToQueue,
     AddToEndOfQueue,
     RemoveFromQueue,
+    AddToPlaylist,
+    RemoveFromPlaylist,
     GoToArtist,
     GoToAlbum,
     Details

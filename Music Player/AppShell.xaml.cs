@@ -1,5 +1,6 @@
 ﻿using Music_Player.Interfaces;
 using Music_Player.Models;
+using Music_Player.Models.Collections;
 using Music_Player.Services;
 using System;
 using System.Threading.Tasks;
@@ -12,10 +13,12 @@ namespace Music_Player {
 
       DependencyService.Get<INativeFeatures>().RequestPerimissions();
 
+      //todo: make inits static and put together with instance creation
       Task.Run(() => {
         TrackList.Instance.Init();
         GenreList.Instance.Init();
         ArtistList.Instance.Init();
+        PlaylistList.Instance.Init();
         CacheManager.TryReadQueueCache();
       });
     }

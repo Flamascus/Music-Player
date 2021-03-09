@@ -6,20 +6,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Settings\genreCache.txt" />
-    <None Remove="Settings\genres.txt" />
-    <None Remove="Settings\trackCache.txt" />
+    <None Remove="Settings\id3genres.txt" />
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="Settings\genreCache.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Settings\genres.txt">
+    <EmbeddedResource Include="Settings\id3genres.txt">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Settings\trackCache.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
   </ItemGroup>
 

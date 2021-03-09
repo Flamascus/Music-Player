@@ -8,7 +8,7 @@ namespace Music_Player.Models {
     private static string[] _id3Genres {
       get {
         if (__id3Genres == null)
-          __id3Genres = ReadAllLines("Settings.genres.txt");
+          __id3Genres = ReadAllLines("Settings.id3genres.txt");
 
         return __id3Genres;
        }
