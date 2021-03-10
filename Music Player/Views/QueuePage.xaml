@@ -10,7 +10,7 @@
         <BoxView BackgroundColor="{StaticResource Back2}" HeightRequest="2"/>
         <Label Text="Currently Playing:" FontAttributes="Bold"/>
         <usercontrols:SmallTrackView Track="{Binding CurrentTrack}"
-                                     OptionsTapped="_OptionsTapped"/>
+                                     OptionsTapped="_CurrentTrackOptionsTapped"/>
 
         <StackLayout IsVisible="{Binding NextUpsVisible}">
           <BoxView BackgroundColor="{StaticResource Back2}" HeightRequest="2"/>

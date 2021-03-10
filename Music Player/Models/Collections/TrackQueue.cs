@@ -87,6 +87,17 @@ namespace Music_Player.Models {
       this._ReloadFullQueue();
     }
 
+    /// <summary>
+    /// Removes first occurence of this track
+    /// </summary>
+    /// <param name="track">The track</param>
+    public void Remove(ITrack track) {
+      if (!this.NextUpTracks.Remove(track))
+        this.QueuedTracks.Remove(track);
+
+      this._ReloadFullQueue();
+    }
+
     private void _ReloadFullQueue() {
       //var tracks = new List<ITrack>(this.TrackHistory) { this.CurrentTrack };
       var tracks = new List<ITrack> { this.CurrentTrack };

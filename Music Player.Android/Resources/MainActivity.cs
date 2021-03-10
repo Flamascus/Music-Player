@@ -2,7 +2,6 @@
 using Android.Content.PM;
 using Android.Runtime;
 using Music_Player.Droid.Classes;
-using Music_Player.Services;
 using System.IO;
 using System.Diagnostics;
 using Android.OS;
@@ -10,6 +9,7 @@ using System;
 using Environment = System.Environment;
 using System.Threading.Tasks;
 using Microsoft.AppCenter.Crashes;
+using Microsoft.AppCenter.Distribute;
 
 namespace Music_Player.Droid {
   [Activity(Label = "Music Player", Icon = "@drawable/logo", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation | ConfigChanges.UiMode | ConfigChanges.ScreenLayout | ConfigChanges.SmallestScreenSize)]
@@ -34,6 +34,7 @@ namespace Music_Player.Droid {
 
       Xamarin.Essentials.Platform.Init(this, savedInstanceState);
       global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
+      Distribute.SetEnabledAsync(true);
       this._DisplayCrashReport();
       this.LoadApplication(new App());
     }
@@ -56,8 +57,7 @@ namespace Music_Player.Droid {
 
     internal static void LogUnhandledException(Exception exception) {
       try {
-        if (Settings.Instance.SendReportsEnabled)
-          Crashes.TrackError(exception);
+        Crashes.TrackError(exception);
 
         const string errorFileName = "Fatal.log";
         var libraryPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal); // iOS: Environment.SpecialFolder.Resources

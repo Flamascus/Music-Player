@@ -15,7 +15,7 @@ namespace Music_Player.Models {
 
       foreach (var track in tracks)
         foreach (var artist in track.ArtistNames) {
-          if (!allArtistNames.Any(g => g.Equals(artist, StringComparison.OrdinalIgnoreCase)))
+          if (!allArtistNames.Any(a => a.Equals(artist, StringComparison.OrdinalIgnoreCase)))
             allArtistNames.Add(artist);
         }
 

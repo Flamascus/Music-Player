@@ -36,8 +36,8 @@ namespace Music_Player.Helpers {
     }
 
     public static string ReadFile(string path) {
-      using (var reader = new StreamReader(GetStream(path)))
-        return reader.ReadToEnd();
+      using var reader = new StreamReader(GetStream(path));
+      return reader.ReadToEnd();
     }
 
     public static void Write(string path, string content) {
@@ -72,8 +72,14 @@ namespace Music_Player.Helpers {
         if (song != null)
           tracks.Add(song);
       }
-
       return tracks;
+    }
+
+    public static T[] MergeArrays<T>(T[] array1, T[] array2) {
+      var newArray = new T[array1.Length + array2.Length];
+      Array.Copy(array1, newArray, array1.Length);
+      Array.Copy(array2, 0, newArray, array1.Length, array2.Length);
+      return newArray;
     }
 
   }

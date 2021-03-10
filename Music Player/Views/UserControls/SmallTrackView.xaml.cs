@@ -22,8 +22,8 @@ namespace Music_Player.Views.UserControls {
     public event EventHandler<EventArgs> OptionsTapped;  
 
     public ITrack Track {
-      get => (ITrack)GetValue(TrackProperty);
-      set => SetValue(TrackProperty, value);
+      get => (ITrack)this.GetValue(TrackProperty);
+      set => this.SetValue(TrackProperty, value);
     }
 
     private ITrack _track; //todo: can be deleted probably
