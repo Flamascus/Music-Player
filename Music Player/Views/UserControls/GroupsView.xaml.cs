@@ -35,6 +35,7 @@ namespace Music_Player.Views.UserControls {
     private void _SetGroupType(GroupType groupType) {
       var artists = ArtistList.Instance;
       var genres = GenreList.Instance;
+      var albums = AlbumList.Instance;
       var playlists = PlaylistList.Instance;
 
       switch (groupType) {
@@ -52,6 +53,14 @@ namespace Music_Player.Views.UserControls {
             genres.FinishedLoading += this._FinishedLoading;
           } else
             this._model.Groups = genres.Select(g => (IDisplayGroup)g).ToList();
+          break;
+
+        case GroupType.Albums:
+          if (albums.IsLoading) {
+            this._ShowLoading();
+            albums.FinishedLoading += this._FinishedLoading;
+          } else
+            this._model.Groups = albums.Select(g => (IDisplayGroup)g).ToList();
           break;
 
         case GroupType.Playlists:

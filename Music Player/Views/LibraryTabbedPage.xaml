@@ -28,11 +28,15 @@
         </xct:TabViewItem>
 
         <xct:TabViewItem Text="Albums" TextColor="{StaticResource Text}" TextColorSelected="{StaticResource Accent}">
-          <Label Text="to be implemented.."></Label>
+          <usercontrols:GroupsView GroupType="Albums"/>
         </xct:TabViewItem>
 
         <xct:TabViewItem Text="Playlists" TextColor="{StaticResource Text}" TextColorSelected="{StaticResource Accent}">
           <usercontrols:GroupsView GroupType="Playlists"/>
+        </xct:TabViewItem>
+
+        <xct:TabViewItem Text="Folders" TextColor="{StaticResource Text}" TextColorSelected="{StaticResource Accent}">
+          <Label>Not yet implemented..</Label>
         </xct:TabViewItem>
       </xct:TabView>
     </StackLayout>

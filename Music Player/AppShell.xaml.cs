@@ -18,6 +18,7 @@ namespace Music_Player {
         TrackList.Instance.Init();
         GenreList.Instance.Init();
         ArtistList.Instance.Init();
+        AlbumList.Instance.Init();
         PlaylistList.Instance.Init();
         CacheManager.TryReadQueueCache();
       });

@@ -2,6 +2,8 @@
   public enum GroupType {
     Artists,
     Genres,
-    Playlists
+    Albums,
+    Playlists,
+    Folders
   }
 }

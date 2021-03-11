@@ -13,9 +13,10 @@ namespace Music_Player.Interfaces {
     string CombinedGenreName { get; }
     TimeSpan Duration { get; }
     int Id { get; }
+    string Album { get; }
 
     ITrack Create(File file);
-    ITrack Create(string path, string title, string combinedArtistNames, string combinedGenreNames, TimeSpan duration);
+    ITrack Create(string path, string title, string combinedArtistNames, string combinedGenreNames, string album, TimeSpan duration);
     Color GetImageColor();
     TimeSpan GetProgress();
     double GetProgressPercent();
