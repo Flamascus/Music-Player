@@ -1,10 +1,10 @@
 ﻿using Music_Player.Droid.Classes;
-using Music_Player.Interfaces;
-using System.Collections.Generic;
 using static Music_Player.Helpers.Helpers;
 
 namespace Music_Player.Models {
   public class Genre : ADisplayGroup {
+
+    public const char SEPARATOR = '/';
 
     private static string[] _id3Genres {
       get {

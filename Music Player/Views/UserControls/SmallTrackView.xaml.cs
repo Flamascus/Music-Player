@@ -38,7 +38,7 @@ namespace Music_Player.Views.UserControls {
       control._track = track;
       control.lblTitle.Text = track.Title;
       control.lblArtists.Text = track.ArtistString;
-      control.imgCover.Source = track.CoverSource;
+      control.imgCover.Source = track.Cover.Source;
     }
 
     public SmallTrackView() {

@@ -1,14 +1,11 @@
 ﻿using Android.Media;
 using MediaManager;
 using Music_Player.Droid.Classes;
-using Music_Player.Interfaces;
 using Music_Player.Models;
 using Music_Player.Models.DisplayGroup;
 using System;
-using System.IO;
 using System.Linq;
 using Xamarin.Forms;
-using Color = Xamarin.Forms.Color;
 using File = Java.IO.File;
 
 [assembly: Dependency(typeof(Track))]
@@ -20,74 +17,31 @@ namespace Music_Player.Droid.Classes {
 
     public Artist[] Artists { get; set; }
 
-    public string ArtistString => string.Join(" & ", this.Artists.Select(a => a.Name));
+    public string ArtistString => string.Join(Artist.SEPARATOR, this.Artists.Select(a => a.Name));
 
     public Genre[] Genres { get; set; }
 
-    //todo: use separatorString
-    public string GenreString => string.Join(" / ", this.Artists.Select(a => a.Name));
+    //todo: use separatorString, cache
+    public string GenreString => string.Join(Genre.SEPARATOR, this.Artists.Select(a => a.Name));
 
-    public Album Album { get; set; }
-    
+    public Album Album { get; set; }  
     public TimeSpan Duration { get; }   
-
     public int Id { get; }
+    public Cover Cover { get; }
 
-    public ImageSource CoverSource {
-      get {
 
-        //first time called code
-        if (this.hasPicture == null) {
-          var source = this._GetImageSource();
-          if (source == null) {
-            this.hasPicture = false;
-            return ImageSource.FromFile(_DEFAULT_PIC_PATH);
-          } else {
-            this.hasPicture = true;
-            return source;
-          }
-        }
-
-        return this.hasPicture.Value ? this._GetImageSource() : ImageSource.FromFile(_DEFAULT_PIC_PATH);
-      }
-    }
-
-    private bool? hasPicture;  
     private readonly File _file;
-    private const string _DEFAULT_PIC_PATH = "record_new.png";
+    
 
-    //simple initializer
     //todo: put this into serialTrack instead?
     public Track(SerializableTrack serialTrack) {
       this._file = new File(serialTrack.Path);
+      this.Cover = new Cover(this._file);
       this.Title = serialTrack.Title;
       this.Duration = serialTrack.Duration;
       this.Id = this.Path.GetHashCode();
     }
 
-    private ImageSource _GetImageSource() {
-      var bytes = this._GetBytes();
-
-      if (bytes == null) //todo: this is maybe not needed at all
-        return null;
-
-      return ImageSource.FromStream(() => new MemoryStream(bytes));
-    }
-
-    private byte[] _GetBytes() {
-      var reader = new MediaMetadataRetriever();
-      reader.SetDataSource(this._file.Path);
-      return reader.GetEmbeddedPicture();
-    }
-
-    //todo: only calculate this one time
-    public Color GetImageColor() {
-      if (this.hasPicture == null || !this.hasPicture.Value)
-        return Color.FromHex("#8dd3c8");
-
-      var nativeFeatures = DependencyService.Get<INativeFeatures>();
-      return nativeFeatures.CalculateImageColor(this._GetBytes());
-    }
 
     public void JumpToPercent(double value) {
       var duration = this.Duration;

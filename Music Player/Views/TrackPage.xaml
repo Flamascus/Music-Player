@@ -50,27 +50,14 @@
                      IsClippedToBounds="True"
                      BackgroundColor="Transparent">
                 <Image x:Name="Cover"
-                       Source="{Binding CoverSource}"
+                       Source="{Binding Cover.Source}"
                        Aspect="AspectFill"/>
               </Frame>
             </DataTemplate>
           </CarouselView.ItemTemplate>
         </CarouselView>
-        <!--<Frame CornerRadius="30" 
-               Padding="0"
-               HorizontalOptions="Start"
-               WidthRequest="300"
-               HeightRequest="300"
-               IsClippedToBounds="True"             
-               BackgroundColor="Transparent"
-               Grid.Column="0"
-               Grid.RowSpan="2">
-            <Image x:Name="Cover"
-                 Source="{Binding CoverSource}"
-                 Aspect="AspectFill"/>
-          </Frame>-->
 
-        <Label Text="{Binding Title}" FontSize="Large"  HorizontalOptions="Center"/>
+        <Label Text="{Binding Title}" FontSize="Large" HorizontalOptions="Center" LineBreakMode="TailTruncation"/>
         <Label Text="{Binding Producer}" FontSize="Medium" HorizontalOptions="Center"/>
         <Slider x:Name="Slider" DragCompleted="_Slider_DragCompleted"/>
 

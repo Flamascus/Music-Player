@@ -8,9 +8,7 @@ using Xamarin.Forms;
 using File = Java.IO.File;
 
 namespace Music_Player.Services {
-  public class FileReader {
-    
-    public const char _GENRE_SEPERATOR = '/';
+  public class FileReader {    
 
     private static readonly string[] _supportedFormats
       = new string[] { ".mp3", ".aac", ".ogg", ".wma", ".alac", ".pcm", ".flac", ".wav" };
@@ -77,7 +75,7 @@ namespace Music_Player.Services {
         var genreList = new List<string>();
 
         foreach (var g in tGenres) {
-          var splitted = g.Split(_GENRE_SEPERATOR);
+          var splitted = g.Split(Genre.SEPARATOR);
           foreach (var s in splitted)
             genreList.Add(s.Trim());
         }

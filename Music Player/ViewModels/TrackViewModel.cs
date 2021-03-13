@@ -24,7 +24,7 @@ namespace Music_Player.ViewModels {
 
     public string Title => this.Track.Title;
     public string Producer => this.Track.ArtistString;
-    public ImageSource CoverSource => this.Track.CoverSource;
+    public ImageSource CoverSource => this.Track.Cover.Source;
     public string PlayPauseImageSource => this._isPlaying ? "pause.png" : "play.png";
     public string ShuffleImageSource => this._queue.IsShuffle ? "shuffle_selected.png" : "shuffle.png";
 
@@ -56,7 +56,7 @@ namespace Music_Player.ViewModels {
     }
 
     private void _GetColors() {
-      var color = this._track.GetImageColor();
+      var color = this._track.Cover.GetDominantColor();
 
       if (color.R == 0 && color.G == 0 && color.B == 0) {
         this.Color = Color.DimGray;
