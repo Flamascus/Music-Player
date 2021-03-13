@@ -91,7 +91,6 @@
   <ItemGroup>
     <Compile Include="Classes\Helpers.cs" />
     <Compile Include="Classes\NativeFeatures.cs" />
-    <Compile Include="Classes\Track.cs" />
     <Compile Include="Resources\MainActivity.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

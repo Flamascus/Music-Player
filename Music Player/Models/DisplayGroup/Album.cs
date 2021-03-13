@@ -1,10 +1,10 @@
-﻿using Music_Player.Interfaces;
-using System.Collections.Generic;
+﻿using Music_Player.Droid.Classes;
+using Music_Player.Interfaces;
 
 namespace Music_Player.Models.DisplayGroup {
-  public class Album : ADisplayGroup {
+  public class Album : ADisplayGroup, IDisplayGroup {
 
-    public Album(string name, ITrack track) : base(name, track) { }
-    public Album(string name, List<ITrack> tracks) : base(name, tracks) { }
+    public Album(string name, Track track) : base(name, track) { }
+
   }
 }

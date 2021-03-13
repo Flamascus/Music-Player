@@ -1,6 +1,6 @@
-﻿using Music_Player.Enums;
+﻿using Music_Player.Droid.Classes;
+using Music_Player.Enums;
 using Music_Player.Helpers;
-using Music_Player.Interfaces;
 using Music_Player.Models.DisplayGroup;
 using Music_Player.Services;
 using System.Collections.Generic;
@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace Music_Player.Models.Collections {
 
   //todo: dont use readonly here
-  public class PlaylistList : AReadOnlyList<Playlist> {
+  public class PlaylistList : LoadableList<Playlist> {
 
     public static PlaylistList Instance = new PlaylistList();
     private PlaylistList() { }
@@ -22,7 +22,7 @@ namespace Music_Player.Models.Collections {
     }
 
     //todo: not sure if this actually belongs here
-    public async void DisplayAddMenuAsync(ITrack track) {
+    public async void DisplayAddMenuAsync(Track track) {
       var cancelString = "Cancel";
       var createPlaylistString = "New playlist..";
       var optionStrings = new List<string> { createPlaylistString };
@@ -42,13 +42,13 @@ namespace Music_Player.Models.Collections {
       CacheManager.CachePlaylists();
     }
 
-    private async Task _CreatePlaylistAsync(ITrack track) {
+    private async Task _CreatePlaylistAsync(Track track) {
       var name = await App.Current.MainPage.DisplayPromptAsync("New playlist", "Enter playlist name:");
       if (name == null || name == "Cancel")
         return;
 
       var items = this.items;
-      var newItems = new List<Playlist> { new Playlist(name, new List<ITrack> { track })};
+      var newItems = new List<Playlist> { new Playlist(name, new List<Track> { track })};
       newItems.AddRange(items);
       this.items = newItems;
     }

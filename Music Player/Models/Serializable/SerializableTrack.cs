@@ -1,33 +1,28 @@
-﻿using Music_Player.Interfaces;
+﻿using Music_Player.Droid.Classes;
 using System;
-using Xamarin.Forms;
+using System.Linq;
 
 namespace Music_Player.Models {
   public class SerializableTrack {
 
-    public string Path { get; }
-    public string Title { get; }
-    public string CombinedArtistNames { get; }
-    public string CombinedGenreNames { get; }
-    public string Album { get; }
+    public string Path { get; set; }
+    public string Title { get; set; }
+    public string[] Artists { get; set; }
+    public string[] Genres { get; set; }
 
-    public TimeSpan Duration { get; }
+    public string Album { get; set; }
+    public TimeSpan Duration { get; set; }
 
-    public SerializableTrack(string path, string title, string combinedArtistNames, string combinedGenreNames, string album, TimeSpan duration) {
-      this.Path = path;
-      this.Title = title;
-      this.CombinedArtistNames = combinedArtistNames;
-      this.CombinedGenreNames = combinedGenreNames;
-      this.Duration = duration;
-      this.Album = album;
-    }
+    public static SerializableTrack FromTrack(Track track) => new SerializableTrack() {
+      Path = track.Path,
+      Title = track.Title,
+      Artists = track.Artists.Select(a => a.Name).ToArray(),
+      Genres = track.Genres.Select(g => g.Name).ToArray(),
+      Album = track.Album.Name,
+      Duration = track.Duration
+    };
 
-    public static SerializableTrack FromTrack(ITrack track)
-      => new SerializableTrack(track.Path, track.Title, track.CombinedArtistNames, track.CombinedGenreName, track.Album, track.Duration);
+    public override string ToString() => this.Path;
 
-    public ITrack ToTrack() {
-      var builder = DependencyService.Get<ITrack>();
-      return builder.Create(this.Path, this.Title, this.CombinedArtistNames, this.CombinedGenreNames, this.Album, this.Duration);
-    }
   }
 }

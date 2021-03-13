@@ -1,4 +1,5 @@
-﻿using Music_Player.Interfaces;
+﻿using Music_Player.Droid.Classes;
+using Music_Player.Interfaces;
 using System.Collections.Generic;
 using static Music_Player.Helpers.Helpers;
 
@@ -19,7 +20,7 @@ namespace Music_Player.Models {
 
     private static string[] __id3Genres;
 
-    public Genre(string name, List<ITrack> tracks) : base(name, tracks) { }
+    public Genre(string name, Track track) : base(name, track) { }
 
     public static string TranslateId3Genre(string name) {
       if (name.StartsWith("(") && name.EndsWith(")")) {

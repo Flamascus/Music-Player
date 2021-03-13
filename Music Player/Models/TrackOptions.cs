@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Music_Player.Droid.Classes;
 using Music_Player.Enums;
-using Music_Player.Interfaces;
 using Music_Player.Models.Collections;
 using Music_Player.Views;
 
@@ -33,7 +33,7 @@ namespace Music_Player.Models {
       TrackOption.GoToArtist
     };
 
-    private static void _ExecuteOption(TrackOption option, ITrack track) {
+    private static void _ExecuteOption(TrackOption option, Track track) {
       var queue = TrackQueue.Instance;
       var playlist = PlaylistList.Instance;
 
@@ -61,9 +61,8 @@ namespace Music_Player.Models {
         case TrackOption.RemoveFromPlaylist:
           throw new NotImplementedException();
 
-        case TrackOption.GoToArtist:
-          //todo: implement artist as field in track
-          var artist = ArtistList.Instance.FirstOrDefault(a => a.Name == track.ArtistNames.First());
+        case TrackOption.GoToArtist: //todo: error handling when no artist available
+          var artist = track.Artists.FirstOrDefault();
           App.Current.MainPage.Navigation.PushAsync(new GroupPage(artist.Tracks, artist.Name));
           break;
 
@@ -78,7 +77,7 @@ namespace Music_Player.Models {
       }
     }
 
-    private static async Task _DisplayOptionsAsync(ITrack track, params TrackOption[] options) {
+    private static async Task _DisplayOptionsAsync(Track track, params TrackOption[] options) {
       var dic = OptionTexts;
       var cancelString = "Cancel";
       var texts = new string[options.Length];
@@ -95,7 +94,7 @@ namespace Music_Player.Models {
       _ExecuteOption(dic.First(p => p.Value == selectText).Key, track);
     }
 
-    public static async Task DisplayBasicOptionsAsync(ITrack track) 
+    public static async Task DisplayBasicOptionsAsync(Track track) 
       => await _DisplayOptionsAsync(track, BasicOptions);
 
     /// <summary>
@@ -104,7 +103,7 @@ namespace Music_Player.Models {
     /// <param name="track">the track to apply this option on</param>
     /// <param name="options">the additional options</param>
     /// <returns></returns>
-    public static async Task DisplaySpecialOptionsAsync(ITrack track, params TrackOption[] options) {
+    public static async Task DisplaySpecialOptionsAsync(Track track, params TrackOption[] options) {
       var newArray = Helpers.Helpers.MergeArrays(BasicOptions, options);
       await _DisplayOptionsAsync(track, newArray);
     }

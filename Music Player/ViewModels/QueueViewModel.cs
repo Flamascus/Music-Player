@@ -1,4 +1,4 @@
-﻿using Music_Player.Interfaces;
+﻿using Music_Player.Droid.Classes;
 using Music_Player.Models;
 using Music_Player.Services;
 using System.Collections.Generic;
@@ -7,16 +7,16 @@ using System.Linq;
 namespace Music_Player.ViewModels {
   public class QueueViewModel : ANotifyPropertyChanged {
 
-    public ITrack CurrentTrack => this._queue.CurrentTrack;
+    public Track CurrentTrack => this._queue.CurrentTrack;
 
     private readonly TrackQueue _queue;
 
     //todo: need to find better way than just copying the lists
-    public List<ITrack> NextUpTracks => new List<ITrack>(this._queue.NextUpTracks);
-    public List<ITrack> QueuedTracks {
+    public List<Track> NextUpTracks => new List<Track>(this._queue.NextUpTracks);
+    public List<Track> QueuedTracks {
       get {
         return this._queue.QueuedTracks.Count <= 20
-          ? new List<ITrack>(this._queue.QueuedTracks)
+          ? new List<Track>(this._queue.QueuedTracks)
           : this._queue.QueuedTracks.GetRange(0, 20);
       }
     }

@@ -1,4 +1,5 @@
-﻿using Music_Player.Interfaces;
+﻿using Music_Player.Droid.Classes;
+using Music_Player.Interfaces;
 using Music_Player.Models;
 using Music_Player.Services;
 using System;
@@ -8,11 +9,11 @@ using System.Linq;
 namespace Music_Player.ViewModels {
   class SongsViewModel : ANotifyPropertyChanged, ILoadable {
 
-    private List<ITrack> _tracks;
+    private List<Track> _tracks;
 
     public event EventHandler<EventArgs> FinishedLoading;
 
-    public List<ITrack> Tracks {
+    public List<Track> Tracks {
       get => this._tracks;
       set {
         this.OnPropertyChanged();
@@ -46,13 +47,13 @@ namespace Music_Player.ViewModels {
       this.IsLoading = false;
     }
 
-    public SongsViewModel(List<ITrack> tracks) {
+    public SongsViewModel(List<Track> tracks) {
       this.Tracks = tracks;
     }
 
-    public void OnTrackTapped(ITrack track) {
+    public void OnTrackTapped(Track track) {
       var trackQueue = TrackQueue.Instance;
-      var queue = new List<ITrack>();
+      var queue = new List<Track>();
       var tracks = this.Tracks;
       var index = tracks.IndexOf(track);
 

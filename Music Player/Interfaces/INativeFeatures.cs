@@ -19,5 +19,6 @@ namespace Music_Player.Interfaces {
     void WriteAppFile(string fileName, string content, bool useInternalPath = true);
     void SetFullScreen();
     bool DirectoryExists(string path);
+    Color CalculateImageColor(byte[] bytes);
   }
 }

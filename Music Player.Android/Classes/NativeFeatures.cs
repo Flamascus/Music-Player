@@ -1,5 +1,8 @@
 ﻿using Android;
 using Android.Content.PM;
+using AColor = Android.Graphics.Color;
+using XColor = Xamarin.Forms.Color;
+using Path = System.IO.Path;
 using Android.OS;
 using AndroidX.Core.App;
 using AndroidX.Core.Content;
@@ -10,6 +13,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Forms;
+using Android.Graphics;
 
 [assembly: Dependency(typeof(NativeFeatures))]
 namespace Music_Player.Droid.Classes {
@@ -92,11 +96,11 @@ namespace Music_Player.Droid.Classes {
       //return reader.ReadToEnd();
     }
 
-    public void SetStatusBarColor(Color color) {
+    public void SetStatusBarColor(XColor color) {
       MainActivity.Window.SetStatusBarColor(_ToAndroidColor(color));
     }
 
-    public void SetNavigationBarColor(Color color) {
+    public void SetNavigationBarColor(XColor color) {
       MainActivity.Window.SetNavigationBarColor(_ToAndroidColor(color));
     }
 
@@ -104,8 +108,8 @@ namespace Music_Player.Droid.Classes {
       MainActivity.Window.AddFlags(Android.Views.WindowManagerFlags.Fullscreen);
     }
 
-    private static Android.Graphics.Color _ToAndroidColor(Color color) {
-      return Android.Graphics.Color.Argb(
+    private static AColor _ToAndroidColor(XColor color) {
+      return AColor.Argb(
         (int)(255 * color.A),
         (int)(255 * color.R),
         (int)(255 * color.G),
@@ -114,6 +118,27 @@ namespace Music_Player.Droid.Classes {
     }
 
     public bool DirectoryExists(string path) => Directory.Exists(path);
+
+    public XColor CalculateImageColor(byte[] bytes) {
+      var image = BitmapFactory.DecodeStream(new MemoryStream(bytes));
+      double saturation = 0;
+      var color = image.GetXamColor(0, 0);
+      var steps = 5;
+      var stepSizeX = image.Width / steps;
+      var stepSizeY = image.Height / steps;
+
+      for (var y = 0; y < image.Height; y += stepSizeY)
+        for (var x = 0; x < image.Width; x += stepSizeX) {
+          var newColor = image.GetXamColor(x, y);
+
+          if (color.Saturation >= saturation) {
+            saturation = newColor.Saturation;
+            color = newColor;
+          }
+        }
+
+      return color;
+    }
 
   }
 }

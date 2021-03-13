@@ -1,4 +1,5 @@
-﻿using Music_Player.Interfaces;
+﻿using Music_Player.Droid.Classes;
+using Music_Player.Interfaces;
 using Music_Player.Models;
 using Music_Player.Models.Collections;
 using Music_Player.Models.DisplayGroup;
@@ -18,30 +19,21 @@ namespace Music_Player.Services {
 
     private static readonly INativeFeatures _nativeFeatures = DependencyService.Get<INativeFeatures>();
 
-    public static void CacheTracks(List<ITrack> tracks) {
-      var serialTracks = new SerializableTrack[tracks.Count];
-
-      for (var i = 0; i < tracks.Count; ++i)
-        serialTracks[i] = SerializableTrack.FromTrack(tracks[i]);
-
-      var serializedObjects = JsonConvert.SerializeObject(serialTracks);
+    public static void CacheTracks(SerializableTrack[] tracks) {
+      var serializedObjects = JsonConvert.SerializeObject(tracks);
       _nativeFeatures.WriteAppFile(_TRACK_CACHE_FILE_NAME, serializedObjects);
     }
 
-    public static bool TryReadTrackCache(out List<ITrack> tracks) {
-      tracks = null;
+    public static bool TryReadTrackCache(out SerializableTrack[] serialTracks) {
+      serialTracks = null;
       var text = _nativeFeatures.ReadAppFile(_TRACK_CACHE_FILE_NAME);
 
       if (text == null)
         return false;
 
-      var serialTracks = JsonConvert.DeserializeObject<SerializableTrack[]>(text);
+      serialTracks = JsonConvert.DeserializeObject<SerializableTrack[]>(text);
 
-      if (serialTracks == null)
-        return false;
-
-      tracks = serialTracks.Select(s => s.ToTrack()).ToList();
-      return true;
+      return serialTracks != null;
     }
 
     public static void CacheQueue() {

@@ -1,6 +1,6 @@
 ﻿using MediaManager;
+using Music_Player.Droid.Classes;
 using Music_Player.Helpers;
-using Music_Player.Interfaces;
 using Music_Player.Services;
 using System;
 using System.Collections.Generic;
@@ -12,12 +12,12 @@ namespace Music_Player.Models {
 
     public event EventHandler<TrackEventArgs> NewSongSelected;
 
-    public List<ITrack> NextUpTracks { get; private set; } = new List<ITrack>();
-    public List<ITrack> QueuedTracks { get; private set; } = new List<ITrack>();
-    //public List<ITrack> TrackHistory { get; private set; } = new List<ITrack>(); //todo: implement properly!
-    public List<ITrack> AllTracks { get; private set; } = new List<ITrack>();
+    public List<Track> NextUpTracks { get; private set; } = new List<Track>();
+    public List<Track> QueuedTracks { get; private set; } = new List<Track>();
+    //public List<Track> TrackHistory { get; private set; } = new List<Track>(); //todo: implement properly!
+    public List<Track> AllTracks { get; private set; } = new List<Track>();
 
-    public ITrack CurrentTrack {
+    public Track CurrentTrack {
       get => this._currentTrack;
       private set {
         //if (this._currentTrack != null)
@@ -31,7 +31,7 @@ namespace Music_Player.Models {
 
     public int Index { get; private set; } //todo: make index setting public?
 
-    private ITrack _currentTrack;
+    private Track _currentTrack;
 
     private bool _wasPaused; //indicates if the track was already paused or if its the first play   
     private readonly IMediaManager _mediaManager;    
@@ -43,39 +43,39 @@ namespace Music_Player.Models {
       manager.MediaItemFinished += this._MediaItemFinished;
     }
 
-    public void FullyCreateQueue(List<ITrack> nextUps, List<ITrack> queued, ITrack current) {
+    public void FullyCreateQueue(List<Track> nextUps, List<Track> queued, Track current) {
       this.NextUpTracks = nextUps;
       this.QueuedTracks = queued;
       this.CurrentTrack = current;
       this._ReloadFullQueue();
     }
 
-    public void ChangeQueue(List<ITrack> tracks) {
+    public void ChangeQueue(List<Track> tracks) {
       this.QueuedTracks = tracks;
       this.CurrentTrack = tracks.Dequeue();
       this._ReloadFullQueue();
     }
 
-    public void AddNext(ITrack track) {
+    public void AddNext(Track track) {
       this.NextUpTracks.Insert(0, track);
       this._ReloadFullQueue();
     }
 
-    public void AddToQueue(ITrack track) {
+    public void AddToQueue(Track track) {
       this.NextUpTracks.Add(track);
       this._ReloadFullQueue();
     }
 
-    public void AddToEndOfQueue(ITrack track) {
+    public void AddToEndOfQueue(Track track) {
       this.QueuedTracks.Add(track);
       this._ReloadFullQueue();
     }
 
-    public void JumpToNextUpTrack(ITrack track) => this._JumpToClickedTrack(track, this.NextUpTracks);
+    public void JumpToNextUpTrack(Track track) => this._JumpToClickedTrack(track, this.NextUpTracks);
 
-    public void JumpToQueueTrack(ITrack track) => this._JumpToClickedTrack(track, this.QueuedTracks);
+    public void JumpToQueueTrack(Track track) => this._JumpToClickedTrack(track, this.QueuedTracks);
 
-    private void _JumpToClickedTrack(ITrack track, List<ITrack> tracks) {
+    private void _JumpToClickedTrack(Track track, List<Track> tracks) {
       for (var i = 0; i < tracks.Count; ++i) {
         if (tracks[i] == track) {
           tracks.RemoveRange(0, i + 1);
@@ -91,7 +91,7 @@ namespace Music_Player.Models {
     /// Removes first occurence of this track
     /// </summary>
     /// <param name="track">The track</param>
-    public void Remove(ITrack track) {
+    public void Remove(Track track) {
       if (!this.NextUpTracks.Remove(track))
         this.QueuedTracks.Remove(track);
 
@@ -99,8 +99,8 @@ namespace Music_Player.Models {
     }
 
     private void _ReloadFullQueue() {
-      //var tracks = new List<ITrack>(this.TrackHistory) { this.CurrentTrack };
-      var tracks = new List<ITrack> { this.CurrentTrack };
+      //var tracks = new List<Track>(this.TrackHistory) { this.CurrentTrack };
+      var tracks = new List<Track> { this.CurrentTrack };
       tracks.AddRange(this.NextUpTracks);
       tracks.AddRange(this.QueuedTracks);
       this.AllTracks = tracks;
@@ -111,7 +111,7 @@ namespace Music_Player.Models {
 
     private void _MediaItemFinished(object sender, MediaManager.Media.MediaItemEventArgs e) => this.Next();
 
-    public void Play(ITrack track) {
+    public void Play(Track track) {
       this.CurrentTrack = track;
       this._mediaManager.Play(track.Path);
     }

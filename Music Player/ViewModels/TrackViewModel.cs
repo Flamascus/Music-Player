@@ -1,4 +1,4 @@
-﻿using Music_Player.Interfaces;
+﻿using Music_Player.Droid.Classes;
 using Music_Player.Models;
 using Music_Player.Services;
 using System.Collections.Generic;
@@ -8,7 +8,7 @@ using Xamarin.Forms;
 namespace Music_Player.ViewModels {
   public class TrackViewModel : ANotifyPropertyChanged {   
 
-    public ITrack Track {
+    public Track Track {
       get => this._track;
       set {
         this._track = value;
@@ -20,10 +20,10 @@ namespace Music_Player.ViewModels {
     }
 
     //todo: only temp!!
-    public ICollection<ITrack> Tracks => TrackQueue.Instance.AllTracks;
+    public ICollection<Track> Tracks => TrackQueue.Instance.AllTracks;
 
     public string Title => this.Track.Title;
-    public string Producer => this.Track.CombinedArtistNames;
+    public string Producer => this.Track.ArtistString;
     public ImageSource CoverSource => this.Track.CoverSource;
     public string PlayPauseImageSource => this._isPlaying ? "pause.png" : "play.png";
     public string ShuffleImageSource => this._queue.IsShuffle ? "shuffle_selected.png" : "shuffle.png";
@@ -35,7 +35,7 @@ namespace Music_Player.ViewModels {
     private bool _isPlaying;
 
     private readonly TrackQueue _queue; 
-    private ITrack _track;
+    private Track _track;
 
     public static TrackViewModel Instance = _instance ??= new TrackViewModel();
     private static TrackViewModel _instance;

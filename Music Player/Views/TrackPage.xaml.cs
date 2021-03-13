@@ -74,6 +74,6 @@ namespace Music_Player.Views {
 
     private void _UpdateSlider(object _) => this.Slider.Value = this._model.Progress;
     private void _Slider_DragCompleted(object _, EventArgs __) => this._model.TrackPositionChanged(this.Slider.Value);
-    private void _OptionsTapped(object _, EventArgs e) => TrackOptions.DisplayBasicOptionsAsync(this._model.Track);
+    private async void _OptionsTapped(object _, EventArgs e) => await TrackOptions.DisplayBasicOptionsAsync(this._model.Track);
   }
 }

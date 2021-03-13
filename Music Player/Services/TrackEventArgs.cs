@@ -1,11 +1,11 @@
-﻿using Music_Player.Interfaces;
+﻿using Music_Player.Droid.Classes;
 using System;
 
 namespace Music_Player.Services {
   public class TrackEventArgs : EventArgs {
-    public ITrack Track { get; }
+    public Track Track { get; }
 
-    public TrackEventArgs(ITrack track) {
+    public TrackEventArgs(Track track) {
       this.Track = track;
     }
   }

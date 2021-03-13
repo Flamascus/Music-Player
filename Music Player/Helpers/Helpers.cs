@@ -1,4 +1,4 @@
-﻿using Music_Player.Interfaces;
+﻿using Music_Player.Droid.Classes;
 using Music_Player.Models;
 using System;
 using System.Collections.Generic;
@@ -63,8 +63,8 @@ namespace Music_Player.Helpers {
       return item;
     }
 
-    public static List<ITrack> CreateTracklistFromPaths(string[] paths) {
-      var tracks = new List<ITrack>();
+    public static List<Track> CreateTracklistFromPaths(string[] paths) {
+      var tracks = new List<Track>();
 
       foreach (var path in paths) {
         var id = path.GetHashCode();
@@ -81,6 +81,8 @@ namespace Music_Player.Helpers {
       Array.Copy(array2, 0, newArray, array1.Length, array2.Length);
       return newArray;
     }
+
+    public static bool IsNullOrEmpty(this string @this) => @this == null || @this == string.Empty;
 
   }
 }

@@ -2,9 +2,14 @@
 using System.Collections.Generic;
 
 namespace Music_Player.Helpers {
-  public class AReadOnlyList<T> : ALoadable, IReadOnlyList<T> {
+  public class LoadableList<T> : ALoadable, IReadOnlyList<T> {
 
     protected IReadOnlyList<T> items = new List<T>(); 
+
+    public void Init(List<T> items) {
+      this.items = items;
+      this.IsLoading = false;
+    }
 
     public T this[int index] => this.items[index];
     public int Count => this.items.Count;

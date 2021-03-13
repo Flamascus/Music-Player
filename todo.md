@@ -19,6 +19,8 @@
 + caching notification
 + directory explorer
 + expanding pages (bottomTrackView and queue using expander)
++ exchange loading (sfShimmer?)
++ option for image bg (sfParallaxView?)
 
 ---
 + display message if no songs found

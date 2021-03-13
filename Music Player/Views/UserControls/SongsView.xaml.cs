@@ -1,5 +1,4 @@
 ﻿using System;
-using Music_Player.Interfaces;
 using Music_Player.ViewModels;
 using System.Collections.Generic;
 using Xamarin.Forms;
@@ -7,8 +6,7 @@ using Xamarin.Forms.Xaml;
 using static Music_Player.Views.UserControls.SmallTrackView;
 using System.Threading.Tasks;
 using Music_Player.Models;
-using Music_Player.Enums;
-using System.Linq;
+using Music_Player.Droid.Classes;
 
 namespace Music_Player.Views.UserControls {
   [XamlCompilation(XamlCompilationOptions.Compile)]
@@ -52,14 +50,14 @@ namespace Music_Player.Views.UserControls {
       this.lvTracks.IsVisible = !isLoading;
     }
 
-    public SongsView(List<ITrack> tracks) {
+    public SongsView(List<Track> tracks) {
       var model = new SongsViewModel(tracks);
       this._model = model;
       this.BindingContext = model;
       this.InitializeComponent();
     }
 
-    public List<ITrack> Tracks { get; }
+    public List<Track> Tracks { get; }
     public Task DisplayActionSheet { get; private set; }
 
     private void _TrackView_Tapped(object sender, EventArgs e) {
@@ -67,6 +65,6 @@ namespace Music_Player.Views.UserControls {
       this._model.OnTrackTapped(trackView.Track);
     }
 
-    private void _OptionsTapped(object _, OptionsEventArgs e) => TrackOptions.DisplayBasicOptionsAsync(e.Track);
+    private async void _OptionsTapped(object _, OptionsEventArgs e) => await TrackOptions.DisplayBasicOptionsAsync(e.Track);
   }
 }
