@@ -14,29 +14,30 @@ namespace Music_Player.Views.UserControls {
 
     public SongsView() {
       this.InitializeComponent();
-      var model = this.ViewModel;
 
-      if (model.IsLoading) { //todo: put loading stuff in extra class and inherit from that
-        this._ShowLoading(true);
-        model.FinishedLoading += this._Model_FinishedLoading;
+      this.ViewModel.StartedLoading += this._Model_StartedLoading;
+      this.ViewModel.FinishedLoading += this._Model_FinishedLoading;
 
-      } else if (model.Tracks.Count == 0) { //todo: can probably write this more beautiful
+      this._UpdateDisplayState();
+    }
+
+    private void _Model_StartedLoading(object sender, EventArgs e)
+      => Device.BeginInvokeOnMainThread(() => this._UpdateDisplayState());
+
+    private void _Model_FinishedLoading(object sender, EventArgs e)
+      => Device.BeginInvokeOnMainThread(() => this._UpdateDisplayState());
+
+    /// <summary>
+    /// switches between showing items, or loading or no displayed items
+    /// </summary>
+    private void _UpdateDisplayState() {
+      var isLoading = this.ViewModel.IsLoading;
+      this._ShowLoading(isLoading);
+
+      if (!isLoading && this.ViewModel.Tracks.Count == 0) {
         this.lvTracks.IsVisible = false;
         this.lblNoTracks.IsVisible = true;
       }
-    }
-
-    private void _Model_FinishedLoading(object sender, EventArgs e) {
-      Device.BeginInvokeOnMainThread(() => {
-        this._ShowLoading(false);
-
-        if (this.ViewModel.Tracks.Count == 0) { //todo: can probably write this more beautiful
-          this.lvTracks.IsVisible = false;
-          this.lblNoTracks.IsVisible = true;
-        }
-
-        this.ViewModel.FinishedLoading -= this._Model_FinishedLoading;
-      });
     }
 
     private void _ShowLoading(bool isLoading = true) {

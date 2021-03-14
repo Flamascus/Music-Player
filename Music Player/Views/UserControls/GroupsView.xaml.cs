@@ -12,6 +12,8 @@ namespace Music_Player.Views.UserControls {
   [XamlCompilation(XamlCompilationOptions.Compile)]
   public partial class GroupsView : ContentView {
 
+    private bool _subscribedToEvents;
+
     public GroupType GroupType {
       get => this._groupType;
       set {
@@ -40,11 +42,20 @@ namespace Music_Player.Views.UserControls {
     }
 
     private void _SetGroupTypeGeneric<T>(LoadableList<T> list) where T : IDisplayGroup {
-      if (list.IsLoading) {
-        this._ShowLoading();
+      if (!this._subscribedToEvents) {
+        list.StartedLoading += this._List_StartedLoading;
         list.FinishedLoading += this._FinishedLoading;
-      } else
+        this._subscribedToEvents = true;
+      }
+
+      if (list.IsLoading)
+        this._ShowLoading();
+      else
         this.ViewModel.Groups = list.Select(g => (IDisplayGroup)g).ToList();
+    }
+
+    private void _List_StartedLoading(object sender, EventArgs e) {
+      Device.BeginInvokeOnMainThread(() => this._ShowLoading());
     }
 
 

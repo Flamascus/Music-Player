@@ -1,6 +1,8 @@
-﻿using Music_Player.Interfaces;
+﻿using Microsoft.AppCenter;
+using Music_Player.Interfaces;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace Music_Player.Services {
@@ -14,9 +16,10 @@ namespace Music_Player.Services {
     public string MusicDirectory {
       get => this._musicDirectory;
       set {
-        this._musicDirectory = value;
+        this._musicDirectory = value;      
         this.WriteSetting(nameof(this.MusicDirectory), value);
         this.ReadFromCache = false;
+        Task.Run(() => new DataCreator().InitData());
       }
     }
     //public List<string> Blacklist { get; }
@@ -33,6 +36,7 @@ namespace Music_Player.Services {
       get => this._sendReportsEnabled;
       set {
         this.WriteSetting(nameof(this.SendReportsEnabled), value);
+        AppCenter.SetEnabledAsync(value);
         this._sendReportsEnabled = value;
       }
     }

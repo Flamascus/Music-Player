@@ -1,17 +1,14 @@
 ﻿using Music_Player.Droid.Classes;
-using Music_Player.Interfaces;
+using Music_Player.Helpers;
 using Music_Player.Models;
-using Music_Player.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace Music_Player.ViewModels {
-  class SongsViewModel : ANotifyPropertyChanged, ILoadable {
+  class SongsViewModel : ALoadableNotifyPropertyChanged {
 
     private List<Track> _tracks;
-
-    public event EventHandler<EventArgs> FinishedLoading;
 
     public List<Track> Tracks {
       get => this._tracks;
@@ -21,27 +18,19 @@ namespace Music_Player.ViewModels {
       }
     }
 
-    public bool IsLoading {
-      get => this._isLoading;
-      protected set {
-        this._isLoading = value;
-        if (!value)
-          this.FinishedLoading?.Invoke(this, new EventArgs());
-      }
-    }
-
-    private bool _isLoading;
-
   public SongsViewModel() {
       this.Tracks = TrackList.Instance.ToList();
+      TrackList.Instance.StartedLoading += (_, __) => this.IsLoading = true;
+      TrackList.Instance.FinishedLoading += this._Instance_FinishedLoading;
 
       if (TrackList.Instance.IsLoading) {
         this.IsLoading = true;
-        TrackList.Instance.FinishedLoading += this._Instance_FinishedLoading;
+        
       }
     }
 
-    //todo: check why this gets fired twice
+
+    //todo: check why this still gets fired twice
     private void _Instance_FinishedLoading(object sender, EventArgs e) {
       this.Tracks = TrackList.Instance.ToList();
       this.IsLoading = false;

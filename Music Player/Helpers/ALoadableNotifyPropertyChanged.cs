@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace Music_Player.Services {
-  public abstract class ANotifyPropertyChanged : INotifyPropertyChanged {
+namespace Music_Player.Helpers {
+  class ALoadableNotifyPropertyChanged : ALoadable, INotifyPropertyChanged {
     public event PropertyChangedEventHandler PropertyChanged;
 
     protected void OnPropertyChanged([CallerMemberName] string propertyName = "")

@@ -13,6 +13,12 @@ namespace Music_Player.Services {
     private readonly List<Album> _albums = new List<Album>();
 
     public void InitData() {
+      TrackList.Instance.IsLoading = true;
+      GenreList.Instance.IsLoading = true;
+      ArtistList.Instance.IsLoading = true;
+      AlbumList.Instance.IsLoading = true;
+      PlaylistList.Instance.IsLoading = true;
+
       var serialTracks = this._GetSerialTracks();
       var tracks = serialTracks.Select(s => new Track(s)).ToList();
 

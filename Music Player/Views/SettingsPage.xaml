@@ -1,29 +1,63 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:System="clr-namespace:System;assembly=mscorlib"
              xmlns:viewmodels="clr-namespace:Music_Player.ViewModels"
              x:Class="Music_Player.Views.SettingsPage"
              BackgroundColor="{StaticResource Back}"           
              Title="Settings">
-  
+
+  <ContentPage.Resources>
+    <System:Int32 x:Key="DefaultHeight">60</System:Int32>
+    <Thickness x:Key="DefaultPadding" Left="15"/>
+  </ContentPage.Resources>
+
   <ContentPage.BindingContext>
     <viewmodels:SettingsViewModel x:Name="ViewModel"/>
   </ContentPage.BindingContext>
 
   <ContentPage.Content>
     <StackLayout>
-      <TableView>
+      <TableView HasUnevenRows="True" RowHeight="{StaticResource DefaultHeight}">
         <TableRoot>
-          <TableSection Title="Settings">
-            <TextCell Text="Info: Applying settings needs app restart atm" TextColor="{x:StaticResource Text}"/>
-            <TextCell Text="Music Directory:" Detail="{Binding MusicDirectory}" Tapped="_SelectFolderClicked"/>
-            <EntryCell Label="Music Directory:" Placeholder="DirectoryPath" Text="{Binding MusicDirectory}"/>
-            <SwitchCell Text="Send crash-reports (this helps me alot!)" On="{Binding SendReportsEnabled}"/>
+          <TableSection Title="Settings" TextColor="{StaticResource PrimaryBright}">
+
+            <ViewCell Tapped="_SelectFolderClicked">
+              <StackLayout Padding="{StaticResource DefaultPadding}" Margin="0, 5">
+                <Label Text="Music Directory"/>
+                <Label Text="{Binding MusicDirectory}" TextColor="{StaticResource Text2}"/>
+              </StackLayout>
+            </ViewCell>
+
+            <ViewCell Height="60">
+              <Grid Padding="{StaticResource DefaultPadding}">
+
+                <Grid.ColumnDefinitions>
+                  <ColumnDefinition Width="*"/>
+                  <ColumnDefinition Width="auto"/>
+                </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+                  <RowDefinition Height="*"/>
+                  <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Label Text="Analytics" VerticalTextAlignment="Center"/>
+                <Label Text="Send crash-reports (please keep enabled)"
+                       TextColor="{StaticResource Text2}"
+                       Grid.Row="1"/>
+                <Switch IsToggled="{Binding SendReportsEnabled}"
+                        OnColor="{StaticResource Primary}"
+                        ThumbColor="{StaticResource PrimaryBright}"
+                        Grid.RowSpan="2"
+                        Grid.Column="1"/>
+              </Grid>
+            </ViewCell>
+
           </TableSection>
         </TableRoot>
       </TableView>
-      <!--<Button Text="Pick Folder" Clicked="_SelectFolderClicked"/>
-      <Switch OnColor="Gray" ThumbColor="{StaticResource Primary}"/>-->
+
     </StackLayout>
   </ContentPage.Content>
 </ContentPage>

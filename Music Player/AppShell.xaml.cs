@@ -1,6 +1,4 @@
 ﻿using Music_Player.Interfaces;
-using Music_Player.Models;
-using Music_Player.Models.Collections;
 using Music_Player.Services;
 using System;
 using System.Threading.Tasks;

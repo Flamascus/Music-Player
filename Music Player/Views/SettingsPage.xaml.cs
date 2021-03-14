@@ -9,6 +9,7 @@ namespace Music_Player.Views {
     //todo: for some reason on page creation the viewmodel setters get called //todo: check if this bug still exists
     public SettingsPage() {
       this.InitializeComponent();
+      this.ViewModel.ViewInitialized = true;
     }
 
     private void _SelectFolderClicked(object sender, EventArgs e) {

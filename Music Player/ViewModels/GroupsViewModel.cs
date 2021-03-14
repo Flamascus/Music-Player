@@ -1,13 +1,10 @@
-﻿using Music_Player.Interfaces;
-using Music_Player.Services;
-using System;
+﻿using Music_Player.Helpers;
+using Music_Player.Interfaces;
 using System.Collections.Generic;
 
 namespace Music_Player.ViewModels {
-  class GroupsViewModel : ANotifyPropertyChanged, ILoadable {
+  class GroupsViewModel : ALoadableNotifyPropertyChanged {
     private List<IDisplayGroup> _groups = new List<IDisplayGroup>();
-
-    public event EventHandler<EventArgs> FinishedLoading;
 
     public List<IDisplayGroup> Groups {
       get => this._groups;
@@ -17,18 +14,5 @@ namespace Music_Player.ViewModels {
       }
     }
 
-    public bool IsLoading {
-      get => this._isLoading;
-      protected set {
-        this._isLoading = value;
-        if (!value)
-          this.FinishedLoading?.Invoke(this, new EventArgs());
-      }
-    }
-
-    private bool _isLoading;
-
   }
 }
-
-//
