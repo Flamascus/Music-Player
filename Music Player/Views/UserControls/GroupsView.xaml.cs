@@ -1,13 +1,12 @@
 ﻿using Music_Player.Enums;
 using Music_Player.Interfaces;
 using Music_Player.Models;
-using Music_Player.ViewModels;
-using System.Collections.Generic;
 using Xamarin.Forms;
 using System;
 using Xamarin.Forms.Xaml;
 using System.Linq;
 using Music_Player.Models.Collections;
+using Music_Player.Helpers;
 
 namespace Music_Player.Views.UserControls {
   [XamlCompilation(XamlCompilationOptions.Compile)]
@@ -22,59 +21,32 @@ namespace Music_Player.Views.UserControls {
     }
 
     private GroupType _groupType;
-    private readonly GroupsViewModel _model;
 
     public GroupsView() {
       this.InitializeComponent();
-      var model = new GroupsViewModel(new List<IDisplayGroup>());
-      this._model = model;
-      this.BindingContext = model;
     }
 
-    //todo: find a way to remove duplicate code
     private void _SetGroupType(GroupType groupType) {
-      var artists = ArtistList.Instance;
-      var genres = GenreList.Instance;
-      var albums = AlbumList.Instance;
-      var playlists = PlaylistList.Instance;
+      var _setGroupTypeGeneric = groupType switch {
+        GroupType.Artists => (Action)(() => this._SetGroupTypeGeneric(GenreList.Instance)),
+        GroupType.Genres => () => this._SetGroupTypeGeneric(GenreList.Instance),
+        GroupType.Albums => () => this._SetGroupTypeGeneric(AlbumList.Instance),
+        GroupType.Playlists => () => this._SetGroupTypeGeneric(PlaylistList.Instance),
+        GroupType.Folders => throw new NotImplementedException(),
+        _ => throw new ArgumentOutOfRangeException()
+      };
 
-      switch (groupType) {
-        case GroupType.Artists:
-          if (artists.IsLoading) {
-            this._ShowLoading();
-            artists.FinishedLoading += this._FinishedLoading;
-          } else
-            this._model.Groups = artists.Select(g => (IDisplayGroup)g).ToList();
-          break;
-
-        case GroupType.Genres:
-          if (genres.IsLoading) {
-            this._ShowLoading();
-            genres.FinishedLoading += this._FinishedLoading;
-          } else
-            this._model.Groups = genres.Select(g => (IDisplayGroup)g).ToList();
-          break;
-
-        case GroupType.Albums:
-          if (albums.IsLoading) {
-            this._ShowLoading();
-            albums.FinishedLoading += this._FinishedLoading;
-          } else
-            this._model.Groups = albums.Select(g => (IDisplayGroup)g).ToList();
-          break;
-
-        case GroupType.Playlists:
-          if (playlists.IsLoading) {
-            this._ShowLoading();
-            playlists.FinishedLoading += this._FinishedLoading;
-          } else
-            this._model.Groups = playlists.Select(g => (IDisplayGroup)g).ToList();
-          break;
-
-        default:
-          throw new ArgumentOutOfRangeException();
-      }
+      _setGroupTypeGeneric?.Invoke();
     }
+
+    private void _SetGroupTypeGeneric<T>(LoadableList<T> list) where T : IDisplayGroup {
+      if (list.IsLoading) {
+        this._ShowLoading();
+        list.FinishedLoading += this._FinishedLoading;
+      } else
+        this.ViewModel.Groups = list.Select(g => (IDisplayGroup)g).ToList();
+    }
+
 
     //todo: not unsubscribing from event atm
     private void _FinishedLoading(object sender, EventArgs e) {

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Music_Player.ViewModels {
   class GroupsViewModel : ANotifyPropertyChanged, ILoadable {
-    private List<IDisplayGroup> _groups;
+    private List<IDisplayGroup> _groups = new List<IDisplayGroup>();
 
     public event EventHandler<EventArgs> FinishedLoading;
 
@@ -27,10 +27,6 @@ namespace Music_Player.ViewModels {
     }
 
     private bool _isLoading;
-
-    public GroupsViewModel(List<IDisplayGroup> groups) {
-      this.Groups = groups;
-    }
 
   }
 }

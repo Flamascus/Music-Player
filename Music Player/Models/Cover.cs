@@ -40,8 +40,6 @@ namespace Music_Player.Models {
       this._file = file;
     }
 
-
-    //todo: only calculate this one time
     public Color GetDominantColor() {
       var color = this._dominantColor;
       if (color.HasValue)

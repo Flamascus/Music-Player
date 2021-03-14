@@ -41,7 +41,6 @@ namespace Music_Player.Droid.Classes {
       this.Id = this.Path.GetHashCode();
     }
 
-
     public void JumpToPercent(double value) {
       var duration = this.Duration;
       var position = TimeSpan.FromTicks((long)(duration.Ticks * value));

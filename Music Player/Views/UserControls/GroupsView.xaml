@@ -1,7 +1,13 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:Music_Player.ViewModels"
              x:Class="Music_Player.Views.UserControls.GroupsView">
+  
+  <ContentView.BindingContext>
+    <viewmodels:GroupsViewModel x:Name="ViewModel"/>
+  </ContentView.BindingContext>
+  
   <ContentView.Content>
     <StackLayout>
       <ActivityIndicator x:Name="activityIndicator" VerticalOptions="CenterAndExpand" IsVisible="False"/>

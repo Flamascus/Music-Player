@@ -1,7 +1,6 @@
 ﻿using System;
 using Music_Player.Enums;
 using Music_Player.Models;
-using Music_Player.ViewModels;
 using Music_Player.Views.UserControls;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -11,12 +10,8 @@ namespace Music_Player.Views {
   [XamlCompilation(XamlCompilationOptions.Compile)]
   public partial class QueuePage : ContentPage {
 
-    private readonly QueueViewModel _model;
-
     public QueuePage() {
       this.InitializeComponent();
-      this._model = new QueueViewModel();
-      this.BindingContext = this._model;
     }
 
     private void _NextUpTrackView_Tapped(object sender, EventArgs _)
@@ -28,7 +23,7 @@ namespace Music_Player.Views {
 
     private async void _OptionsTapped(object sender, OptionsEventArgs e) {
       await TrackOptions.DisplaySpecialOptionsAsync(e.Track, TrackOption.RemoveFromQueue);
-      this._model.Refresh();
+      this.ViewModel.Refresh();
     }
 
     private async void _CurrentTrackOptionsTapped(object sender, OptionsEventArgs e)

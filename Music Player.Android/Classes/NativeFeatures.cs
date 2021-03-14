@@ -52,7 +52,7 @@ namespace Music_Player.Droid.Classes {
     public string[] ReadAllLines(string path) => File.ReadAllLines(path); 
 
     public string MusicLibaryPath
-      => Android.OS.Environment.GetExternalStoragePublicDirectory(Android.OS.Environment.DirectoryMusic).ToString();
+      => Environment.GetExternalStoragePublicDirectory(Environment.DirectoryMusic).ToString();
 
 
     public IEnumerable<string> EnumerateFiles(string path, string searchPattern, SearchOption searchOption)

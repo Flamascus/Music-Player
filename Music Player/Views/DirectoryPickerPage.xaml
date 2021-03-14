@@ -1,13 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:Music_Player.ViewModels"
              x:Class="Music_Player.Views.DirectoryPickerPage"
              BackgroundColor="{StaticResource Back}"
              Title="{Binding Name}">
+
+  <ContentPage.BindingContext>
+    <viewmodels:DirectoryPickerModel x:Name="ViewModel"/>
+  </ContentPage.BindingContext>
   
   <ContentPage.ToolbarItems>
     <ToolbarItem Order="Primary" Icon="up.png" Priority="0" Command="{Binding GoUpCommand}"/>
-    <ToolbarItem Order="Primary" Icon="check.png" Priority="1" Clicked="SelectThisDirectory"/>
+    <ToolbarItem Order="Primary" Icon="check.png" Priority="1" Clicked="_SelectThisDirectory"/>
   </ContentPage.ToolbarItems>
 
   <ContentPage.Content>

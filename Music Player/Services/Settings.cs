@@ -5,7 +5,6 @@ using Xamarin.Forms;
 
 namespace Music_Player.Services {
 
-  //todo: implement
   public class Settings {
 
     public static Settings Instance = _instance ??= new Settings();
@@ -75,7 +74,7 @@ namespace Music_Player.Services {
 
     public void WriteSetting(string key, object value) {
       var settingFound = false;
-      var settingString = $"{key}-{value}";
+      var settingString = $"{key}=\"{value}\"";
       var content = _ReadFile();
 
       for (var i = 0; i < content.Length; ++i) {
@@ -99,7 +98,7 @@ namespace Music_Player.Services {
 
       for (var i = 0; i < content.Length; ++i) {
         if (content[i].StartsWith(key))
-          return content[i].Split('-')[1];
+          return content[i].Split('\"')[1];
       }
 
       return null;

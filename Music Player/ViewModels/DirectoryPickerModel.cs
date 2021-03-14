@@ -1,17 +1,18 @@
 ﻿using System.IO;
 using System.Linq;
 using System.Windows.Input;
+using Music_Player.Models;
 using Music_Player.Services;
 using Xamarin.Forms;
 
-namespace Music_Player.Models {
+namespace Music_Player.ViewModels {
  
   public class DirectoryPickerModel : ANotifyPropertyChanged {
 
     public DirectoryInfo CurrentDirectory {
       get => this._currentDirectory;
       private set {
-        if (value.FullName == "/storage/emulated") //todo: probably only works for my phone
+        if (value.FullName == "/storage/emulated") //todo: check if this path is the same on all phones
           return;
 
         this.Children = value.GetDirectories()

@@ -1,8 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:usercontrols="clr-namespace:Music_Player.Views.UserControls"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:usercontrols="clr-namespace:Music_Player.Views.UserControls" xmlns:viewmodels="clr-namespace:Music_Player.ViewModels"
              x:Class="Music_Player.Views.QueuePage"
              BackgroundColor="{StaticResource Back}">
+  
+  <ContentPage.BindingContext>
+    <viewmodels:QueueViewModel x:Name="ViewModel"/>
+  </ContentPage.BindingContext>
+  
   <ContentPage.Content>
     <ScrollView>
       <StackLayout x:Name="stackLayout">

@@ -12,20 +12,15 @@ namespace Music_Player.Views.UserControls {
   [XamlCompilation(XamlCompilationOptions.Compile)]
   public partial class SongsView : ContentView {
 
-    private readonly SongsViewModel _model = new SongsViewModel();
-
     public SongsView() {
-      var model = new SongsViewModel();
-      this._model = model;
-      this.BindingContext = model;
-
       this.InitializeComponent();
+      var model = this.ViewModel;
 
       if (model.IsLoading) { //todo: put loading stuff in extra class and inherit from that
         this._ShowLoading(true);
         model.FinishedLoading += this._Model_FinishedLoading;
 
-      } else if (this._model.Tracks.Count == 0) { //todo: can probably write this more beautiful
+      } else if (model.Tracks.Count == 0) { //todo: can probably write this more beautiful
         this.lvTracks.IsVisible = false;
         this.lblNoTracks.IsVisible = true;
       }
@@ -35,12 +30,12 @@ namespace Music_Player.Views.UserControls {
       Device.BeginInvokeOnMainThread(() => {
         this._ShowLoading(false);
 
-        if (this._model.Tracks.Count == 0) { //todo: can probably write this more beautiful
+        if (this.ViewModel.Tracks.Count == 0) { //todo: can probably write this more beautiful
           this.lvTracks.IsVisible = false;
           this.lblNoTracks.IsVisible = true;
         }
 
-        this._model.FinishedLoading -= this._Model_FinishedLoading;
+        this.ViewModel.FinishedLoading -= this._Model_FinishedLoading;
       });
     }
 
@@ -52,7 +47,7 @@ namespace Music_Player.Views.UserControls {
 
     public SongsView(List<Track> tracks) {
       var model = new SongsViewModel(tracks);
-      this._model = model;
+      this.ViewModel = model; //todo: probably only need to set either viewmodel or bindingcontext, not both
       this.BindingContext = model;
       this.InitializeComponent();
     }
@@ -62,7 +57,7 @@ namespace Music_Player.Views.UserControls {
 
     private void _TrackView_Tapped(object sender, EventArgs e) {
       var trackView = (SmallTrackView)sender;
-      this._model.OnTrackTapped(trackView.Track);
+      this.ViewModel.OnTrackTapped(trackView.Track);
     }
 
     private async void _OptionsTapped(object _, OptionsEventArgs e) => await TrackOptions.DisplayBasicOptionsAsync(e.Track);
