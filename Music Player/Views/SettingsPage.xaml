@@ -5,16 +5,19 @@
              BackgroundColor="{StaticResource Back}"           
              Title="Settings">
   <ContentPage.Content>
-    <TableView>
-      <TableRoot>
-        <TableSection Title="Settings">
-          <TextCell Text="Info: Applying settings needs app restart atm" TextColor="{x:StaticResource Text}"/>
-          <EntryCell Label="Music Directory:" Placeholder="DirectoryPath" Text="{Binding MusicDirectory}"/>
-          <SwitchCell Text="Send crash-reports (this helps me alot!)" On="{Binding SendReportsEnabled}"/>
-          <!--<SwitchCell Text="Test Settings" On="true" OnColor="{StaticResource Accent}"/>
-                    <SwitchCell Text="Another Test Setting" OnColor="{StaticResource Accent}"/>-->
-        </TableSection>
-      </TableRoot>
-    </TableView>
+    <StackLayout>
+      <TableView>
+        <TableRoot>
+          <TableSection Title="Settings">
+            <TextCell Text="Info: Applying settings needs app restart atm" TextColor="{x:StaticResource Text}"/>
+            <TextCell Text="Music Directory:" Detail="{Binding MusicDirectory}" Tapped="_SelectFolderClicked"/>
+            <EntryCell Label="Music Directory:" Placeholder="DirectoryPath" Text="{Binding MusicDirectory}"/>
+            <SwitchCell Text="Send crash-reports (this helps me alot!)" On="{Binding SendReportsEnabled}"/>
+          </TableSection>
+        </TableRoot>
+      </TableView>
+      <!--<Button Text="Pick Folder" Clicked="_SelectFolderClicked"/>
+      <Switch OnColor="Gray" ThumbColor="{StaticResource Primary}"/>-->
+    </StackLayout>
   </ContentPage.Content>
 </ContentPage>

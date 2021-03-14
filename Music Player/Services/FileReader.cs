@@ -10,7 +10,7 @@ using File = Java.IO.File;
 namespace Music_Player.Services {
   public class FileReader {    
 
-    private static readonly string[] _supportedFormats
+    public static readonly string[] SupportedFormats
       = new string[] { ".mp3", ".aac", ".ogg", ".wma", ".alac", ".pcm", ".flac", ".wav" };
 
     private static SerializableTrack _CreateSerialTrack(File file) {
@@ -28,7 +28,7 @@ namespace Music_Player.Services {
       if (!nativeFeatures.DirectoryExists(path))
         return new SerializableTrack[0];
 
-      var files = nativeFeatures.EnumerateFiles3(path).Where(file => _supportedFormats.Any(format => file.Name.EndsWith(format))).ToList();
+      var files = nativeFeatures.EnumerateFiles3(path).Where(file => SupportedFormats.Any(format => file.Name.EndsWith(format))).ToList();
 
       if (files.Count == 0)
         return new SerializableTrack[0];

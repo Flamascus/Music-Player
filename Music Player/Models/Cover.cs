@@ -1,5 +1,4 @@
 ﻿using Android.Media;
-using Java.IO;
 using Music_Player.Interfaces;
 using System.IO;
 using Xamarin.Forms;
@@ -34,7 +33,7 @@ namespace Music_Player.Models {
     }
 
     private bool? hasPicture;
-    private File _file;
+    private readonly File _file;
     private Color? _dominantColor;
 
     public Cover(File file) {

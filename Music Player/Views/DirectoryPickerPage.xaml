@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Music_Player.Views.DirectoryPickerPage"
+             BackgroundColor="{StaticResource Back}"
+             Title="{Binding Name}">
+  
+  <ContentPage.ToolbarItems>
+    <ToolbarItem Order="Primary" Icon="up.png" Priority="0" Command="{Binding GoUpCommand}"/>
+    <ToolbarItem Order="Primary" Icon="check.png" Priority="1" Clicked="SelectThisDirectory"/>
+  </ContentPage.ToolbarItems>
+
+  <ContentPage.Content>
+    <StackLayout>
+      <Label Text="{Binding FullName}"/>
+      <BoxView BackgroundColor="{StaticResource Back2}" HeightRequest="2"/>
+      <ListView ItemsSource="{Binding Children}" RowHeight="60" ItemTapped="_ListView_ItemTapped">
+        <ListView.ItemTemplate>
+          <DataTemplate>
+            <ViewCell>
+              <Grid>
+                <Grid.ColumnDefinitions>
+                  <ColumnDefinition Width="auto"/>
+                  <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Image Source="{Binding Icon}" HeightRequest="60" Grid.Column="0"/>
+                <Label Text="{Binding Name}" Grid.Column="1" VerticalTextAlignment="Center"/>
+              </Grid>
+            </ViewCell>
+          </DataTemplate>
+        </ListView.ItemTemplate>
+      </ListView>
+    </StackLayout>
+  </ContentPage.Content>
+</ContentPage>

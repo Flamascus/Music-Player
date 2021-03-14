@@ -2,7 +2,7 @@
 
 namespace Music_Player.ViewModels {
 
-  public class SettingsViewModel {
+  public class SettingsViewModel : ANotifyPropertyChanged {
     private readonly Settings _settings = Settings.Instance;
 
     public string MusicDirectory {
@@ -14,5 +14,10 @@ namespace Music_Player.ViewModels {
       get => this._settings.SendReportsEnabled;
       set => this._settings.SendReportsEnabled = value;
     }
+
+    public void UpdateDirectory() {
+      this.OnPropertyChanged(nameof(this.MusicDirectory));
+    }
+
   }
 }
