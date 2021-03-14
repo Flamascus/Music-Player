@@ -30,7 +30,7 @@ namespace Music_Player.Views.UserControls {
 
     private void _SetGroupType(GroupType groupType) {
       var _setGroupTypeGeneric = groupType switch {
-        GroupType.Artists => (Action)(() => this._SetGroupTypeGeneric(GenreList.Instance)),
+        GroupType.Artists => (Action)(() => this._SetGroupTypeGeneric(ArtistList.Instance)),
         GroupType.Genres => () => this._SetGroupTypeGeneric(GenreList.Instance),
         GroupType.Albums => () => this._SetGroupTypeGeneric(AlbumList.Instance),
         GroupType.Playlists => () => this._SetGroupTypeGeneric(PlaylistList.Instance),

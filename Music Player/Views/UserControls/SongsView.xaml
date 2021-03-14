@@ -4,10 +4,7 @@
              xmlns:usercontrols="clr-namespace:Music_Player.Views.UserControls"
              xmlns:viewmodels="clr-namespace:Music_Player.ViewModels"
              x:Class="Music_Player.Views.UserControls.SongsView">
-  <ContentView.BindingContext>
-    <viewmodels:SongsViewModel x:Name="ViewModel"/>
-  </ContentView.BindingContext>
-  
+
   <ContentView.Content>
     <StackLayout>
       <ActivityIndicator x:Name="activityIndicator" VerticalOptions="CenterAndExpand" IsVisible="False"/>

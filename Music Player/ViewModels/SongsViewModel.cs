@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 namespace Music_Player.ViewModels {
-  class SongsViewModel : ALoadableNotifyPropertyChanged {
+  public class SongsViewModel : ALoadableNotifyPropertyChanged {
 
     private List<Track> _tracks;
 
@@ -28,7 +28,6 @@ namespace Music_Player.ViewModels {
         
       }
     }
-
 
     //todo: check why this still gets fired twice
     private void _Instance_FinishedLoading(object sender, EventArgs e) {

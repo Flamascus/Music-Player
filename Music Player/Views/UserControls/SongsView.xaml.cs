@@ -12,11 +12,17 @@ namespace Music_Player.Views.UserControls {
   [XamlCompilation(XamlCompilationOptions.Compile)]
   public partial class SongsView : ContentView {
 
+    public SongsViewModel ViewModel { get; set; }
+
     public SongsView() {
+      var model = new SongsViewModel();
+      this.ViewModel = model;
+      this.BindingContext = model;
+
       this.InitializeComponent();
 
-      this.ViewModel.StartedLoading += this._Model_StartedLoading;
-      this.ViewModel.FinishedLoading += this._Model_FinishedLoading;
+      model.StartedLoading += this._Model_StartedLoading;
+      model.FinishedLoading += this._Model_FinishedLoading;
 
       this._UpdateDisplayState();
     }
