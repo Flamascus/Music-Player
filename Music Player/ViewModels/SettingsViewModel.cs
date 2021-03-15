@@ -22,5 +22,6 @@ namespace Music_Player.ViewModels {
       this.OnPropertyChanged(nameof(this.MusicDirectory));
     }
 
+
   }
 }

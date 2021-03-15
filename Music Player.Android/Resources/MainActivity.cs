@@ -10,6 +10,7 @@ using Environment = System.Environment;
 using System.Threading.Tasks;
 using Microsoft.AppCenter.Crashes;
 using Microsoft.AppCenter.Distribute;
+using Syncfusion.XForms.Android.PopupLayout;
 
 namespace Music_Player.Droid {
   [Activity(Label = "Music Player", Icon = "@drawable/logo", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation | ConfigChanges.UiMode | ConfigChanges.ScreenLayout | ConfigChanges.SmallestScreenSize)]
@@ -29,15 +30,16 @@ namespace Music_Player.Droid {
       AppDomain.CurrentDomain.UnhandledException += _CurrentDomainOnUnhandledException;
       TaskScheduler.UnobservedTaskException += _TaskSchedulerOnUnobservedTaskException;
 
-
       base.OnCreate(savedInstanceState);
 
       Xamarin.Essentials.Platform.Init(this, savedInstanceState);
       global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
       Distribute.SetEnabledAsync(true);
       this._DisplayCrashReport();
+      SfPopupLayoutRenderer.Init();
       this.LoadApplication(new App());
     }
+
     public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults) {
       Xamarin.Essentials.Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
 

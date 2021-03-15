@@ -1,10 +1,13 @@
 ﻿using Music_Player.Droid.Classes;
+using Music_Player.Interfaces;
 using Music_Player.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using Xamarin.Forms;
+using Color = Xamarin.Forms.Color;
 
 
 namespace Music_Player.Helpers {
@@ -84,5 +87,11 @@ namespace Music_Player.Helpers {
 
     public static bool IsNullOrEmpty(this string @this) => @this == null || @this == string.Empty;
 
+
+    public static void SetBarColorDefaults() {
+      var nativeFeatures = DependencyService.Get<INativeFeatures>();
+      nativeFeatures.SetStatusBarColor((Color)App.Current.Resources["Primary"]);
+      nativeFeatures.SetNavigationBarColor(Color.Black);
+    }
   }
 }

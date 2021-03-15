@@ -13,7 +13,7 @@
 
   <ContentPage.Content>
     <StackLayout x:Name="stackLayout">
-      <xct:TabView TabStripBackgroundColor="{StaticResource Primary}" TabIndicatorColor="{StaticResource Accent}">
+      <xct:TabView TabStripBackgroundColor="{DynamicResource Primary}" TabIndicatorColor="{StaticResource Accent}">
 
         <xct:TabViewItem Text="Songs" TextColor="{StaticResource Text}" TextColorSelected="{StaticResource Accent}">
           <usercontrols:SongsView x:Name="Test"/>

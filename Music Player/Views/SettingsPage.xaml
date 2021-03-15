@@ -3,11 +3,24 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:System="clr-namespace:System;assembly=mscorlib"
              xmlns:viewmodels="clr-namespace:Music_Player.ViewModels"
+             xmlns:yummy="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+             xmlns:sfPopup="clr-namespace:Syncfusion.XForms.PopupLayout;assembly=Syncfusion.SfPopupLayout.XForms"
              x:Class="Music_Player.Views.SettingsPage"
              BackgroundColor="{StaticResource Back}"           
              Title="Settings">
 
+
   <ContentPage.Resources>
+    <!--<sfPopup:PopupView x:Key="PopupTemplate" IsVisible="False">
+      <sfPopup:PopupView.PopupStyle>
+        <sfPopup:PopupStyle HeaderBackgroundColor="{DynamicResource Primary}"
+                          AcceptButtonBackgroundColor="{DynamicResource Primary}"
+                          OverlayColor="{DynamicResource Back}"
+                          BorderColor="{DynamicResource Back}"
+                          FooterBackgroundColor="{DynamicResource Back}"/>
+      </sfPopup:PopupView.PopupStyle>
+    </sfPopup:PopupView>-->
+
     <System:Int32 x:Key="DefaultHeight">60</System:Int32>
     <Thickness x:Key="DefaultPadding" Left="15"/>
   </ContentPage.Resources>
@@ -47,10 +60,41 @@
                        TextColor="{StaticResource Text2}"
                        Grid.Row="1"/>
                 <Switch IsToggled="{Binding SendReportsEnabled}"
-                        OnColor="{StaticResource Primary}"
+                        OnColor="{DynamicResource Primary}"
                         ThumbColor="{StaticResource PrimaryBright}"
                         Grid.RowSpan="2"
                         Grid.Column="1"/>
+              </Grid>
+            </ViewCell>
+
+            <ViewCell Height="60">
+              <Grid Padding="{StaticResource DefaultPadding}">
+
+                <Grid.ColumnDefinitions>
+                  <ColumnDefinition Width="*"/>
+                  <ColumnDefinition Width="auto"/>
+                </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+                  <RowDefinition Height="*"/>
+                  <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Label Text="Primary Colour" VerticalTextAlignment="Center"/>
+                <Label Text="Select a primary colour"
+                       TextColor="{StaticResource Text2}"
+                       Grid.Row="1"/>
+                <yummy:PancakeView BackgroundColor="{DynamicResource Primary}"
+                                   CornerRadius="40"
+                                   WidthRequest="35"
+                                   HeightRequest="40"
+                                   Margin="5, 12"
+                                   Grid.RowSpan="2"
+                                   Grid.Column="1">
+                  <yummy:PancakeView.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="_SelectPrimaryColorTapped"/>
+                  </yummy:PancakeView.GestureRecognizers>
+                </yummy:PancakeView>
               </Grid>
             </ViewCell>
 

@@ -39,10 +39,7 @@ namespace Music_Player.Views {
 
     protected override void OnAppearing() => this._SetBarColors();
 
-    protected override void OnDisappearing() {     
-      _nativeFeatures.SetStatusBarColor(Color.FromRgb(0, 79, 163));
-      _nativeFeatures.SetNavigationBarColor(Color.Black);
-    }
+    protected override void OnDisappearing() => Helpers.Helpers.SetBarColorDefaults();
 
     private void _OnNewSongSelected(object _, TrackEventArgs __) {
       Device.BeginInvokeOnMainThread(() => {

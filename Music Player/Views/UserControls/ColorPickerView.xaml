@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:pancakeview="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+             x:Class="Music_Player.Views.UserControls.ColorPickerView"
+             BackgroundColor="{StaticResource Back}">
+  <ContentView.Content>
+    <FlexLayout x:Name="FlexLayout" Direction="Row" AlignItems="Center" JustifyContent="SpaceAround" Wrap="Wrap">
+      <pancakeview:PancakeView x:Name="colorControlTemplate"
+                               WidthRequest="50"
+                               HeightRequest="50"
+                               CornerRadius="50"                           
+                               BackgroundColor="{StaticResource Primary}"
+                               IsVisible="False"/>
+    </FlexLayout>
+  </ContentView.Content>
+</ContentView>
