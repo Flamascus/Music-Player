@@ -3,24 +3,14 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:System="clr-namespace:System;assembly=mscorlib"
              xmlns:viewmodels="clr-namespace:Music_Player.ViewModels"
+             xmlns:userControls ="clr-namespace:Music_Player.Views.UserControls"
              xmlns:yummy="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
-             xmlns:sfPopup="clr-namespace:Syncfusion.XForms.PopupLayout;assembly=Syncfusion.SfPopupLayout.XForms"
              x:Class="Music_Player.Views.SettingsPage"
              BackgroundColor="{StaticResource Back}"           
              Title="Settings">
 
 
   <ContentPage.Resources>
-    <!--<sfPopup:PopupView x:Key="PopupTemplate" IsVisible="False">
-      <sfPopup:PopupView.PopupStyle>
-        <sfPopup:PopupStyle HeaderBackgroundColor="{DynamicResource Primary}"
-                          AcceptButtonBackgroundColor="{DynamicResource Primary}"
-                          OverlayColor="{DynamicResource Back}"
-                          BorderColor="{DynamicResource Back}"
-                          FooterBackgroundColor="{DynamicResource Back}"/>
-      </sfPopup:PopupView.PopupStyle>
-    </sfPopup:PopupView>-->
-
     <System:Int32 x:Key="DefaultHeight">60</System:Int32>
     <Thickness x:Key="DefaultPadding" Left="15"/>
   </ContentPage.Resources>
@@ -33,7 +23,7 @@
     <StackLayout>
       <TableView HasUnevenRows="True" RowHeight="{StaticResource DefaultHeight}">
         <TableRoot>
-          <TableSection Title="Settings" TextColor="{StaticResource PrimaryBright}">
+          <TableSection Title="General" TextColor="{DynamicResource Accent}">
 
             <ViewCell Tapped="_SelectFolderClicked">
               <StackLayout Padding="{StaticResource DefaultPadding}" Margin="0, 5">
@@ -43,65 +33,76 @@
             </ViewCell>
 
             <ViewCell Height="60">
-              <Grid Padding="{StaticResource DefaultPadding}">
+              <Grid>
+                <userControls:BetterSwitchCellView Text="Analytics"
+                                                   Description="Send crash-reports (please keep enabled)"
+                                                   IsToggled="{Binding SendReportsEnabled}"/>
+              </Grid>
+            </ViewCell>
+          </TableSection>
 
+          <TableSection Title="Colors" TextColor="{DynamicResource Accent}">
+            <ViewCell Height="60">
+              <userControls:BetterSwitchCellView Text="Theme (not yet supported)"
+                                                 Description="Use system default theme"/>
+            </ViewCell>
+
+            <ViewCell Height="40" Tapped="_LightButtonTapped">
+              <Grid Padding="15, 0, 0, 0">
                 <Grid.ColumnDefinitions>
                   <ColumnDefinition Width="*"/>
                   <ColumnDefinition Width="auto"/>
                 </Grid.ColumnDefinitions>
 
-                <Grid.RowDefinitions>
-                  <RowDefinition Height="*"/>
-                  <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-
-                <Label Text="Analytics" VerticalTextAlignment="Center"/>
-                <Label Text="Send crash-reports (please keep enabled)"
-                       TextColor="{StaticResource Text2}"
-                       Grid.Row="1"/>
-                <Switch IsToggled="{Binding SendReportsEnabled}"
-                        OnColor="{DynamicResource Primary}"
-                        ThumbColor="{StaticResource PrimaryBright}"
-                        Grid.RowSpan="2"
-                        Grid.Column="1"/>
+                <Label Text="Light (not yet supported)" VerticalTextAlignment="Center"/>
+                <RadioButton x:Name="LightButton" GroupName="theme" Grid.Column="1"/>
               </Grid>
             </ViewCell>
 
-            <ViewCell Height="60">
-              <Grid Padding="{StaticResource DefaultPadding}">
-
+            <ViewCell Height="40" Tapped="_DarkButtonTapped">
+              <Grid Padding="15, 0, 0, 0">
                 <Grid.ColumnDefinitions>
                   <ColumnDefinition Width="*"/>
                   <ColumnDefinition Width="auto"/>
                 </Grid.ColumnDefinitions>
 
-                <Grid.RowDefinitions>
-                  <RowDefinition Height="*"/>
-                  <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-
-                <Label Text="Primary Colour" VerticalTextAlignment="Center"/>
-                <Label Text="Select a primary colour"
-                       TextColor="{StaticResource Text2}"
-                       Grid.Row="1"/>
-                <yummy:PancakeView BackgroundColor="{DynamicResource Primary}"
-                                   CornerRadius="40"
-                                   WidthRequest="35"
-                                   HeightRequest="40"
-                                   Margin="5, 12"
-                                   Grid.RowSpan="2"
-                                   Grid.Column="1">
-                  <yummy:PancakeView.GestureRecognizers>
-                    <TapGestureRecognizer Tapped="_SelectPrimaryColorTapped"/>
-                  </yummy:PancakeView.GestureRecognizers>
-                </yummy:PancakeView>
+                <Label Text="Dark" VerticalTextAlignment="Center"/>
+                <RadioButton x:Name="DarkButton" GroupName="theme" IsChecked="True" Grid.Column="1"/>
               </Grid>
+            </ViewCell>
+
+            <ViewCell Height="40" Tapped="_BlackButtonTapped">
+              <Grid Padding="15, 0, 0, 0">
+                <Grid.ColumnDefinitions>
+                  <ColumnDefinition Width="*"/>
+                  <ColumnDefinition Width="auto"/>
+                </Grid.ColumnDefinitions>
+
+                <Label Text="Black (not yet supported)" VerticalTextAlignment="Center"/>
+                <RadioButton x:Name="BlackButton" GroupName="theme" Grid.Column="1"/>
+              </Grid>
+            </ViewCell>
+
+            <ViewCell Height="60" Tapped="_SelectPrimaryColorTapped">
+              <userControls:ColorPickerViewCell Text="Primary colour"
+                                                Description="Select a primary colour"
+                                                Color="{DynamicResource Primary}"/>
+            </ViewCell>
+
+            <ViewCell Height="60" Tapped="_SelectAccentColorTapped">
+              <userControls:ColorPickerViewCell Text="Accent colour"
+                                                Description="Select an accent colour"
+                                                Color="{DynamicResource Accent}"/>
             </ViewCell>
 
           </TableSection>
-        </TableRoot>
-      </TableView>
 
+          <TableSection Title="About" TextColor="{DynamicResource Accent}">
+            <TextCell Text="Version" Detail="{Binding Version}"/>
+          </TableSection>
+        </TableRoot>
+        
+      </TableView>
     </StackLayout>
   </ContentPage.Content>
 </ContentPage>

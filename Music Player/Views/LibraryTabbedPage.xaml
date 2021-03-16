@@ -13,29 +13,29 @@
 
   <ContentPage.Content>
     <StackLayout x:Name="stackLayout">
-      <xct:TabView TabStripBackgroundColor="{DynamicResource Primary}" TabIndicatorColor="{StaticResource Accent}">
+      <xct:TabView TabStripBackgroundColor="{DynamicResource Primary}" TabIndicatorColor="{DynamicResource Accent}">
 
-        <xct:TabViewItem Text="Songs" TextColor="{StaticResource Text}" TextColorSelected="{StaticResource Accent}">
+        <xct:TabViewItem Text="Songs" TextColor="{StaticResource Text}" TextColorSelected="{DynamicResource Accent}">
           <usercontrols:SongsView x:Name="Test"/>
         </xct:TabViewItem>
 
-        <xct:TabViewItem Text="Genres" TextColor="{StaticResource Text}" TextColorSelected="{StaticResource Accent}">
+        <xct:TabViewItem Text="Genres" TextColor="{StaticResource Text}" TextColorSelected="{DynamicResource Accent}">
           <usercontrols:GroupsView GroupType="Genres"/>
         </xct:TabViewItem>
 
-        <xct:TabViewItem Text="Artists" TextColor="{StaticResource Text}" TextColorSelected="{StaticResource Accent}">
+        <xct:TabViewItem Text="Artists" TextColor="{StaticResource Text}" TextColorSelected="{DynamicResource Accent}">
           <usercontrols:GroupsView GroupType="Artists"/>
         </xct:TabViewItem>
 
-        <xct:TabViewItem Text="Albums" TextColor="{StaticResource Text}" TextColorSelected="{StaticResource Accent}">
+        <xct:TabViewItem Text="Albums" TextColor="{StaticResource Text}" TextColorSelected="{DynamicResource Accent}">
           <usercontrols:GroupsView GroupType="Albums"/>
         </xct:TabViewItem>
 
-        <xct:TabViewItem Text="Playlists" TextColor="{StaticResource Text}" TextColorSelected="{StaticResource Accent}">
+        <xct:TabViewItem Text="Playlists" TextColor="{StaticResource Text}" TextColorSelected="{DynamicResource Accent}">
           <usercontrols:GroupsView GroupType="Playlists"/>
         </xct:TabViewItem>
 
-        <xct:TabViewItem Text="Folders" TextColor="{StaticResource Text}" TextColorSelected="{StaticResource Accent}">
+        <xct:TabViewItem Text="Folders" TextColor="{StaticResource Text}" TextColorSelected="{DynamicResource Accent}">
           <Label>Not yet implemented..</Label>
         </xct:TabViewItem>
       </xct:TabView>

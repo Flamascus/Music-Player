@@ -1,4 +1,5 @@
 ﻿using Music_Player.Services;
+using Xamarin.Essentials;
 
 namespace Music_Player.ViewModels {
 
@@ -17,6 +18,8 @@ namespace Music_Player.ViewModels {
           this._settings.SendReportsEnabled = value;
       }
     }
+
+    public string Version => VersionTracking.CurrentVersion;
 
     public void UpdateDirectory() {     
       this.OnPropertyChanged(nameof(this.MusicDirectory));

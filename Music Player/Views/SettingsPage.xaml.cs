@@ -1,5 +1,5 @@
-﻿using Music_Player.Views.UserControls;
-using Syncfusion.XForms.PopupLayout;
+﻿using Music_Player.Enums;
+using Music_Player.Views.UserControls;
 using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -7,8 +7,6 @@ using Xamarin.Forms.Xaml;
 namespace Music_Player.Views {
   [XamlCompilation(XamlCompilationOptions.Compile)]
   public partial class SettingsPage : ContentPage {
-
-    private SfPopupLayout _popup;
 
     //todo: for some reason on page creation the viewmodel setters get called //todo: check if this bug still exists
     public SettingsPage() {
@@ -26,38 +24,12 @@ namespace Music_Player.Views {
       this.ViewModel.UpdateDirectory();
     }
 
-    private void _SelectPrimaryColorTapped(object sender, EventArgs e) {
-      var color = this.BackgroundColor; //todo: get these from resources
-      var textColor = Color.White;
+    private void _SelectPrimaryColorTapped(object sender, EventArgs e) => ColorPickerPopup.Create(AppColor.Primary);
 
-      var popup = new SfPopupLayout();
-      this._popup = popup;
-      this._SetStyle();
-      var colorPickerView = new ColorPickerView();
-      colorPickerView.ColorSelected += _ColorPickerView_ColorSelected;
+    private void _SelectAccentColorTapped(object sender, EventArgs e) => ColorPickerPopup.Create(AppColor.Accent);
 
-      popup.PopupView.ContentTemplate = new DataTemplate(() => colorPickerView);
-      popup.Show();
-    }
-
-    private void _SetStyle() {
-      var resources = App.Current.Resources;
-      var primaryColor = (Color)resources["Primary"];
-      var textColor = (Color)resources["Text"];
-      var bgColor = (Color)resources["Back"];
-      this._popup.PopupView.PopupStyle = new PopupStyle {
-        HeaderBackgroundColor = primaryColor,
-        HeaderTextColor = textColor,
-        AcceptButtonBackgroundColor = primaryColor,
-        AcceptButtonTextColor = textColor,
-        OverlayColor = bgColor,
-        BorderColor = bgColor,
-        FooterBackgroundColor = bgColor
-      };
-    }
-
-    private void _ColorPickerView_ColorSelected(object sender, EventArgs e) {
-      this._SetStyle();
-    }
+    private void _LightButtonTapped(object sender, EventArgs e) => this.LightButton.IsChecked = true;
+    private void _DarkButtonTapped(object sender, EventArgs e) => this.DarkButton.IsChecked = true;
+    private void _BlackButtonTapped(object sender, EventArgs e) => this.BlackButton.IsChecked = true;
   }
 }

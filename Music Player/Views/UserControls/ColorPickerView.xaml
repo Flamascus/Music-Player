@@ -1,16 +1,33 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:pancakeview="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:yummy="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
              x:Class="Music_Player.Views.UserControls.ColorPickerView"
              BackgroundColor="{StaticResource Back}">
   <ContentView.Content>
-    <FlexLayout x:Name="FlexLayout" Direction="Row" AlignItems="Center" JustifyContent="SpaceAround" Wrap="Wrap">
-      <pancakeview:PancakeView x:Name="colorControlTemplate"
-                               WidthRequest="50"
-                               HeightRequest="50"
-                               CornerRadius="50"                           
-                               BackgroundColor="{StaticResource Primary}"
-                               IsVisible="False"/>
-    </FlexLayout>
+    <StackLayout>
+      <yummy:PancakeView x:Name="colorPancakeViewTemplate"
+                         WidthRequest="50"
+                         HeightRequest="50"
+                         CornerRadius="50"                           
+                         BackgroundColor="{StaticResource Primary}"
+                         IsVisible="False">
+        <yummy:PancakeView.Border Color="White" Thickness="2"/>
+      </yummy:PancakeView>
+
+      <FlexLayout x:Name="mainColorsFlex"
+                  Direction="Row"
+                  AlignItems="Center"
+                  JustifyContent="SpaceAround"
+                  Wrap="Wrap"/>
+
+      <yummy:PancakeView CornerRadius="12" Margin="5, 7, 5, 0">
+        <FlexLayout x:Name="ColorShadesFlex"
+                    Direction="Row"
+                    AlignItems="Center"
+                    JustifyContent="SpaceAround"
+                    BackgroundColor="{StaticResource Back2}"
+                    Wrap="Wrap"/>
+      </yummy:PancakeView>
+    </StackLayout>
   </ContentView.Content>
 </ContentView>

@@ -8,8 +8,10 @@
   <Application.Resources>
     <ResourceDictionary>
       <Color x:Key="Primary">#004fa3</Color>
+      <Color x:Key="PrimaryInitial">#004fa3</Color>
       <Color x:Key="PrimaryBright">#1f8bff</Color>
       <Color x:Key="Accent">#1ddb59</Color>
+      <Color x:Key="AccentInitial">#1ddb59</Color>
       <Color x:Key="Text">White</Color>
       <Color x:Key="Text2">#c2c2c2</Color>
       <Color x:Key="Front">#b8b8b8</Color>
@@ -26,11 +28,11 @@
       </Style>
 
       <Style TargetType="Slider">
-        <Setter Property="ThumbColor" Value="{StaticResource Accent}"/>
+        <Setter Property="ThumbColor" Value="{DynamicResource Accent}"/>
       </Style>
 
       <Style TargetType="SwitchCell">
-        <Setter Property="OnColor" Value="{StaticResource Accent}"/>
+        <Setter Property="OnColor" Value="{DynamicResource Accent}"/>
       </Style>
 
 

@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:sfPopup="clr-namespace:Syncfusion.XForms.PopupLayout;assembly=Syncfusion.SfPopupLayout.XForms" xmlns:usercontrols="clr-namespace:Music_Player.Views.UserControls" xmlns:pancakeview="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+             x:Class="Music_Player.Views.UserControls.ColorPickerPopup">
+
+  <sfPopup:SfPopupLayout x:Name="popUpLayout">
+    <sfPopup:SfPopupLayout.PopupView>
+      <sfPopup:PopupView AppearanceMode="TwoButton" HeaderTitle="Pick a color" HeightRequest="312">
+        <sfPopup:PopupView.PopupStyle>
+          <sfPopup:PopupStyle HeaderBackgroundColor="{DynamicResource Back}"
+                              HeaderTextColor="{DynamicResource Text}"
+                              AcceptButtonBackgroundColor="{DynamicResource Back}"
+                              AcceptButtonTextColor="{DynamicResource Text}"
+                              CloseButtonIcon="close.png"
+                              DeclineButtonBackgroundColor="{DynamicResource Back}"
+                              DeclineButtonTextColor="{DynamicResource Text}"
+                              OverlayColor="{DynamicResource Back}"
+                              BorderColor="{DynamicResource Back}"
+                              FooterBackgroundColor="{DynamicResource Back}"/>
+        </sfPopup:PopupView.PopupStyle>
+      </sfPopup:PopupView>
+    </sfPopup:SfPopupLayout.PopupView>
+  </sfPopup:SfPopupLayout>
+</ContentView>

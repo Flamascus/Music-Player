@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="UTF-8"?> 
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Music_Player.Views.UserControls.BetterSwitchCellView">
+  <ContentView.Content>
+    <Grid Padding="15, 0, 0, 0">
+
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="*"/>
+        <ColumnDefinition Width="auto"/>
+      </Grid.ColumnDefinitions>
+
+      <Grid.RowDefinitions>
+        <RowDefinition Height="*"/>
+        <RowDefinition Height="*"/>
+      </Grid.RowDefinitions>
+
+      <Label x:Name="lblText" VerticalTextAlignment="Center"/>
+      <Label x:Name="lblDescription" TextColor="{StaticResource Text2}" Grid.Row="1"/>
+      <Switch x:Name="switch" Toggled="_Switch_Toggled"
+              OnColor="{DynamicResource Primary}"
+              ThumbColor="{DynamicResource PrimaryBright}"
+              Grid.RowSpan="2"
+              Grid.Column="1"/>
+    </Grid>
+  </ContentView.Content>
+</ContentView>

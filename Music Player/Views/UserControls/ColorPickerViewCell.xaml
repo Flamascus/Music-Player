@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:yummy="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+             x:Class="Music_Player.Views.UserControls.ColorPickerViewCell">
+  <ContentView.Content>
+    <Grid Padding="15, 0, 0, 0">
+
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="*"/>
+        <ColumnDefinition Width="auto"/>
+      </Grid.ColumnDefinitions>
+
+      <Grid.RowDefinitions>
+        <RowDefinition Height="*"/>
+        <RowDefinition Height="*"/>
+      </Grid.RowDefinitions>
+
+      <Label x:Name="lblText" Text="Accent colour" VerticalTextAlignment="Center"/>
+      <Label x:Name="lblDescription" Text="Select an accent colour"
+                       TextColor="{StaticResource Text2}"
+                       Grid.Row="1"/>
+      <yummy:PancakeView x:Name="pancakeView"
+                         CornerRadius="40"
+                         WidthRequest="35"
+                         HeightRequest="40"
+                         Margin="5, 12"
+                         Grid.RowSpan="2"
+                         Grid.Column="1"/>
+    </Grid>
+  </ContentView.Content>
+</ContentView>
