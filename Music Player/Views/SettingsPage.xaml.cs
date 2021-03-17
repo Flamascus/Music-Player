@@ -28,8 +28,8 @@ namespace Music_Player.Views {
 
     private void _SelectAccentColorTapped(object sender, EventArgs e) => ColorPickerPopup.Create(AppColor.Accent);
 
-    private void _LightButtonTapped(object sender, EventArgs e) => this.LightButton.IsChecked = true;
-    private void _DarkButtonTapped(object sender, EventArgs e) => this.DarkButton.IsChecked = true;
-    private void _BlackButtonTapped(object sender, EventArgs e) => this.BlackButton.IsChecked = true;
+    private void _LightButtonTapped(object sender, EventArgs e) => this.BtnLight.IsChecked = true;
+    private void _DarkButtonTapped(object sender, EventArgs e) => this.BtnDark.IsChecked = true;
+    private void _BlackButtonTapped(object sender, EventArgs e) => this.BtnBlack.IsChecked = true;
   }
 }

@@ -3,8 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:System="clr-namespace:System;assembly=mscorlib"
              xmlns:viewmodels="clr-namespace:Music_Player.ViewModels"
-             xmlns:userControls ="clr-namespace:Music_Player.Views.UserControls"
-             xmlns:yummy="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+             xmlns:betterCells="clr-namespace:Music_Player.Views.CustomCells"
              x:Class="Music_Player.Views.SettingsPage"
              BackgroundColor="{StaticResource Back}"           
              Title="Settings">
@@ -24,84 +23,42 @@
       <TableView HasUnevenRows="True" RowHeight="{StaticResource DefaultHeight}">
         <TableRoot>
           <TableSection Title="General" TextColor="{DynamicResource Accent}">
-
-            <ViewCell Tapped="_SelectFolderClicked">
-              <StackLayout Padding="{StaticResource DefaultPadding}" Margin="0, 5">
-                <Label Text="Music Directory"/>
-                <Label Text="{Binding MusicDirectory}" TextColor="{StaticResource Text2}"/>
-              </StackLayout>
-            </ViewCell>
-
-            <ViewCell Height="60">
-              <Grid>
-                <userControls:BetterSwitchCellView Text="Analytics"
-                                                   Description="Send crash-reports (please keep enabled)"
-                                                   IsToggled="{Binding SendReportsEnabled}"/>
-              </Grid>
-            </ViewCell>
+            <betterCells:BetterCell Tapped="_SelectFolderClicked"
+                                    Text="Music Directory"
+                                    Description="{Binding MusicDirectory}"/>
+            <betterCells:BetterSwitchCell Text="Analytics"
+                                          Description="Send crash-reports (please keep enabled)"
+                                          IsToggled="{Binding SendReportsEnabled}"/>
           </TableSection>
 
           <TableSection Title="Colors" TextColor="{DynamicResource Accent}">
-            <ViewCell Height="60">
-              <userControls:BetterSwitchCellView Text="Theme (not yet supported)"
-                                                 Description="Use system default theme"/>
-            </ViewCell>
+            <betterCells:BetterSwitchCell Text="Theme (not yet supported)" Description="Use system default theme"/>
 
-            <ViewCell Height="40" Tapped="_LightButtonTapped">
-              <Grid Padding="15, 0, 0, 0">
-                <Grid.ColumnDefinitions>
-                  <ColumnDefinition Width="*"/>
-                  <ColumnDefinition Width="auto"/>
-                </Grid.ColumnDefinitions>
+            <betterCells:RadioButtonCell x:Name="BtnLight" Text="Light (not yet supported)"
+                                         Tapped="_LightButtonTapped" GroupName="theme"/>
+            
+            <betterCells:RadioButtonCell x:Name="BtnDark" Text="Dark"
+                                         Tapped="_DarkButtonTapped" GroupName="theme" IsChecked="True"/>
+            
+            <betterCells:RadioButtonCell x:Name="BtnBlack" Text="Black (not yet supported)"
+                                         Tapped="_BlackButtonTapped" GroupName="theme"/>
 
-                <Label Text="Light (not yet supported)" VerticalTextAlignment="Center"/>
-                <RadioButton x:Name="LightButton" GroupName="theme" Grid.Column="1"/>
-              </Grid>
-            </ViewCell>
+            <betterCells:ColorPickerCell Height="60" Tapped="_SelectPrimaryColorTapped"
+                                         Text="Primary colour"
+                                         Description="Select a primary colour"
+                                         Color="{DynamicResource Primary}"/>
 
-            <ViewCell Height="40" Tapped="_DarkButtonTapped">
-              <Grid Padding="15, 0, 0, 0">
-                <Grid.ColumnDefinitions>
-                  <ColumnDefinition Width="*"/>
-                  <ColumnDefinition Width="auto"/>
-                </Grid.ColumnDefinitions>
-
-                <Label Text="Dark" VerticalTextAlignment="Center"/>
-                <RadioButton x:Name="DarkButton" GroupName="theme" IsChecked="True" Grid.Column="1"/>
-              </Grid>
-            </ViewCell>
-
-            <ViewCell Height="40" Tapped="_BlackButtonTapped">
-              <Grid Padding="15, 0, 0, 0">
-                <Grid.ColumnDefinitions>
-                  <ColumnDefinition Width="*"/>
-                  <ColumnDefinition Width="auto"/>
-                </Grid.ColumnDefinitions>
-
-                <Label Text="Black (not yet supported)" VerticalTextAlignment="Center"/>
-                <RadioButton x:Name="BlackButton" GroupName="theme" Grid.Column="1"/>
-              </Grid>
-            </ViewCell>
-
-            <ViewCell Height="60" Tapped="_SelectPrimaryColorTapped">
-              <userControls:ColorPickerViewCell Text="Primary colour"
-                                                Description="Select a primary colour"
-                                                Color="{DynamicResource Primary}"/>
-            </ViewCell>
-
-            <ViewCell Height="60" Tapped="_SelectAccentColorTapped">
-              <userControls:ColorPickerViewCell Text="Accent colour"
-                                                Description="Select an accent colour"
-                                                Color="{DynamicResource Accent}"/>
-            </ViewCell>
-
+            <betterCells:ColorPickerCell Height="60" Tapped="_SelectAccentColorTapped"
+                                         Text="Accent colour"
+                                         Description="Select an accent colour"
+                                         Color="{DynamicResource Accent}"/>
           </TableSection>
 
           <TableSection Title="About" TextColor="{DynamicResource Accent}">
             <TextCell Text="Version" Detail="{Binding Version}"/>
           </TableSection>
         </TableRoot>
-        
+
       </TableView>
     </StackLayout>
   </ContentPage.Content>

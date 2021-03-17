@@ -48,16 +48,13 @@
     <EmbeddedResource Update="Views\SettingsPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\UserControls\BetterSwitchViewCell.xaml">
+    <EmbeddedResource Update="Views\CustomCells\ControlDescriptionView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\UserControls\ColorPickerPopup.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\UserControls\ColorPickerView.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Views\UserControls\ColorPickerViewCell.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\UserControls\GroupsView.xaml">
@@ -108,9 +105,6 @@
     </Compile>
     <Compile Update="Views\TrackPage.xaml.cs">
       <DependentUpon>TrackPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Update="Views\UserControls\BetterSwitchViewCell.xaml.cs">
-      <DependentUpon>BetterSwitchViewCell.xaml</DependentUpon>
     </Compile>
     <Compile Update="Views\UserControls\ColorPickerPopUp.xaml.cs">
       <DependentUpon>ColorPickerPopup.xaml</DependentUpon>
