@@ -12,7 +12,7 @@ namespace Music_Player {
       DependencyService.Get<INativeFeatures>().RequestPerimissions();
 
       Task.Run(() => {
-        new DataCreator().InitData();  
+        new DataLoader().InitData();  
         CacheManager.TryReadQueueCache();
       });
     }

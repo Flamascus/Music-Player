@@ -36,7 +36,8 @@
         </xct:TabViewItem>
 
         <xct:TabViewItem Text="Folders" TextColor="{StaticResource Text}" TextColorSelected="{DynamicResource Accent}">
-          <Label>Not yet implemented..</Label>
+          <Label Text="To be implemented.."/>
+          <!--<usercontrols:FolderView/>-->
         </xct:TabViewItem>
       </xct:TabView>
     </StackLayout>

@@ -1,5 +1,4 @@
-﻿using Music_Player.Droid.Classes;
-using Music_Player.Helpers;
+﻿using Music_Player.Helpers;
 using Music_Player.Interfaces;
 using System.Collections.Generic;
 using Xamarin.Forms;

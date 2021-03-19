@@ -1,5 +1,4 @@
-﻿using Music_Player.Droid.Classes;
-using static Music_Player.Helpers.Helpers;
+﻿using static Music_Player.Helpers.Helpers;
 
 namespace Music_Player.Models {
   public class Genre : ADisplayGroup {

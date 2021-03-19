@@ -1,5 +1,4 @@
-﻿using Music_Player.Droid.Classes;
-using Music_Player.Interfaces;
+﻿using Music_Player.Interfaces;
 using System.Collections.Generic;
 
 namespace Music_Player.Models {
@@ -8,6 +7,10 @@ namespace Music_Player.Models {
     public int TrackAmount => this.Tracks.Count;
     public string TrackAmountUi => this.TrackAmount + " Songs";
     public List<Track> Tracks { get; }
+
+    public ADisplayGroup() {
+      this.Tracks = new List<Track>();
+    }
 
     protected ADisplayGroup(string name, Track track) {
       this.Name = name;

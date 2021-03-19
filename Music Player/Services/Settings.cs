@@ -19,7 +19,7 @@ namespace Music_Player.Services {
         this._musicDirectory = value;      
         this.WriteSetting(nameof(this.MusicDirectory), value);
         this.ReadFromCache = false;
-        Task.Run(() => new DataCreator().InitData());
+        Task.Run(() => new DataLoader().InitData());
       }
     }
     //public List<string> Blacklist { get; }

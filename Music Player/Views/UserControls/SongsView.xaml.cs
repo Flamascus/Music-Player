@@ -6,7 +6,6 @@ using Xamarin.Forms.Xaml;
 using static Music_Player.Views.UserControls.SmallTrackView;
 using System.Threading.Tasks;
 using Music_Player.Models;
-using Music_Player.Droid.Classes;
 
 namespace Music_Player.Views.UserControls {
   [XamlCompilation(XamlCompilationOptions.Compile)]

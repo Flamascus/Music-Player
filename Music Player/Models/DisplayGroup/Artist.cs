@@ -1,6 +1,4 @@
-﻿using Music_Player.Droid.Classes;
-
-namespace Music_Player.Models {
+﻿namespace Music_Player.Models {
   public class Artist : ADisplayGroup {
 
     public const char SEPARATOR = '&';

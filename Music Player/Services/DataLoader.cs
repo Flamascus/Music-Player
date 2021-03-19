@@ -1,13 +1,13 @@
-﻿using Music_Player.Droid.Classes;
-using Music_Player.Helpers;
+﻿using Music_Player.Helpers;
 using Music_Player.Models;
 using Music_Player.Models.Collections;
 using Music_Player.Models.DisplayGroup;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 
 namespace Music_Player.Services {
-  public class DataCreator {
+  public class DataLoader {
     private readonly List<Genre> _genres = new List<Genre>();
     private readonly List<Artist> _artists = new List<Artist>();
     private readonly List<Album> _albums = new List<Album>();
@@ -18,6 +18,8 @@ namespace Music_Player.Services {
       ArtistList.Instance.IsLoading = true;
       AlbumList.Instance.IsLoading = true;
       PlaylistList.Instance.IsLoading = true;
+      Folder.IsLoading = true;
+      var rootFolder = Folder.Root = new Folder(new DirectoryInfo(Settings.Instance.MusicDirectory));
 
       var serialTracks = this._GetSerialTracks();
       var tracks = serialTracks.Select(s => new Track(s)).ToList();
@@ -29,8 +31,10 @@ namespace Music_Player.Services {
         this._HandleGenres(track, serialTrack.Genres);
         this._HandleArtists(track, serialTrack.Artists);
         this._HandleAlbum(track, serialTrack.Album);
+        _HandleFolder(track);
       }
 
+      Folder.IsLoading = false;
       TrackList.Instance.Init(tracks.OrderBy(t => t.Title).ToList());
       GenreList.Instance.Init(this._genres.OrderBy(g => g.Name).ToList());
       ArtistList.Instance.Init(this._artists.OrderBy(a => a.Name).ToList());
@@ -105,6 +109,14 @@ namespace Music_Player.Services {
         track.Album = album;
       }
     }
+
+    private static void _HandleFolder(Track track) {
+      var dirName = Path.GetDirectoryName(track.Path); //todo: dont safe path as string in track but as folder object
+      var folder = Folder.AllFolders.FirstOrDefault(f => f.Directory.FullName == dirName);
+      if (folder != null)
+        folder.Tracks.Add(track);
+    }
+
   }
 
 }

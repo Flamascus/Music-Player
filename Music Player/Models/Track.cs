@@ -1,5 +1,4 @@
 ﻿using MediaManager;
-using Music_Player.Droid.Classes;
 using Music_Player.Models;
 using Music_Player.Models.DisplayGroup;
 using System;
@@ -8,7 +7,7 @@ using Xamarin.Forms;
 using File = Java.IO.File;
 
 [assembly: Dependency(typeof(Track))]
-namespace Music_Player.Droid.Classes {
+namespace Music_Player.Models {
   public class Track {
 
     public string Path => this._file.Path;
@@ -23,14 +22,14 @@ namespace Music_Player.Droid.Classes {
     //todo: use separatorString, cache
     public string GenreString => string.Join(Genre.SEPARATOR, this.Artists.Select(a => a.Name));
 
-    public Album Album { get; set; }  
-    public TimeSpan Duration { get; }   
+    public Album Album { get; set; }
+    public TimeSpan Duration { get; }
     public int Id { get; }
     public Cover Cover { get; }
 
 
     private readonly File _file;
-    
+
 
     //todo: put this into serialTrack instead?
     public Track(SerializableTrack serialTrack) {
@@ -53,7 +52,7 @@ namespace Music_Player.Droid.Classes {
     public double GetProgressPercent() {
       var duration = this.Duration;
       var position = CrossMediaManager.Current.Position;
-      return ((double)position.Ticks / duration.Ticks);
+      return (double)position.Ticks / duration.Ticks;
     }
 
     public override string ToString() => $"{this.ArtistString} - {this.Title}";
