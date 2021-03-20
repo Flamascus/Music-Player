@@ -18,8 +18,6 @@ namespace Music_Player.ViewModels {
       }
     }
 
-    private GroupType _groupType;
-
     public List<IDisplayGroup> Groups {
       get => this._groups;
       set {
@@ -36,10 +34,10 @@ namespace Music_Player.ViewModels {
       }
     }
 
+    private GroupType _groupType;
     private DisplayState _displayState;
     private List<IDisplayGroup> _groups = new List<IDisplayGroup>();
     private bool _subscribedToEvents;
-
 
     private void _SetGroupType(GroupType groupType) {
       var _setGroupTypeGeneric = groupType switch {
@@ -60,7 +58,6 @@ namespace Music_Player.ViewModels {
         list.FinishedLoading += this._FinishedLoading;
         this._subscribedToEvents = true;
       }
-
 
       if (list.IsLoading)
         this.DisplayState = DisplayState.Loading;

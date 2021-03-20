@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:viewmodels="clr-namespace:Music_Player.ViewModels"
+             xmlns:viewmodels="clr-namespace:Music_Player.ViewModels" xmlns:usercontrols="clr-namespace:Music_Player.Views.UserControls"
              x:Class="Music_Player.Views.UserControls.FolderView">
 
   <ContentView.BindingContext>
@@ -9,48 +9,46 @@
   </ContentView.BindingContext>
 
   <ContentView.Content>
-    <ScrollView>
-      <StackLayout>
+    <StackLayout>
+      <Button Margin="10" Text="Go Up" Command="{Binding GoUpCommand}"/>
+      <usercontrols:DisplayStateView State="Loading">
+        <ScrollView>
+          <StackLayout>
 
-        <StackLayout BindableLayout.ItemsSource="{Binding Folders}">
-          <BindableLayout.ItemTemplate>
-            <DataTemplate>
-              <!--todo: Copied from DirectoryPickerPage atm, should create unified view for this-->
-              <ViewCell>
-                <Grid>
-                  <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="auto"/>
-                    <ColumnDefinition Width="*"/>
-                  </Grid.ColumnDefinitions>
+            <StackLayout BindableLayout.ItemsSource="{Binding Folders}">
+              <BindableLayout.ItemTemplate>
+                <DataTemplate>
+                  <!--todo: Copied from DirectoryPickerPage atm, should create unified view for this-->
+                  <Grid>
+                    <Grid.GestureRecognizers>
+                      <TapGestureRecognizer Tapped="_FolderTapped"/>
+                    </Grid.GestureRecognizers>
+                    <Grid.ColumnDefinitions>
+                      <ColumnDefinition Width="auto"/>
+                      <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
 
-                  <Image Source="folder.png" HeightRequest="60" Grid.Column="0"/>
-                  <Label Text="{Binding Directory.Name}" Grid.Column="1" VerticalTextAlignment="Center"/>
-                </Grid>
-              </ViewCell>
-            </DataTemplate>
-          </BindableLayout.ItemTemplate>
-        </StackLayout>
+                    <Image Source="folder.png" HeightRequest="60" Grid.Column="0"/>
+                    <Label x:Name="lblDirectory" Text="{Binding Directory.Name}" Grid.Column="1" VerticalTextAlignment="Center"/>
+                  </Grid>
+                </DataTemplate>
+              </BindableLayout.ItemTemplate>
+            </StackLayout>
 
-        <!--use smallTrackView here instead-->
-        <StackLayout BindableLayout.ItemsSource="{Binding Tracks}">
-          <BindableLayout.ItemTemplate>
-            <DataTemplate>
-              <ViewCell>
-                <Grid>
-                  <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="auto"/>
-                    <ColumnDefinition Width="*"/>
-                  </Grid.ColumnDefinitions>
+            <!--use smallTrackView here instead-->
+            <StackLayout BindableLayout.ItemsSource="{Binding Tracks}">
+              <BindableLayout.ItemTemplate>
+                <DataTemplate>
+                  <usercontrols:SmallTrackView Track="{Binding .}"
+                                           Tapped="_TrackTapped"
+                                           OptionsTapped="_TrackOptionsTapped"/>
+                </DataTemplate>
+              </BindableLayout.ItemTemplate>
+            </StackLayout>
 
-                  <Image Source="{Binding Cover.Source}" HeightRequest="60" Grid.Column="0"/>
-                  <Label Text="{Binding .}" Grid.Column="1" VerticalTextAlignment="Center"/>
-                </Grid>
-              </ViewCell>
-            </DataTemplate>
-          </BindableLayout.ItemTemplate>
-        </StackLayout>
-
-      </StackLayout>
-    </ScrollView>
+          </StackLayout>
+        </ScrollView>
+      </usercontrols:DisplayStateView>
+    </StackLayout>
   </ContentView.Content>
 </ContentView>

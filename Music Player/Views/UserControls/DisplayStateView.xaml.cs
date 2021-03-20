@@ -49,7 +49,9 @@ namespace Music_Player.Views.UserControls {
     private void _UpdateDisplayState() {
       this._ShowLoading(false);
       this.lblEmpty.IsVisible = false;
-      this.ControlContent.IsVisible = false;
+
+      if (this.ControlContent != null)
+        this.ControlContent.IsVisible = false;
       
 
       switch (this.State) {
@@ -60,7 +62,8 @@ namespace Music_Player.Views.UserControls {
           this.lblEmpty.IsVisible = true;
           break;
         case DisplayState.DisplayingContent:
-          this.ControlContent.IsVisible = true;
+          if (this.ControlContent != null)
+            this.ControlContent.IsVisible = true;
           break;
       }
     }

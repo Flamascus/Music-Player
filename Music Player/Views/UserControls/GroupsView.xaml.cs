@@ -16,7 +16,6 @@ namespace Music_Player.Views.UserControls {
       this.InitializeComponent();
     }
 
-
     public void LvItemTapped(object sender, ItemTappedEventArgs e) {
       var lv = (ListView)sender;
 

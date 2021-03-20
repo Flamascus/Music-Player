@@ -15,12 +15,14 @@ namespace Music_Player.Models.DisplayGroup {
     public DirectoryInfo Directory { get; }
 
     public Folder[] SubFolders { get; }
+    public Folder Parent { get; }
 
-    public Folder(DirectoryInfo directory) : base() {
+    public Folder(DirectoryInfo directory, Folder parent = null) : base() {
       this.Directory = directory;
-      this.SubFolders = directory.EnumerateDirectories().Select(d => new Folder(d)).ToArray();
+      this.Parent = parent;
+      this.SubFolders = directory.EnumerateDirectories().Select(d => new Folder(d, this)).ToArray();
 
-      if (this.SubFolders == null)
+      if (this.SubFolders == null) //todo: dont think this is needed
         this.SubFolders = new Folder[0];
 
       AllFolders.Add(this);
