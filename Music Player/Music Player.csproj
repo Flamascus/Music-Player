@@ -57,6 +57,9 @@
     <EmbeddedResource Update="Views\UserControls\ColorPickerView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Update="Views\UserControls\DisplayStateView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Views\UserControls\FolderView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
@@ -85,6 +88,7 @@
 
   <ItemGroup>
     <Folder Include="Framework\" />
+    <Folder Include="Views\Pages\" />
   </ItemGroup>
 
   <ItemGroup>

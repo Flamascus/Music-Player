@@ -22,7 +22,7 @@ namespace Music_Player.Views {
 
     private void _UpdateTrackList() {
       this.stackLayout.Children.Remove(this._songsView);
-      this._songsView = new SongsView(this.ViewModel.Tracks);
+      this._songsView.Tracks = this.ViewModel.Tracks;
       this.stackLayout.Children.Add(this._songsView);
     }
 

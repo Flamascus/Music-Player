@@ -12,7 +12,9 @@
   
     <ContentPage.Content>
         <StackLayout x:Name="stackLayout">
-            <SearchBar Placeholder="Search for Tracks, Artists, etc.." TextChanged="_SearchBar_TextChanged" CancelButtonColor="White" />
+            <SearchBar Placeholder="Search for Tracks, Artists, etc.."
+                       TextChanged="_SearchBar_TextChanged"
+                       CancelButtonColor="White" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

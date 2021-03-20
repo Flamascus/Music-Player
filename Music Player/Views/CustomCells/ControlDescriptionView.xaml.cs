@@ -25,7 +25,7 @@ namespace Music_Player.Views.CustomCells {
       this.lblDescription.Text = text;        
     }
 
-    public void SetControl(View newControl, View oldControl = null) {
+    public void SetControl(View newControl, View oldControl = null) { //todo: can define control in xaml instead
       if (oldControl != null)
         this.Grid.Children.Remove(oldControl);
 

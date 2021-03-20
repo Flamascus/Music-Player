@@ -5,10 +5,12 @@
              xmlns:viewmodels="clr-namespace:Music_Player.ViewModels"
              x:Class="Music_Player.Views.UserControls.SongsView">
 
+  <ContentView.BindingContext>
+    <viewmodels:SongsViewModel x:Name="ViewModel"/>
+  </ContentView.BindingContext>
+
   <ContentView.Content>
-    <StackLayout>
-      <ActivityIndicator x:Name="activityIndicator" VerticalOptions="CenterAndExpand" IsVisible="False"/>
-      <Label x:Name="lblNoTracks" HorizontalOptions="Center" VerticalOptions="CenterAndExpand" Text="Feels empty here without any songs.." IsVisible="False"/>
+    <usercontrols:DisplayStateView x:Name="DisplayStateView" State="{Binding DisplayState}">
       <ListView x:Name="lvTracks" ItemsSource="{Binding Tracks}" RowHeight="69" SeparatorVisibility="None">
         <ListView.ItemTemplate>
           <DataTemplate>
@@ -18,6 +20,6 @@
           </DataTemplate>
         </ListView.ItemTemplate>
       </ListView>
-    </StackLayout>
+    </usercontrols:DisplayStateView>
   </ContentView.Content>
 </ContentView>

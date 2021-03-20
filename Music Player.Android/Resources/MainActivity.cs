@@ -30,6 +30,8 @@ namespace Music_Player.Droid {
       AppDomain.CurrentDomain.UnhandledException += _CurrentDomainOnUnhandledException;
       TaskScheduler.UnobservedTaskException += _TaskSchedulerOnUnobservedTaskException;
 
+      //todo: throws Android.Views.InflateException: 'Binary XML file line #1: Binary XML file line #1: Error inflating class android.support.v7.widget.Toolbar'
+      //eventually need to add nuget package for this
       base.OnCreate(savedInstanceState);
 
       Xamarin.Essentials.Platform.Init(this, savedInstanceState);

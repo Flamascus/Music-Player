@@ -47,7 +47,6 @@ namespace Music_Player.Views.UserControls {
 
     private void _ControlTapped(object _, EventArgs e) => this.Tapped?.Invoke(this, e);
     private void _OptionsTapped(object _, EventArgs e) => this.OptionsTapped?.Invoke(this, new OptionsEventArgs(this._track));
-
     
   }
 }

@@ -2,6 +2,7 @@
 <ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewmodels="clr-namespace:Music_Player.ViewModels"
+             xmlns:usercontrols="clr-namespace:Music_Player.Views.UserControls"
              x:Class="Music_Player.Views.UserControls.GroupsView">
   
   <ContentView.BindingContext>
@@ -10,15 +11,18 @@
   
   <ContentView.Content>
     <StackLayout>
-      <ActivityIndicator x:Name="activityIndicator" VerticalOptions="CenterAndExpand" IsVisible="False"/>
-      <ListView x:Name="lvGroups" ItemsSource="{Binding Groups}" RowHeight="60" ItemTapped="LvItemTapped">
+      <usercontrols:DisplayStateView State="{Binding DisplayState}">
+        <ListView x:Name="lvGroups" ItemsSource="{Binding Groups}" RowHeight="60" ItemTapped="LvItemTapped">
         <ListView.ItemTemplate>
           <DataTemplate>
-            <TextCell Text="{Binding Name}" TextColor="{StaticResource Text}"
-                              Detail="{Binding TrackAmountUi}" DetailColor="{StaticResource Front}"/>
+            <TextCell Text="{Binding Name}"
+                      TextColor="{StaticResource Text}"
+                      Detail="{Binding TrackAmountUi}"
+                      DetailColor="{StaticResource Front}"/>
           </DataTemplate>
         </ListView.ItemTemplate>
       </ListView>
+      </usercontrols:DisplayStateView>
     </StackLayout>
   </ContentView.Content>
 </ContentView>

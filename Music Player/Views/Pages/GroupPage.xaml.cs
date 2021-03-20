@@ -18,7 +18,7 @@ namespace Music_Player.Views {
       this.Title = title;
       this.InitializeComponent();
       //NavigationPage.SetTitleView(this, new BottomTrackView());
-      this.Grid.Children.Add(new SongsView(tracks), 0, 0);
+      this.Grid.Children.Add(new SongsView { Tracks = tracks } , 0, 0);
 
       var queue = TrackQueue.Instance;
 
