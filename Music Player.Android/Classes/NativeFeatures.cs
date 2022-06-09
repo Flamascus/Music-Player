@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Android.Content;
 using Xamarin.Forms;
 using Android.Graphics;
 
@@ -67,6 +68,8 @@ namespace Music_Player.Droid.Classes {
       var filePaths = Directory.EnumerateFiles(path, "*", SearchOption.AllDirectories);
       return filePaths.Select(f => new Java.IO.File(f));
     }
+
+    public Java.IO.File[] ListAllStorageDevices() => MainActivity.ApplicationContext?.GetExternalFilesDirs(null);
 
     public void WriteAppFile(string fileName, string content, bool useInternalPath = true) {
 

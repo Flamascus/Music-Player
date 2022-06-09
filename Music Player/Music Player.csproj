@@ -16,19 +16,19 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AppCenter" Version="4.1.0" />
-    <PackageReference Include="Microsoft.AppCenter.Analytics" Version="4.1.0" />
-    <PackageReference Include="Microsoft.AppCenter.Crashes" Version="4.1.0" />
-    <PackageReference Include="Microsoft.AppCenter.Distribute" Version="4.1.0" />
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
-    <PackageReference Include="Plugin.MediaManager" Version="1.0.8" />
-    <PackageReference Include="Syncfusion.Licensing" Version="18.4.0.47" />
-    <PackageReference Include="Syncfusion.Xamarin.SfListView" Version="18.4.0.47" />
-    <PackageReference Include="Syncfusion.Xamarin.SfPopupLayout" Version="18.4.0.47" />
+    <PackageReference Include="Microsoft.AppCenter" Version="4.3.0" />
+    <PackageReference Include="Microsoft.AppCenter.Analytics" Version="4.3.0" />
+    <PackageReference Include="Microsoft.AppCenter.Crashes" Version="4.3.0" />
+    <PackageReference Include="Microsoft.AppCenter.Distribute" Version="4.3.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="Plugin.MediaManager" Version="1.0.9" />
+    <PackageReference Include="Syncfusion.Licensing" Version="19.2.0.47" />
+    <PackageReference Include="Syncfusion.Xamarin.SfListView" Version="19.2.0.47" />
+    <PackageReference Include="Syncfusion.Xamarin.SfPopupLayout" Version="19.2.0.47" />
     <PackageReference Include="TagLibSharp" Version="2.2.0" />
-    <PackageReference Include="Xamarin.CommunityToolkit" Version="1.0.3" />
+    <PackageReference Include="Xamarin.CommunityToolkit" Version="1.2.0" />
     <PackageReference Include="Xamarin.Forms" Version="5.0.0.2012" />  
-    <PackageReference Include="Xamarin.Essentials" Version="1.6.1" />  
+    <PackageReference Include="Xamarin.Essentials" Version="1.7.0" />  
     <PackageReference Include="Xamarin.Forms.PancakeView" Version="2.3.0.759" />
   </ItemGroup>
 
@@ -37,6 +37,9 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\GroupPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Pages\StoragePicker.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\QueuePage.xaml">
@@ -88,7 +91,6 @@
 
   <ItemGroup>
     <Folder Include="Framework\" />
-    <Folder Include="Views\Pages\" />
   </ItemGroup>
 
   <ItemGroup>

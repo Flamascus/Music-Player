@@ -1,8 +1,8 @@
-﻿using Music_Player.Helpers;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Music_Player.Helpers;
 using Music_Player.Interfaces;
 using Music_Player.Models;
-using System.Collections.Generic;
-using System.Linq;
 using TagLib;
 using Xamarin.Forms;
 using File = Java.IO.File;
@@ -11,7 +11,7 @@ namespace Music_Player.Services {
   public class FileReader {    
 
     public static readonly string[] SupportedFormats
-      = new string[] { ".mp3", ".aac", ".ogg", ".wma", ".alac", ".pcm", ".flac", ".wav" };
+      = { ".mp3", ".aac", ".ogg", ".wma", ".alac", ".pcm", ".flac", ".wav" };
 
     private static SerializableTrack _CreateSerialTrack(File file) {
       if (_TryReadWithTagLib(file, out var track))

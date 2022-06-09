@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using Music_Player.Services;
@@ -16,6 +17,12 @@ namespace Music_Player.Views {
       this.InitializeComponent();
     }
 
+    public DirectoryPickerPage(DirectoryInfo dir) {
+      this.InitializeComponent(); //todo: initializes viewModel twice
+      this.ViewModel.CurrentDirectory = dir;
+      //this.ViewModel = new DirectoryPickerModel(dir);
+    }
+
     private void _ListView_ItemTapped(object sender, ItemTappedEventArgs e) {
       this.ViewModel.GoToChild(e.ItemIndex);
     }
@@ -23,7 +30,7 @@ namespace Music_Player.Views {
     private void _SelectThisDirectory(object sender, EventArgs e) {
       Settings.Instance.MusicDirectory = this.ViewModel.CurrentDirectory.FullName;
       this.DirectorySelected?.Invoke(this, new EventArgs());
-      App.Current.MainPage.Navigation.PopAsync();
+      Application.Current.MainPage.Navigation.PopAsync();
     }
   }
 }

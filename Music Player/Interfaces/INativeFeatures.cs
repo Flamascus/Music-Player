@@ -20,5 +20,6 @@ namespace Music_Player.Interfaces {
     void SetFullScreen();
     bool DirectoryExists(string path);
     Color CalculateImageColor(byte[] bytes);
+    Java.IO.File[] ListAllStorageDevices();
   }
 }

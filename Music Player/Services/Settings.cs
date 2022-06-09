@@ -100,9 +100,9 @@ namespace Music_Player.Services {
     public string GetSetting(string key) {
       var content = _ReadFile();
 
-      for (var i = 0; i < content.Length; ++i) {
-        if (content[i].StartsWith(key))
-          return content[i].Split('\"')[1];
+      foreach (var t in content) {
+        if (t.StartsWith(key))
+          return t.Split('\"')[1];
       }
 
       return null;

@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:ViewModels="clr-namespace:Music_Player.ViewModels"
+             x:Class="Music_Player.Views.Pages.StoragePicker"
+             BackgroundColor="{StaticResource Back}"
+             Title="Choose Storage Device">
+
+  <ContentPage.BindingContext>
+    <ViewModels:StoragePickerModel x:Name="ViewModel"/>
+  </ContentPage.BindingContext>
+
+  <ContentPage.Content>
+        <StackLayout>
+          <ListView ItemsSource="{Binding StorageNames}" RowHeight="60" ItemTapped="ListView_OnItemTapped">
+            <ListView.ItemTemplate>
+              <DataTemplate>
+                <ViewCell>
+                  <Grid>
+                    <Grid.ColumnDefinitions>
+                      <ColumnDefinition Width="auto"/>
+                      <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <!--<Image Source="{Binding Icon}" HeightRequest="60" Grid.Column="0"/>-->
+                    <Label Text="{Binding .}" Grid.Column="1" VerticalTextAlignment="Center"/>
+                  </Grid>
+                </ViewCell>
+              </DataTemplate>
+            </ListView.ItemTemplate>
+          </ListView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

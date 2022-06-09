@@ -4,15 +4,14 @@
              xmlns:viewmodels="clr-namespace:Music_Player.ViewModels"
              xmlns:usercontrols="clr-namespace:Music_Player.Views.UserControls"
              x:Class="Music_Player.Views.UserControls.GroupsView">
-  
+
   <ContentView.BindingContext>
     <viewmodels:GroupsViewModel x:Name="ViewModel"/>
   </ContentView.BindingContext>
-  
+
   <ContentView.Content>
-    <StackLayout>
-      <usercontrols:DisplayStateView State="{Binding DisplayState}">
-        <ListView x:Name="lvGroups" ItemsSource="{Binding Groups}" RowHeight="60" ItemTapped="LvItemTapped">
+    <usercontrols:DisplayStateView State="{Binding DisplayState}">
+      <ListView x:Name="lvGroups" ItemsSource="{Binding Groups}" RowHeight="60" ItemTapped="LvItemTapped">
         <ListView.ItemTemplate>
           <DataTemplate>
             <TextCell Text="{Binding Name}"
@@ -22,7 +21,6 @@
           </DataTemplate>
         </ListView.ItemTemplate>
       </ListView>
-      </usercontrols:DisplayStateView>
-    </StackLayout>
+    </usercontrols:DisplayStateView>
   </ContentView.Content>
 </ContentView>

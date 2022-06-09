@@ -1,7 +1,8 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:viewmodels="clr-namespace:Music_Player.ViewModels" xmlns:usercontrols="clr-namespace:Music_Player.Views.UserControls"
+             xmlns:viewmodels="clr-namespace:Music_Player.ViewModels"
+             xmlns:usercontrols="clr-namespace:Music_Player.Views.UserControls"
              x:Class="Music_Player.Views.UserControls.FolderView">
 
   <ContentView.BindingContext>
@@ -35,7 +36,6 @@
               </BindableLayout.ItemTemplate>
             </StackLayout>
 
-            <!--use smallTrackView here instead-->
             <StackLayout BindableLayout.ItemsSource="{Binding Tracks}">
               <BindableLayout.ItemTemplate>
                 <DataTemplate>
