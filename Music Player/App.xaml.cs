@@ -11,7 +11,7 @@ namespace Music_Player {
 
     public App() {
       Syncfusion.Licensing.SyncfusionLicenseProvider
-        .RegisterLicense("NDExODEwQDMxMzgyZTM0MmUzMEV0ZVZDbnA2dWpyNSsyNFA0N0tLeFc5dzZ0UW9WdXdZakx6aFIzbncwOEU9");
+        .RegisterLicense(""); //todo: read token from external file
       this.InitializeComponent();
       CrossMediaManager.Current.Init();
       this.MainPage = new AppShell();
@@ -19,7 +19,7 @@ namespace Music_Player {
 
     protected override void OnStart() {
       if (Settings.Instance.SendReportsEnabled) {
-        AppCenter.Start("android=b02bf2d0-1291-443c-9f73-9d4a186e7e19;" +
+        AppCenter.Start("" + //todo: read token from external file
                   "uwp={Your UWP App secret here};" +
                   "ios={Your iOS App secret here}",
                   typeof(Analytics), typeof(Crashes), typeof(Distribute));        
